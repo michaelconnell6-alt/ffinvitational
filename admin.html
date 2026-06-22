@@ -244,19 +244,50 @@ async function testToken() {
   }
 }
 
+// ── FALLBACK DATA ─────────────────────────────────────────────
+const FALLBACK_PLAYERS = [
+  {"name":"John Beauregard","handicap":5.8,"scores":[null,null,null,null]},
+  {"name":"Justin Roy","handicap":13.0,"scores":[null,null,null,null]},
+  {"name":"Russell Cobble","handicap":5.7,"scores":[null,null,null,null]},
+  {"name":"Micah Smoak","handicap":6.6,"scores":[null,null,null,null]},
+  {"name":"Nick Demarchi","handicap":12.4,"scores":[null,null,null,null]},
+  {"name":"Court Russo","handicap":12.9,"scores":[null,null,null,null]},
+  {"name":"Derek Beauregard","handicap":10.2,"scores":[null,null,null,null]},
+  {"name":"Garrett Wardell","handicap":11.7,"scores":[null,null,null,null]},
+  {"name":"Nick Brabant","handicap":17.9,"scores":[null,null,null,null]},
+  {"name":"Ryan Beauregard","handicap":6.3,"scores":[null,null,null,null]},
+  {"name":"Rob Leverone","handicap":8.4,"scores":[null,null,null,null]},
+  {"name":"Joseph Lowry","handicap":9.3,"scores":[null,null,null,null]},
+  {"name":"Steve Williams","handicap":10.3,"scores":[null,null,null,null]},
+  {"name":"Mikey Connell","handicap":6.9,"scores":[null,null,null,null]}
+];
+
 // ── LOAD SCORES ───────────────────────────────────────────────
 async function loadScores() {
+  const token = localStorage.getItem('ff_token');
+  setStatus('Loading scores...', 'saving');
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}?t=${Date.now()}`, {
-      headers: { 'Authorization': `token ${localStorage.getItem('ff_token')}` }
+    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
+      headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
     });
+    if (!res.ok) {
+      const err = await res.json();
+      setStatus(`Could not load from GitHub (${res.status}: ${err.message}) — using local data`, 'err');
+      scoresData = { players: FALLBACK_PLAYERS };
+      fileSha = null;
+      renderTable();
+      return;
+    }
     const json = await res.json();
     fileSha = json.sha;
     scoresData = JSON.parse(atob(json.content.replace(/\n/g,'')));
+    setStatus('✓ Scores loaded from GitHub', 'ok');
     renderTable();
   } catch(e) {
-    console.error(e);
-    setStatus('Could not load scores from GitHub', 'err');
+    setStatus('Network error — using local data', 'err');
+    scoresData = { players: FALLBACK_PLAYERS };
+    fileSha = null;
+    renderTable();
   }
 }
 
@@ -310,11 +341,10 @@ async function saveScores() {
         'Authorization': `token ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        message: 'Update scores',
-        content: content,
-        sha: fileSha
-      })
+      body: JSON.stringify(Object.assign(
+        { message: 'Update scores', content: content },
+        fileSha ? { sha: fileSha } : {}
+      ))
     });
     if (res.ok) {
       const json = await res.json();
@@ -322,7 +352,7 @@ async function saveScores() {
       setStatus('✓ Scores saved! Site will update in ~30 seconds', 'ok');
     } else {
       const err = await res.json();
-      setStatus('✗ Save failed: ' + (err.message || 'unknown error'), 'err');
+      setStatus(`✗ Save failed (HTTP ${res.status}): ${err.message || 'unknown error'}`, 'err');
     }
   } catch(e) {
     setStatus('✗ Error: ' + e.message, 'err');
