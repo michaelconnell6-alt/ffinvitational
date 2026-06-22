@@ -45,13 +45,12 @@ function renderLeaderboard(data) {
   const tbody = document.getElementById('leaderboard-body');
   if (!tbody) return;
 
-  // Calculate net totals using course handicap (index × slope / 113) per round
-  const slopes = data.slopes || [141, 144, 140, 153];
+  // Calculate net totals using GHIN-provided strokes per round
   const players = data.players.map(p => {
     const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
-    const courseHcpTotal = p.scores.reduce((a, v, i) => v !== null ? a + Math.round(p.handicap * slopes[i] / 113) : a, 0);
+    const strokesTotal = p.scores.reduce((a, v, i) => v !== null ? a + ((p.strokes && p.strokes[i]) || 0) : a, 0);
     const played = p.scores.filter(s => s !== null).length;
-    const net = played > 0 ? gross - courseHcpTotal : null;
+    const net = played > 0 ? gross - strokesTotal : null;
     return { ...p, gross, net, played };
   }).sort((a, b) => {
     if (a.net === null && b.net === null) return 0;
