@@ -32,3 +32,54 @@
     tick();
     setInterval(tick, 1000);
   })();
+// ── LIVE LEADERBOARD ─────────────────────────────────────────
+async function loadLeaderboard() {
+  try {
+    const res = await fetch('scores.json?t=' + Date.now());
+    const data = await res.json();
+    renderLeaderboard(data);
+  } catch(e) { /* scores.json not available, keep static table */ }
+}
+
+function renderLeaderboard(data) {
+  const tbody = document.getElementById('leaderboard-body');
+  if (!tbody) return;
+
+  // Calculate net totals and sort
+  const players = data.players.map(p => {
+    const played = p.scores.filter(s => s !== null);
+    const gross = played.reduce((a, v) => a + v, 0);
+    const net = played.length > 0 ? gross - Math.round(p.handicap) : null;
+    return { ...p, gross, net, played: played.length };
+  }).sort((a, b) => {
+    if (a.net === null && b.net === null) return 0;
+    if (a.net === null) return 1;
+    if (b.net === null) return -1;
+    return a.net - b.net;
+  });
+
+  tbody.innerHTML = '';
+  players.forEach((p, i) => {
+    const pos = i + 1;
+    const posClass = pos === 1 ? 'pos-num gold' : 'pos-num';
+    const rounds = data.courses || ['R1','R2','R3','R4'];
+    const cells = p.scores.map(s =>
+      s !== null
+        ? `<td class="score-cell">${s}</td>`
+        : `<td class="score-cell"><span class="score-dash">—</span></td>`
+    ).join('');
+    const totalCell = p.played > 0
+      ? `<td class="score-cell">${p.gross}</td><td class="score-cell" style="color:var(--gold)">${p.net}</td>`
+      : `<td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td>`;
+
+    tbody.innerHTML += `
+      <tr>
+        <td><span class="${posClass}">${pos}</span></td>
+        <td><span class="player-name-cell">${p.name}</span></td>
+        ${cells}
+        ${totalCell}
+      </tr>`;
+  });
+}
+
+loadLeaderboard();
