@@ -4,7 +4,7 @@
       "name": "John Beauregard",
       "handicap": 5.8,
       "scores": [
-        85,
+        null,
         null,
         null,
         null
@@ -140,17 +140,5 @@
         null
       ]
     }
-  ],
-  "courses": [
-    "True Blue",
-    "Caledonia",
-    "Pawleys Plantation",
-    "TPC Myrtle Beach"
-  ],
-  "pars": [
-    72,
-    70,
-    72,
-    72
   ]
 }
