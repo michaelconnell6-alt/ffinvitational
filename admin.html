@@ -334,6 +334,16 @@ async function saveScores() {
   if (!token) { setStatus('No GitHub token saved — enter it above first', 'err'); return; }
   setStatus('Saving...', 'saving');
   try {
+    // Always fetch fresh SHA before saving to avoid stale reference
+    if (!fileSha) {
+      const shaRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      if (shaRes.ok) {
+        const shaJson = await shaRes.json();
+        fileSha = shaJson.sha;
+      }
+    }
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(scoresData, null, 2))));
     const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
       method: 'PUT',
