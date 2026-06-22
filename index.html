@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForeFathers Invitational</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <ul>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#roster">Roster</a></li>
+    <li><a href="#leaderboard">Leaderboard</a></li>
+    <li><a href="#champions">Past Champions</a></li>
+    <li><a href="#format">Format</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">Est. 2021</div>
+  <img class="hero-logo" src="images/logo.png" alt="ForeFathers Invitational Logo"/>
+  <div class="hero-divider"></div>
+  <div class="hero-meta">
+    July 9–12, 2026 &nbsp;·&nbsp; Myrtle Beach, South Carolina<br>
+    Birdie House &nbsp;·&nbsp; 3427 Dewey Road
+  </div>
+  <div class="countdown" id="countdown">
+    <div class="countdown-unit"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Days</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Hours</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minutes</span></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconds</span></div>
+  </div>
+</header>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Week Ahead</div>
+      <h2 class="section-title">Tournament Schedule</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <!-- Thursday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Thu · Jul 9</div>
+        <div class="day-title">Arrival Day</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">4:00 PM</div>
+          <div class="event-body">
+            <div class="event-name">Check-In — Birdie House</div>
+            <div class="event-note">Beers &amp; Hot Dogs provided by Birdie House</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Fri · Jul 10</div>
+        <div class="day-title">Opening Round</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">8:06 – 8:33 AM</div>
+          <div class="event-body">
+            <div class="event-name">True Blue Golf Club</div>
+            <div class="event-note">Morning tee times</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">2:00 – 2:27 PM</div>
+          <div class="event-body">
+            <div class="event-name">Caledonia Golf &amp; Fish Club</div>
+            <div class="event-note">Afternoon round</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Sat · Jul 11</div>
+        <div class="day-title">Championship Saturday</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">8:30 AM</div>
+          <div class="event-body">
+            <div class="event-name">Pawleys Plantation Golf &amp; Country Club</div>
+            <div class="event-note">Morning tee time</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Afternoon</div>
+          <div class="event-body">
+            <div class="event-name">Free Time</div>
+            <div class="event-note">House, beach bars &amp; the beach</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">7:00 PM</div>
+          <div class="event-body">
+            <div class="event-name">Champions Dinner</div>
+            <div class="event-note">Prepared by Steve Williams</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sunday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Sun · Jul 12</div>
+        <div class="day-title">Final Round &amp; Departure</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Check-Out</div>
+          <div class="event-body">
+            <div class="event-name">Birdie House Checkout</div>
+            <div class="event-note">3427 Dewey Road, Myrtle Beach, SC 29579</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">8:03 – 8:30 AM</div>
+          <div class="event-body">
+            <div class="event-name">TPC Myrtle Beach</div>
+            <div class="event-note">Final round tee times — then safe travels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Venues</div>
+      <h2 class="section-title">Tournament Courses</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-number">Round 1 · Friday AM</div>
+        <div class="course-name">True Blue Golf Club</div>
+        <div class="course-location">Pawleys Island, SC</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Mike Strantz</span></div>
+          <div class="course-detail-row"><span>Par</span><span>72</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>8:06 – 8:33 AM</span></div>
+        </div>
+        <a href="https://www.truebluegolf.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-number">Round 2 · Friday PM</div>
+        <div class="course-name">Caledonia Golf &amp; Fish Club</div>
+        <div class="course-location">Pawleys Island, SC</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Mike Strantz</span></div>
+          <div class="course-detail-row"><span>Par</span><span>70</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>2:00 – 2:27 PM</span></div>
+        </div>
+        <a href="https://www.caledoniagolfandfishclub.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-number">Round 3 · Saturday AM</div>
+        <div class="course-name">Pawleys Plantation</div>
+        <div class="course-location">Pawleys Island, SC</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Jack Nicklaus</span></div>
+          <div class="course-detail-row"><span>Par</span><span>72</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>8:30 AM</span></div>
+        </div>
+        <a href="https://www.pawleysplantation.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-number">Round 4 · Sunday AM</div>
+        <div class="course-name">TPC Myrtle Beach</div>
+        <div class="course-location">Murrells Inlet, SC</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Tom Fazio</span></div>
+          <div class="course-detail-row"><span>Par</span><span>72</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>8:03 – 8:30 AM</span></div>
+        </div>
+        <a href="https://www.tpc.com/myrtlebeach/" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROSTER -->
+<section id="roster">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Field</div>
+      <h2 class="section-title">Player Roster</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="roster-grid">
+      <div class="player-card">
+        <div class="player-avatar">JB</div>
+        <div class="player-name">John Beauregard</div>
+        <div class="player-state">Massachusetts</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">JR</div>
+        <div class="player-name">Justin Roy</div>
+        <div class="player-state">Florida</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">RC</div>
+        <div class="player-name">Russell Cobble</div>
+        <div class="player-state">Georgia</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">MS</div>
+        <div class="player-name">Micah Smoak</div>
+        <div class="player-state">Florida</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">ND</div>
+        <div class="player-name">Nick Demarchi</div>
+        <div class="player-state">Illinois</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">CR</div>
+        <div class="player-name">Court Russo</div>
+        <div class="player-state">South Carolina</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">DB</div>
+        <div class="player-name">Derek Beauregard</div>
+        <div class="player-state">Rhode Island</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card" style="border-top-color: #b8860b; position:relative;">
+        <div style="position:absolute;top:8px;right:8px;font-size:0.65rem;font-family:'Oswald',sans-serif;letter-spacing:1px;color:#b8860b;text-transform:uppercase;">1× Champion</div>
+        <div class="player-avatar" style="border-color:#b8860b;color:#b8860b;">GW</div>
+        <div class="player-name">Garrett Wardell</div>
+        <div class="player-state">Georgia</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">NB</div>
+        <div class="player-name">Nick Brabant</div>
+        <div class="player-state">Florida</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">RB</div>
+        <div class="player-name">Ryan Beauregard</div>
+        <div class="player-state">Rhode Island</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">RL</div>
+        <div class="player-name">Rob Leverone</div>
+        <div class="player-state">Florida</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">JL</div>
+        <div class="player-name">Joseph Lowry</div>
+        <div class="player-state">Florida</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card">
+        <div class="player-avatar">SW</div>
+        <div class="player-name">Steve Williams</div>
+        <div class="player-state">Massachusetts</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+      <div class="player-card" style="border-top-color: #b8860b; position:relative;">
+        <div style="position:absolute;top:8px;right:8px;font-size:0.65rem;font-family:'Oswald',sans-serif;letter-spacing:1px;color:#b8860b;text-transform:uppercase;">2× Champion</div>
+        <div class="player-avatar" style="border-color:#b8860b;color:#b8860b;">MC</div>
+        <div class="player-name">Mikey Connell</div>
+        <div class="player-state">Georgia</div>
+        <div class="player-hcp">HCP: —</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">2026 Tournament</div>
+      <h2 class="section-title">Leaderboard</h2>
+      <div class="section-rule"></div>
+    </div>
+    <table class="leaderboard-table">
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Player</th>
+          <th>R1<br><small style="font-size:9px;opacity:0.7">True Blue</small></th>
+          <th>R2<br><small style="font-size:9px;opacity:0.7">Caledonia</small></th>
+          <th>R3<br><small style="font-size:9px;opacity:0.7">Pawleys</small></th>
+          <th>R4<br><small style="font-size:9px;opacity:0.7">TPC</small></th>
+          <th>Total</th>
+          <th>+/−</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <tr><td><span class="pos-num gold">1</span></td><td><span class="player-name-cell">John Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">2</span></td><td><span class="player-name-cell">Justin Roy</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">3</span></td><td><span class="player-name-cell">Russell Cobble</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">4</span></td><td><span class="player-name-cell">Micah Smoak</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">5</span></td><td><span class="player-name-cell">Nick Demarchi</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">6</span></td><td><span class="player-name-cell">Court Russo</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">7</span></td><td><span class="player-name-cell">Derek Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">8</span></td><td><span class="player-name-cell">Garrett Wardell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">9</span></td><td><span class="player-name-cell">Nick Brabant</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">10</span></td><td><span class="player-name-cell">Ryan Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">11</span></td><td><span class="player-name-cell">Rob Leverone</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">12</span></td><td><span class="player-name-cell">Joseph Lowry</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">13</span></td><td><span class="player-name-cell">Steve Williams</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">14</span></td><td><span class="player-name-cell">Mikey Connell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+      </tbody>
+    </table>
+    <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
+  </div>
+</section>
+
+<!-- PAST CHAMPIONS -->
+<section id="champions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Honor Roll</div>
+      <h2 class="section-title">Past Champions</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="champions-list">
+      <div class="champion-row">
+        <div class="champion-year">2021</div>
+        <div class="champion-trophy">🏆</div>
+        <div class="champion-info">
+          <div class="champion-name">Garrett Wardell</div>
+          <div class="champion-score">Pinehurst Resort</div>
+        </div>
+      </div>
+      <div class="champion-row">
+        <div class="champion-year">2022</div>
+        <div class="champion-trophy">🏆</div>
+        <div class="champion-info">
+          <div class="champion-name">Mikey Connell</div>
+          <div class="champion-score">Pinehurst Resort</div>
+        </div>
+      </div>
+      <div class="champion-row">
+        <div class="champion-year">2025</div>
+        <div class="champion-trophy">🏆</div>
+        <div class="champion-info">
+          <div class="champion-name">Mikey Connell</div>
+          <div class="champion-score">Arcadia Bluffs / TreeTops</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAT -->
+<section id="format">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Rulebook</div>
+      <h2 class="section-title">Tournament Format</h2>
+      <div class="section-rule"></div>
+    </div>
+    <p class="format-intro">These are the official rules of the ForeFathers Invitational. Ignorance is not a defense.</p>
+    <div class="rules-grid">
+
+      <div class="rule-card">
+        <div class="rule-num">1</div>
+        <div class="rule-text"><strong>Net Stroke Play</strong>Score minus course handicap. Best net total wins.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">2</div>
+        <div class="rule-text"><strong>$150 Buy-In</strong>All players must pay to play.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">3</div>
+        <div class="rule-text"><strong>Payout Structure</strong>
+          1st — $1,250 + Trophy Mug<br>
+          2nd — $600<br>
+          3rd — $350<br>
+          4th — $200
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">4</div>
+        <div class="rule-text"><strong>OB Stakes Option</strong>Play 4 in the fairway at point of entry, or replay 3 from the tee.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">5</div>
+        <div class="rule-text"><strong>Unmarked Woods</strong>All unmarked wooded areas are played as hazards.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">6</div>
+        <div class="rule-text"><strong>Ball in the Hole</strong>Always. No gimmes, no exceptions.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">7</div>
+        <div class="rule-text"><strong>Pink Iron Covers</strong>Last place net each day must wear pink iron covers the following round — on after every single shot.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">8</div>
+        <div class="rule-text"><strong>Rounds 1 &amp; 2 Pairings</strong>Randomly generated so everyone gets to know each other.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">9</div>
+        <div class="rule-text"><strong>Rounds 3 &amp; 4 Pairings</strong>Split by standings. Contenders together, the rest sort themselves out.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">10</div>
+        <div class="rule-text"><strong>Relegation Speech</strong>Last place after the final round must deliver a speech on why they should not be relegated from the trip.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">11</div>
+        <div class="rule-text"><strong>Gambling Within Groups</strong>Not only allowed — encouraged.</div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-num">12</div>
+        <div class="rule-text"><strong>Triple Bogey Max</strong>Applies for the first three days. Pick up and move on.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" style="background:#eee8da;">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">The Archives</div>
+      <h2 class="section-title">Photo Gallery</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <div class="gallery-item">
+        <img src="images/gallery-1.jpg" alt="ForeFathers Invitational 2021 — Pinehurst Resort" onclick="openLightbox(this)"/>
+        <div class="gallery-caption"><span class="gcap-year">2021</span><span class="gcap-loc">Pinehurst Resort</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery-2.jpg" alt="ForeFathers Invitational 2022 — Pinehurst Resort" onclick="openLightbox(this)"/>
+        <div class="gallery-caption"><span class="gcap-year">2022</span><span class="gcap-loc">Pinehurst Resort</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery-3.jpg" alt="ForeFathers Invitational 2025 — Arcadia Bluffs / TreeTops" onclick="openLightbox(this)"/>
+        <div class="gallery-caption"><span class="gcap-year">2025</span><span class="gcap-loc">Arcadia Bluffs / TreeTops</span></div>
+      </div>
+    </div>
+    <p class="gallery-note">Photos from past tournaments. More to come.</p>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-cap"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ForeFathers Invitational</div>
+  <p>Myrtle Beach, SC &nbsp;·&nbsp; July 9–12, 2026</p>
+</footer>
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>
+                                                                                            
