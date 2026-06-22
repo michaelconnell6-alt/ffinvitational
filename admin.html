@@ -266,29 +266,43 @@ const FALLBACK_PLAYERS = [
 async function loadScores() {
   const token = localStorage.getItem('ff_token');
   setStatus('Loading scores...', 'saving');
+
+  // Try GitHub API first (gives us SHA for saves)
+  if (token) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
+        headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+      });
+      if (res.ok) {
+        const json = await res.json();
+        fileSha = json.sha;
+        scoresData = JSON.parse(atob(json.content.replace(/\n/g,'')));
+        setStatus('✓ Scores loaded from GitHub', 'ok');
+        renderTable();
+        return;
+      }
+    } catch(e) { /* fall through */ }
+  }
+
+  // Fallback: public raw URL (no token needed, SHA fetched at save time)
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
-      headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      setStatus(`Could not load from GitHub (${res.status}: ${err.message}) — using local data`, 'err');
-      scoresData = { players: FALLBACK_PLAYERS };
+    const rawRes = await fetch(
+      `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${SCORES_FILE}?_=${Date.now()}`
+    );
+    if (rawRes.ok) {
+      scoresData = await rawRes.json();
       fileSha = null;
+      setStatus(token ? '✓ Scores loaded (SHA will be fetched on save)' : '✓ Scores loaded — enter token above to enable saving', 'ok');
       renderTable();
       return;
     }
-    const json = await res.json();
-    fileSha = json.sha;
-    scoresData = JSON.parse(atob(json.content.replace(/\n/g,'')));
-    setStatus('✓ Scores loaded from GitHub', 'ok');
-    renderTable();
-  } catch(e) {
-    setStatus('Network error — using local data', 'err');
-    scoresData = { players: FALLBACK_PLAYERS };
-    fileSha = null;
-    renderTable();
-  }
+  } catch(e) { /* fall through */ }
+
+  // Final fallback: hardcoded blank data
+  setStatus('⚠ Could not load from GitHub — enter token and click Refresh', 'err');
+  scoresData = { players: FALLBACK_PLAYERS };
+  fileSha = null;
+  renderTable();
 }
 
 // ── RENDER TABLE ──────────────────────────────────────────────
