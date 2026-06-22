@@ -32,6 +32,7 @@
     tick();
     setInterval(tick, 1000);
   })();
+
 // ── LIVE LEADERBOARD ─────────────────────────────────────────
 async function loadLeaderboard() {
   try {
@@ -41,37 +42,51 @@ async function loadLeaderboard() {
   } catch(e) { /* scores.json not available, keep static table */ }
 }
 
+function fmtVsPar(diff) {
+  if (diff === 0) return '<span class="vs-par even">E</span>';
+  if (diff > 0)   return `<span class="vs-par over">+${diff}</span>`;
+  return `<span class="vs-par under">${diff}</span>`;
+}
+
 function renderLeaderboard(data) {
   const tbody = document.getElementById('leaderboard-body');
   if (!tbody) return;
 
-  // Calculate net totals using GHIN-provided strokes per round
+  const pars = data.pars || [72, 70, 72, 72];
+
+  // Calculate totals
   const players = data.players.map(p => {
     const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
     const strokesTotal = p.scores.reduce((a, v, i) => v !== null ? a + ((p.strokes && p.strokes[i]) || 0) : a, 0);
     const played = p.scores.filter(s => s !== null).length;
     const net = played > 0 ? gross - strokesTotal : null;
-    return { ...p, gross, net, played };
+    const parTotal = pars.reduce((a, v, i) => p.scores[i] !== null ? a + v : a, 0);
+    return { ...p, gross, net, played, parTotal };
   }).sort((a, b) => {
     if (a.net === null && b.net === null) return 0;
     if (a.net === null) return 1;
     if (b.net === null) return -1;
-    return a.net - b.net;
+    return (a.net - a.parTotal) - (b.net - b.parTotal);
   });
 
   tbody.innerHTML = '';
   players.forEach((p, i) => {
     const pos = i + 1;
     const posClass = pos === 1 ? 'pos-num gold' : 'pos-num';
-    const rounds = data.courses || ['R1','R2','R3','R4'];
-    const cells = p.scores.map(s =>
-      s !== null
-        ? `<td class="score-cell">${s}</td>`
-        : `<td class="score-cell"><span class="score-dash">—</span></td>`
-    ).join('');
+
+    const cells = p.scores.map((s, ri) => {
+      if (s === null) return `<td class="score-cell"><span class="score-dash">—</span></td>`;
+      const roundNet = s - ((p.strokes && p.strokes[ri]) || 0);
+      return `<td class="score-cell">
+        <span class="round-gross">${s}</span><span class="round-net">${roundNet}</span>
+      </td>`;
+    }).join('');
+
     const totalCell = p.played > 0
-      ? `<td class="score-cell">${p.gross}</td><td class="score-cell" style="color:var(--gold)">${p.net}</td>`
-      : `<td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td>`;
+      ? `<td class="score-cell">${fmtVsPar(p.gross - p.parTotal)}</td>
+         <td class="score-cell">${fmtVsPar(p.net - p.parTotal)}</td>`
+      : `<td class="score-cell"><span class="score-dash">—</span></td>
+         <td class="score-cell"><span class="score-dash">—</span></td>`;
 
     tbody.innerHTML += `
       <tr>

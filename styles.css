@@ -454,6 +454,33 @@
   .score-even { color: var(--text-dark); }
   .score-over { color: #555; }
   .score-dash { color: #bbb; }
+
+  /* Per-round gross/net stacked display */
+  .round-gross {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.2;
+  }
+  .round-net {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+
+  /* vs-par total display */
+  .vs-par {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .vs-par.over  { color: #c0392b; }
+  .vs-par.under { color: #27ae60; }
+  .vs-par.even  { color: var(--text-dark); }
   .leaderboard-note {
     text-align: center;
     font-style: italic;
