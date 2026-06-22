@@ -16,7 +16,10 @@
 
 <!-- NAV -->
 <nav>
-  <ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
     <li><a href="#schedule">Schedule</a></li>
     <li><a href="#courses">Courses</a></li>
     <li><a href="#roster">Roster</a></li>
@@ -327,7 +330,7 @@
       <h2 class="section-title">Leaderboard</h2>
       <div class="section-rule"></div>
     </div>
-    <table class="leaderboard-table">
+    <div class="leaderboard-wrapper"><table class="leaderboard-table">
       <thead>
         <tr>
           <th>Pos</th>
@@ -356,7 +359,7 @@
         <tr><td><span class="pos-num">13</span></td><td><span class="player-name-cell">Steve Williams</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
         <tr><td><span class="pos-num">14</span></td><td><span class="player-name-cell">Mikey Connell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
       </tbody>
-    </table>
+    </table></div>
     <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
   </div>
 </section>
@@ -521,6 +524,24 @@
 
 
 <script src="script.js"></script>
+<script>
+  // Hamburger menu
+  var toggle = document.getElementById('nav-toggle');
+  var menu = document.getElementById('nav-menu');
+  if (toggle && menu) {
+    toggle.addEventListener('click', function() {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    // Close menu when a link is clicked
+    menu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  }
+</script>
 </body>
 </html>
                                                                                             
