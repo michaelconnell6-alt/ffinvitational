@@ -1,6 +1,6 @@
 .admin-corner {
   position: fixed;
-  bottom: 16px;
+  top: 16px;
   right: 16px;
   background: rgba(26,58,42,0.85);
   color: rgba(201,168,76,0.6);
