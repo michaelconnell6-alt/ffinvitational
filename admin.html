@@ -184,6 +184,9 @@ const REPO_OWNER = 'michaelconnell6-alt';
 const REPO_NAME = 'ffinvitational';
 const SCORES_FILE = 'scores.json';
 
+// Slope ratings by round (used for course handicap = round(index × slope / 113))
+const SLOPES = [141, 144, 140, 153]; // R1 True Blue Blue, R2 Caledonia Black, R3 Pawleys Green, R4 TPC Blue
+
 let scoresData = null;
 let fileSha = null;
 
@@ -312,13 +315,14 @@ function renderTable() {
   scoresData.players.forEach((p, pi) => {
     const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
     const rounds = p.scores.filter(v => v !== null).length;
-    const net = rounds > 0 ? gross - Math.round(p.handicap) : null;
+    const courseHcpTotal = p.scores.reduce((a, v, i) => v !== null ? a + Math.round(p.handicap * SLOPES[i] / 113) : a, 0);
+    const net = rounds > 0 ? gross - courseHcpTotal : null;
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${p.name}<br><span class="hcp">HCP ${p.handicap}</span></td>
       ${p.scores.map((s, ri) => `
         <td style="text-align:center">
-          <input type="number" min="60" max="130" value="${s || ''}"
+          <input type="number" value="${s || ''}"
             placeholder="—"
             oninput="updateScore(${pi}, ${ri}, this.value)"
           />
@@ -337,7 +341,8 @@ function updateScore(playerIdx, roundIdx, val) {
   const p = scoresData.players[playerIdx];
   const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
   const rounds = p.scores.filter(v => v !== null).length;
-  const net = rounds > 0 ? gross - Math.round(p.handicap) : null;
+  const courseHcpTotal = p.scores.reduce((a, v, i) => v !== null ? a + Math.round(p.handicap * SLOPES[i] / 113) : a, 0);
+  const net = rounds > 0 ? gross - courseHcpTotal : null;
   rows[playerIdx].querySelector('.total-cell').textContent = rounds > 0 ? gross : '—';
   rows[playerIdx].querySelector('.net-cell').textContent = net !== null ? net : '—';
 }

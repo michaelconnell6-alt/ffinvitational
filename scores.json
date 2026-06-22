@@ -1,144 +1,21 @@
 {
   "players": [
-    {
-      "name": "John Beauregard",
-      "handicap": 5.8,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Justin Roy",
-      "handicap": 13,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Russell Cobble",
-      "handicap": 5.7,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Micah Smoak",
-      "handicap": 6.6,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Nick Demarchi",
-      "handicap": 12.4,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Court Russo",
-      "handicap": 12.9,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Derek Beauregard",
-      "handicap": 10.2,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Garrett Wardell",
-      "handicap": 11.7,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Nick Brabant",
-      "handicap": 17.9,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Ryan Beauregard",
-      "handicap": 6.3,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Rob Leverone",
-      "handicap": 8.4,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Joseph Lowry",
-      "handicap": 9.3,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Steve Williams",
-      "handicap": 10.3,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    {
-      "name": "Mikey Connell",
-      "handicap": 6.9,
-      "scores": [
-        null,
-        null,
-        null,
-        null
-      ]
-    }
-  ]
+    {"name": "John Beauregard",  "handicap": 5.8,  "scores": [null, null, null, null]},
+    {"name": "Justin Roy",       "handicap": 13.0, "scores": [null, null, null, null]},
+    {"name": "Russell Cobble",   "handicap": 5.7,  "scores": [null, null, null, null]},
+    {"name": "Micah Smoak",      "handicap": 6.6,  "scores": [null, null, null, null]},
+    {"name": "Nick Demarchi",    "handicap": 12.4, "scores": [null, null, null, null]},
+    {"name": "Court Russo",      "handicap": 12.9, "scores": [null, null, null, null]},
+    {"name": "Derek Beauregard", "handicap": 10.2, "scores": [null, null, null, null]},
+    {"name": "Garrett Wardell",  "handicap": 11.7, "scores": [null, null, null, null]},
+    {"name": "Nick Brabant",     "handicap": 17.9, "scores": [null, null, null, null]},
+    {"name": "Ryan Beauregard",  "handicap": 6.3,  "scores": [null, null, null, null]},
+    {"name": "Rob Leverone",     "handicap": 8.4,  "scores": [null, null, null, null]},
+    {"name": "Joseph Lowry",     "handicap": 9.3,  "scores": [null, null, null, null]},
+    {"name": "Steve Williams",   "handicap": 10.3, "scores": [null, null, null, null]},
+    {"name": "Mikey Connell",    "handicap": 6.9,  "scores": [null, null, null, null]}
+  ],
+  "courses": ["True Blue", "Caledonia", "Pawleys Plantation", "TPC Myrtle Beach"],
+  "pars": [72, 70, 72, 72],
+  "slopes": [141, 144, 140, 153]
 }

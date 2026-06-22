@@ -45,12 +45,14 @@ function renderLeaderboard(data) {
   const tbody = document.getElementById('leaderboard-body');
   if (!tbody) return;
 
-  // Calculate net totals and sort
+  // Calculate net totals using course handicap (index × slope / 113) per round
+  const slopes = data.slopes || [141, 144, 140, 153];
   const players = data.players.map(p => {
-    const played = p.scores.filter(s => s !== null);
-    const gross = played.reduce((a, v) => a + v, 0);
-    const net = played.length > 0 ? gross - Math.round(p.handicap) : null;
-    return { ...p, gross, net, played: played.length };
+    const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
+    const courseHcpTotal = p.scores.reduce((a, v, i) => v !== null ? a + Math.round(p.handicap * slopes[i] / 113) : a, 0);
+    const played = p.scores.filter(s => s !== null).length;
+    const net = played > 0 ? gross - courseHcpTotal : null;
+    return { ...p, gross, net, played };
   }).sort((a, b) => {
     if (a.net === null && b.net === null) return 0;
     if (a.net === null) return 1;
