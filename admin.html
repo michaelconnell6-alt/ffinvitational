@@ -334,7 +334,6 @@ function switchRound(idx) {
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
   if (!builder) return;
-  builder.innerHTML = '<p style="color:red;font-size:18px;font-weight:bold;">RP:' + (pairingsData ? pairingsData.rounds.length + 'rnds' : 'null') + '</p>';
   if (!pairingsData || !pairingsData.rounds) return;
   try {
 
