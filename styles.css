@@ -400,87 +400,154 @@
   }
 
   /* ── LEADERBOARD ── */
+  .leaderboard-wrapper {
+    border: 2px solid var(--green-dark);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
   .leaderboard-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.95rem;
-    background: var(--white);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    background: #fff;
   }
-  .leaderboard-table thead {
+
+  /* Top banner above headers */
+  .leaderboard-table thead tr.lb-banner th {
     background: var(--green-dark);
     color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
   }
-  .leaderboard-table thead th {
+  /* Column headers */
+  .leaderboard-table thead tr.lb-cols th {
+    background: var(--green-dark);
+    color: rgba(245,240,232,0.7);
     font-family: 'Oswald', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 14px 16px;
-    text-align: left;
+    padding: 8px 16px 10px;
+    text-align: center;
     font-weight: 400;
+    border-right: 1px solid rgba(255,255,255,0.07);
   }
-  .leaderboard-table thead th:not(:first-child) { text-align: center; }
+  .leaderboard-table thead tr.lb-cols th:nth-child(2) { text-align: left; }
+
+  /* Body rows */
   .leaderboard-table tbody tr {
-    border-bottom: 1px solid #e8e0d0;
+    border-bottom: 1px solid #e4ddd0;
     transition: background 0.15s;
   }
-  .leaderboard-table tbody tr:hover { background: #f8f4ec; }
-  .leaderboard-table tbody tr:first-child { background: #fffbf0; }
-  .leaderboard-table td {
-    padding: 14px 16px;
-    color: var(--text-dark);
+  .leaderboard-table tbody tr:nth-child(even) { background: #faf8f4; }
+  .leaderboard-table tbody tr:nth-child(odd)  { background: #fff; }
+  .leaderboard-table tbody tr:hover { background: #f2ede3; }
+
+  /* Leader row — gold left bar */
+  .leaderboard-table tbody tr.lb-leader {
+    background: #fffdf4;
+    border-left: 4px solid var(--gold);
   }
-  .leaderboard-table td:not(:first-child):not(:nth-child(2)) { text-align: center; }
+  .leaderboard-table tbody tr.lb-leader:hover { background: #fff8e1; }
+
+  .leaderboard-table td {
+    padding: 13px 16px;
+    color: var(--text-dark);
+    text-align: center;
+    border-right: 1px solid #ede7db;
+  }
+  .leaderboard-table td:nth-child(2) { text-align: left; }
+  .leaderboard-table td:last-child { border-right: none; }
+
+  /* Position */
   .pos-num {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
-    color: var(--green-mid);
-    font-weight: 500;
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 400;
+    min-width: 28px;
+    display: inline-block;
   }
-  .pos-num.gold { color: var(--gold); font-size: 1.1rem; }
+  .pos-num.gold {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* Player name */
   .player-name-cell {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--green-dark);
-  }
-  .score-cell {
     font-family: 'Oswald', sans-serif;
+    font-weight: 500;
     font-size: 1rem;
     letter-spacing: 0.5px;
+    color: var(--green-dark);
+    text-transform: uppercase;
   }
-  .score-under { color: #c0392b; font-weight: 500; }
-  .score-even { color: var(--text-dark); }
-  .score-over { color: #555; }
-  .score-dash { color: #bbb; }
 
-  /* Per-round gross/net stacked display */
+  /* Score cells */
+  .score-cell {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+  }
+  .score-dash { color: #ccc; font-size: 1rem; }
+
+  /* Per-round gross/net stacked */
   .round-gross {
     display: block;
+    font-family: 'Oswald', sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-dark);
-    line-height: 1.2;
+    color: #1a1a1a;
+    line-height: 1.3;
   }
   .round-net {
     display: block;
-    font-size: 0.75rem;
-    color: var(--gold);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    color: var(--green-mid);
     letter-spacing: 0.5px;
-    line-height: 1.2;
+    line-height: 1.3;
+    opacity: 0.85;
   }
 
-  /* vs-par total display */
-  .vs-par {
+  /* Net vs par — the hero number */
+  .net-score {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    min-width: 44px;
+  }
+  .net-score.over  { color: #1a1a1a; }
+  .net-score.under { color: #c0392b; }
+  .net-score.even  { color: #1a1a1a; }
+
+  /* Gross vs par — secondary */
+  .gross-score {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9rem;
+    color: #888;
     letter-spacing: 0.5px;
   }
-  .vs-par.over  { color: #c0392b; }
-  .vs-par.under { color: #27ae60; }
-  .vs-par.even  { color: var(--text-dark); }
+
+  /* vs-par helpers used in fmtVsPar */
+  .vs-par { font-family: 'Oswald', sans-serif; font-weight: 500; letter-spacing: 0.5px; }
+  .vs-par.over  { color: #1a1a1a; }
+  .vs-par.under { color: #c0392b; }
+  .vs-par.even  { color: #1a1a1a; }
+
+  .score-under { color: #c0392b; font-weight: 500; }
+  .score-even  { color: var(--text-dark); }
+  .score-over  { color: #555; }
+
   .leaderboard-note {
     text-align: center;
     font-style: italic;
@@ -753,6 +820,8 @@
     nav ul li a { padding: 10px 12px; font-size: 11px; }
     .schedule-event { flex-direction: column; gap: 4px; }
     .event-time { min-width: unset; }
-    .leaderboard-table { font-size: 0.85rem; }
-    .leaderboard-table td, .leaderboard-table th { padding: 10px 10px; }
+    .leaderboard-table { font-size: 0.8rem; }
+    .leaderboard-table td, .leaderboard-table thead tr.lb-cols th { padding: 10px 8px; }
+    .net-score { font-size: 1.1rem; }
+    .player-name-cell { font-size: 0.85rem; }
   }

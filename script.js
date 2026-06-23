@@ -61,39 +61,59 @@ function renderLeaderboard(data) {
     const played = p.scores.filter(s => s !== null).length;
     const net = played > 0 ? gross - strokesTotal : null;
     const parTotal = pars.reduce((a, v, i) => p.scores[i] !== null ? a + v : a, 0);
-    return { ...p, gross, net, played, parTotal };
+    const netVsPar = net !== null ? net - parTotal : null;
+    const grossVsPar = played > 0 ? gross - parTotal : null;
+    return { ...p, gross, net, played, parTotal, netVsPar, grossVsPar };
   }).sort((a, b) => {
-    if (a.net === null && b.net === null) return 0;
-    if (a.net === null) return 1;
-    if (b.net === null) return -1;
-    return (a.net - a.parTotal) - (b.net - b.parTotal);
+    if (a.netVsPar === null && b.netVsPar === null) return 0;
+    if (a.netVsPar === null) return 1;
+    if (b.netVsPar === null) return -1;
+    return a.netVsPar - b.netVsPar;
+  });
+
+  // Assign positions (with ties)
+  let displayPos = 1;
+  players.forEach((p, i) => {
+    if (i === 0) { p.pos = '1'; return; }
+    if (p.netVsPar === players[i-1].netVsPar) {
+      p.pos = 'T' + displayPos;
+      players[i-1].pos = 'T' + displayPos;
+    } else {
+      displayPos = i + 1;
+      p.pos = String(displayPos);
+    }
   });
 
   tbody.innerHTML = '';
   players.forEach((p, i) => {
-    const pos = i + 1;
-    const posClass = pos === 1 ? 'pos-num gold' : 'pos-num';
+    const isLeader = i === 0 && p.netVsPar !== null;
+    const rowClass = isLeader ? 'lb-leader' : '';
+    const posClass = isLeader ? 'pos-num gold' : 'pos-num';
 
-    const cells = p.scores.map((s, ri) => {
+    const roundCells = p.scores.map((s, ri) => {
       if (s === null) return `<td class="score-cell"><span class="score-dash">—</span></td>`;
       const roundNet = s - ((p.strokes && p.strokes[ri]) || 0);
       return `<td class="score-cell">
-        <span class="round-gross">${s}</span><span class="round-net">${roundNet}</span>
+        <span class="round-gross">${s}</span>
+        <span class="round-net">net ${roundNet}</span>
       </td>`;
     }).join('');
 
-    const totalCell = p.played > 0
-      ? `<td class="score-cell">${fmtVsPar(p.gross - p.parTotal)}</td>
-         <td class="score-cell">${fmtVsPar(p.net - p.parTotal)}</td>`
-      : `<td class="score-cell"><span class="score-dash">—</span></td>
-         <td class="score-cell"><span class="score-dash">—</span></td>`;
+    const netCell = p.netVsPar !== null
+      ? `<td class="score-cell"><span class="net-score ${p.netVsPar > 0 ? 'over' : p.netVsPar < 0 ? 'under' : 'even'}">${p.netVsPar > 0 ? '+' + p.netVsPar : p.netVsPar === 0 ? 'E' : p.netVsPar}</span></td>`
+      : `<td class="score-cell"><span class="score-dash">—</span></td>`;
+
+    const grossCell = p.grossVsPar !== null
+      ? `<td class="score-cell"><span class="gross-score">${p.grossVsPar > 0 ? '+' + p.grossVsPar : p.grossVsPar === 0 ? 'E' : p.grossVsPar}</span></td>`
+      : `<td class="score-cell"><span class="score-dash">—</span></td>`;
 
     tbody.innerHTML += `
-      <tr>
-        <td><span class="${posClass}">${pos}</span></td>
+      <tr class="${rowClass}">
+        <td><span class="${posClass}">${p.pos || (i + 1)}</span></td>
         <td><span class="player-name-cell">${p.name}</span></td>
-        ${cells}
-        ${totalCell}
+        ${netCell}
+        ${grossCell}
+        ${roundCells}
       </tr>`;
   });
 }
