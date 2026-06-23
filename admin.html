@@ -190,18 +190,6 @@
 
   <div class="admin-body">
 
-    <!-- TOKEN SETUP -->
-    <div class="section-label">GitHub Connection</div>
-    <div id="token-setup">
-      <p>Enter your GitHub Personal Access Token so scores can be saved directly to the live site. This is stored only in your browser — never shared.</p>
-      <div class="token-row">
-        <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/>
-        <button class="btn" style="width:auto;max-width:none;" onclick="saveToken()">Save Token</button>
-        <button class="btn secondary" style="width:auto;max-width:none;" onclick="testToken()">Test</button>
-      </div>
-      <div id="token-status"></div>
-    </div>
-
     <!-- PAIRINGS -->
     <div class="section-label">Tee Time Pairings</div>
     <div id="pairings-panel">
@@ -217,24 +205,6 @@
         <button class="btn" style="width:auto;max-width:none;" onclick="savePairings()">Save Pairings to Site</button>
       </div>
       <div id="pairings-status" style="font-size:12px;letter-spacing:1px;margin-top:8px;"></div>
-    </div>
-
-    <!-- IMAGE UPLOAD -->
-    <div class="section-label" style="margin-top:40px;">Upload Image to Site</div>
-    <div style="background:rgba(0,0,0,0.2);border:1px solid rgba(201,168,76,0.15);padding:20px;">
-      <p style="font-size:12px;color:rgba(245,240,232,0.6);margin-bottom:14px;letter-spacing:0.5px;">Upload images directly to the GitHub repo (e.g. champion-steins.jpg, gallery photos).</p>
-      <div style="display:flex;flex-direction:column;gap:10px;max-width:420px;">
-        <div>
-          <label style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;">Select Image File</label>
-          <input type="file" id="img-file-input" accept="image/*" style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:10px;width:100%;font-family:'Oswald',sans-serif;font-size:13px;"/>
-        </div>
-        <div>
-          <label style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;">Save as filename (in images/ folder)</label>
-          <input type="text" id="img-filename" placeholder="champion-steins.jpg" style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:10px;width:100%;font-family:'Oswald',sans-serif;font-size:13px;outline:none;"/>
-        </div>
-        <button class="btn" style="width:auto;max-width:none;" onclick="uploadImage()">Upload Image to Site</button>
-        <div id="img-upload-status" style="font-size:12px;letter-spacing:1px;"></div>
-      </div>
     </div>
 
     <!-- SCORE ENTRY -->
@@ -417,7 +387,7 @@ async function loadScores() {
       if (res.ok) {
         const json = await res.json();
         fileSha = json.sha;
-        scoresData = JSON.parse(atob(json.content.replace(/\n/g,'')));
+        scoresData = JSON.parse(atob(json.content.replace(/\s/g,'')));
         setStatus('✓ Scores loaded from GitHub', 'ok');
         renderTable();
         return;
@@ -556,7 +526,7 @@ async function loadPairings() {
       if (res.ok) {
         const json = await res.json();
         pairingsSha = json.sha;
-        pairingsData = JSON.parse(atob(json.content.replace(/\n/g,'')));
+        pairingsData = JSON.parse(atob(json.content.replace(/\s/g,'')));
         setPairStatus('✓ Pairings loaded', 'ok');
         renderPairings();
         return;
@@ -579,7 +549,7 @@ async function loadPairings() {
     }
     renderPairings();
   } catch(e) {
-    setPairStatus('Could not load pairings', 'err');
+    setPairStatus('Could not load pairings: ' + e.message, 'err');
   }
 }
 
