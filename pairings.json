@@ -1,1 +1,28 @@
-null
+{
+  "rounds": [
+    {
+      "round": 1,
+      "course": "True Blue",
+      "date": "Friday, July 11",
+      "groups": []
+    },
+    {
+      "round": 2,
+      "course": "Caledonia",
+      "date": "Friday, July 11",
+      "groups": []
+    },
+    {
+      "round": 3,
+      "course": "Pawleys Plantation",
+      "date": "Saturday, July 12",
+      "groups": []
+    },
+    {
+      "round": 4,
+      "course": "TPC Myrtle Beach",
+      "date": "Sunday, July 13",
+      "groups": []
+    }
+  ]
+}
