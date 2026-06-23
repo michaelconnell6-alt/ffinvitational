@@ -629,6 +629,28 @@
     color: #777;
     font-style: italic;
   }
+  .steins-wrap {
+    margin-top: 40px;
+    text-align: center;
+  }
+  .steins-img {
+    width: 100%;
+    max-width: 480px;
+    height: 420px;
+    object-fit: cover;
+    object-position: center;
+    display: inline-block;
+    border: 3px solid var(--gold);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  .steins-caption {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 12px;
+  }
+
   .champions-placeholder {
     text-align: center;
     padding: 40px;
