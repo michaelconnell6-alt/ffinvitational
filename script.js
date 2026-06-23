@@ -60,26 +60,26 @@ function renderLeaderboard(data) {
     if (data.players.some(p => p.scores[r] !== null)) lastRound = r;
   }
 
-  // Returns a name→position map for standings through a given round index
-  function standingsThru(thru) {
-    return data.players.map(p => {
-      const scores = p.scores.slice(0, thru + 1);
-      const played = scores.filter(s => s !== null).length;
-      if (played === 0) return { name: p.name, netVsPar: null };
-      const gross   = scores.reduce((a, v) => a + (v || 0), 0);
-      const strokes = scores.reduce((a, v, i) => v !== null ? a + ((p.strokes && p.strokes[i]) || 0) : a, 0);
-      const parTot  = pars.slice(0, thru + 1).reduce((a, v, i) => scores[i] !== null ? a + v : a, 0);
-      return { name: p.name, netVsPar: gross - strokes - parTot };
+  // Previous round positions: cumulative net through lastRound-1
+  const prevPositions = {};
+  if (lastRound > 0) {
+    const prevSorted = data.players.map(p => {
+      let nvp = 0, played = 0;
+      for (let r = 0; r < lastRound; r++) {
+        if (p.scores[r] !== null) {
+          nvp += p.scores[r] - ((p.strokes && p.strokes[r]) || 0) - pars[r];
+          played++;
+        }
+      }
+      return { name: p.name, nvp: played > 0 ? nvp : null };
     }).sort((a, b) => {
-      if (a.netVsPar === null && b.netVsPar === null) return 0;
-      if (a.netVsPar === null) return 1;
-      if (b.netVsPar === null) return -1;
-      return a.netVsPar - b.netVsPar;
-    }).reduce((map, p, i) => { map[p.name] = i + 1; return map; }, {});
+      if (a.nvp === null && b.nvp === null) return 0;
+      if (a.nvp === null) return 1;
+      if (b.nvp === null) return -1;
+      return a.nvp - b.nvp;
+    });
+    prevSorted.forEach((p, i) => { prevPositions[p.name] = i + 1; });
   }
-
-  const curMap  = lastRound >= 0 ? standingsThru(lastRound)     : {};
-  const prevMap = lastRound >  0 ? standingsThru(lastRound - 1) : {};
 
   // Fire 🔥 = best net of last round, 💩 = worst net of last round
   let fireName = null, poopName = null;
@@ -133,14 +133,16 @@ function renderLeaderboard(data) {
     const posClass = isLeader ? 'pos-num gold' : 'pos-num';
 
     // Movement arrow
-    let arrow = '', arrowStyle = '';
-    if (curMap[p.name] && prevMap[p.name]) {
-      const diff = prevMap[p.name] - curMap[p.name];
+    let arrow = '', arrowStyle = 'color:#888;';
+    if (lastRound > 0 && prevPositions[p.name]) {
+      const curPos  = i + 1;
+      const prevPos = prevPositions[p.name];
+      const diff    = prevPos - curPos;
       if (diff > 0)      { arrow = '↑'; arrowStyle = 'color:#2ecc71;font-weight:bold;'; }
       else if (diff < 0) { arrow = '↓'; arrowStyle = 'color:#e74c3c;font-weight:bold;'; }
-      else               { arrow = '—'; arrowStyle = 'color:#555;'; }
-    } else if (lastRound >= 0 && curMap[p.name]) {
-      arrow = '—'; arrowStyle = 'color:#555;';
+      else               { arrow = '—'; arrowStyle = 'color:#888;'; }
+    } else if (lastRound === 0) {
+      arrow = '—';
     }
     const arrowHtml = arrow ? `<span style="font-size:11px;margin-right:5px;${arrowStyle}">${arrow}</span>` : '';
 
