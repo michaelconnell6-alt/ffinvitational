@@ -325,8 +325,9 @@ function switchRound(idx) {
 
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
-  if (!builder) return;
-  if (!pairingsData) { builder.innerHTML = ''; return; }
+  if (!builder) { alert('pairings-builder element not found!'); return; }
+  if (!pairingsData) { builder.innerHTML = '<p style="color:yellow;font-size:16px;">LOADED BUT NULL</p>'; return; }
+  builder.innerHTML = '<p style="color:yellow;font-size:16px;">DATA OK - ' + pairingsData.rounds.length + ' rounds</p>';
 
   var round    = pairingsData.rounds[activeRound];
   var assigned = [];
