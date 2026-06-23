@@ -566,7 +566,7 @@ function switchRound(idx) {
 function renderPairings() {
   if (!pairingsData) return;
   const round = pairingsData.rounds[activeRound];
-  const assigned = round.groups.flatMap(g => g.players);
+  const assigned = [].concat(...round.groups.map(g => g.players));
   const unassigned = ALL_PLAYERS.filter(p => !assigned.includes(p));
 
   let html = `<div class="groups-grid">`;
