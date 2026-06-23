@@ -251,7 +251,6 @@ function login() {
   if (pw === ADMIN_PASSWORD) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
-    loadTokenUI();
     loadScores();
     loadPairings();
   } else {
