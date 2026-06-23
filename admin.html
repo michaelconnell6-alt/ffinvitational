@@ -92,7 +92,7 @@
         <button class="round-tab" onclick="switchRound(2)">R3 · Pawleys</button>
         <button class="round-tab" onclick="switchRound(3)">R4 · TPC</button>
       </div>
-      <div id="pairings-builder"></div>
+      <div id="pairings-builder" style="min-height:10px;"></div>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
         <button class="btn secondary" style="width:auto;max-width:none;" onclick="loadPairings()">Refresh Pairings</button>
         <button class="btn" style="width:auto;max-width:none;" onclick="savePairings()">Save Pairings to Site</button>
@@ -312,10 +312,10 @@ async function loadPairings() {
       setPairStatus('✓ Pairings loaded (raw)', 'ok');
     } else {
       pairingsData = { rounds: [
-        { round:1, course:'True Blue',          date:'Friday, July 11',   groups:[] },
-        { round:2, course:'Caledonia',           date:'Friday, July 11',   groups:[] },
-        { round:3, course:'Pawleys Plantation',  date:'Saturday, July 12', groups:[] },
-        { round:4, course:'TPC Myrtle Beach',    date:'Sunday, July 13',   groups:[] }
+        { round:1, course:'True Blue',         date:'Friday, July 11',   groups:[] },
+        { round:2, course:'Caledonia',          date:'Friday, July 11',   groups:[] },
+        { round:3, course:'Pawleys Plantation', date:'Saturday, July 12', groups:[] },
+        { round:4, course:'TPC Myrtle Beach',   date:'Sunday, July 13',   groups:[] }
       ]};
       setPairStatus('Using blank pairings', 'err');
     }
@@ -333,7 +333,9 @@ function switchRound(idx) {
 
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
-  if (!builder || !pairingsData || !pairingsData.rounds) return;
+  if (!builder) return;
+  builder.innerHTML = '<p style="color:red;font-size:18px;font-weight:bold;">RP:' + (pairingsData ? pairingsData.rounds.length + 'rnds' : 'null') + '</p>';
+  if (!pairingsData || !pairingsData.rounds) return;
   try {
 
   var round    = pairingsData.rounds[activeRound];
