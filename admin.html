@@ -6,170 +6,66 @@
 <title>ForeFathers Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #1a3a2a;
-    --gold: #c9a84c;
-    --cream: #f5f0e8;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--green); font-family: 'Oswald', sans-serif; color: var(--cream); min-height: 100vh; }
+  :root { --green:#1a3a2a; --gold:#c9a84c; --cream:#f5f0e8; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--green); font-family:'Oswald',sans-serif; color:var(--cream); min-height:100vh; }
 
-  /* LOGIN */
-  #login-screen {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    min-height: 100vh; gap: 16px; padding: 20px;
-  }
-  #login-screen h1 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 2rem; text-align: center; }
-  #login-screen p { color: rgba(245,240,232,0.6); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
-  .input-group { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 320px; }
-  .input-group label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-  .input-group input {
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(201,168,76,0.3);
-    color: var(--cream); padding: 12px 14px; font-family: 'Oswald', sans-serif;
-    font-size: 14px; outline: none; width: 100%;
-  }
-  .input-group input:focus { border-color: var(--gold); }
-  .btn {
-    background: var(--gold); color: var(--green); border: none; padding: 13px 32px;
-    font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2px;
-    text-transform: uppercase; cursor: pointer; font-weight: 500; width: 100%; max-width: 320px;
-    transition: background 0.2s;
-  }
-  .btn:hover { background: #e5c97a; }
-  .btn.secondary {
-    background: transparent; color: var(--gold); border: 1px solid rgba(201,168,76,0.4);
-  }
-  .btn.secondary:hover { background: rgba(201,168,76,0.1); }
-  #login-error { color: #e74c3c; font-size: 12px; letter-spacing: 1px; display: none; }
+  #login-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:16px; padding:20px; }
+  #login-screen h1 { font-family:'Playfair Display',serif; color:var(--gold); font-size:2rem; text-align:center; }
+  #login-screen p { color:rgba(245,240,232,0.6); font-size:12px; letter-spacing:2px; text-transform:uppercase; }
+  .input-group { display:flex; flex-direction:column; gap:6px; width:100%; max-width:320px; }
+  .input-group label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
+  .input-group input { background:rgba(255,255,255,0.08); border:1px solid rgba(201,168,76,0.3); color:var(--cream); padding:12px 14px; font-family:'Oswald',sans-serif; font-size:14px; outline:none; width:100%; }
+  .input-group input:focus { border-color:var(--gold); }
+  .btn { background:var(--gold); color:var(--green); border:none; padding:13px 32px; font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; font-weight:500; width:100%; max-width:320px; transition:background 0.2s; }
+  .btn:hover { background:#e5c97a; }
+  .btn.secondary { background:transparent; color:var(--gold); border:1px solid rgba(201,168,76,0.4); }
+  .btn.secondary:hover { background:rgba(201,168,76,0.1); }
+  #login-error { color:#e74c3c; font-size:12px; letter-spacing:1px; display:none; }
 
-  /* ADMIN PANEL */
-  #admin-panel { display: none; padding: 0 0 60px; }
+  #admin-panel { display:none; padding:0 0 60px; }
+  .admin-header { background:rgba(0,0,0,0.3); border-bottom:2px solid var(--gold); padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .admin-header h1 { font-family:'Playfair Display',serif; color:var(--gold); font-size:1.3rem; }
+  .admin-header button { background:none; border:1px solid rgba(201,168,76,0.3); color:var(--cream); padding:6px 16px; cursor:pointer; font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:1px; }
+  .admin-body { max-width:900px; margin:0 auto; padding:30px 20px; }
+  .section-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; margin-top:32px; border-bottom:1px solid rgba(201,168,76,0.2); padding-bottom:8px; }
 
-  .admin-header {
-    background: rgba(0,0,0,0.3); border-bottom: 2px solid var(--gold);
-    padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
-  }
-  .admin-header h1 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.3rem; }
-  .admin-header button { background: none; border: 1px solid rgba(201,168,76,0.3); color: var(--cream); padding: 6px 16px; cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px; }
+  .score-table { width:100%; border-collapse:collapse; }
+  .score-table th { background:rgba(0,0,0,0.3); color:var(--gold); font-size:11px; letter-spacing:2px; text-transform:uppercase; padding:12px 10px; text-align:left; }
+  .score-table th:not(:first-child) { text-align:center; }
+  .score-table td { padding:8px 6px; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .score-table td:first-child { font-size:13px; letter-spacing:0.5px; }
+  .score-table td .hcp { font-size:10px; color:rgba(245,240,232,0.4); }
+  .score-table input[type="number"] { width:60px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:var(--cream); padding:8px 6px; text-align:center; font-family:'Oswald',sans-serif; font-size:14px; -moz-appearance:textfield; }
+  .score-table input[type="number"]::-webkit-inner-spin-button { -webkit-appearance:none; }
+  .score-table input[type="number"]:focus { border-color:var(--gold); outline:none; }
+  .score-table .net-cell { font-size:12px; color:var(--gold); text-align:center; }
+  .score-table .total-cell { font-weight:500; font-size:14px; text-align:center; }
+  .score-table tr:hover td { background:rgba(255,255,255,0.03); }
 
-  .admin-body { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+  .save-bar { position:fixed; bottom:0; left:0; right:0; background:var(--green); border-top:2px solid var(--gold); padding:14px 24px; display:flex; gap:12px; align-items:center; justify-content:flex-end; }
+  #save-status { font-size:12px; letter-spacing:1px; flex:1; }
+  #save-status.ok { color:#2ecc71; }
+  #save-status.err { color:#e74c3c; }
+  #save-status.saving { color:var(--gold); }
+  .table-wrapper { overflow-x:auto; }
 
-  .section-label {
-    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 16px; margin-top: 32px;
-    border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 8px;
-  }
+  .round-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+  .round-tab { background:transparent; border:1px solid rgba(201,168,76,0.3); color:rgba(245,240,232,0.6); padding:7px 14px; font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+  .round-tab.active { background:var(--gold); color:var(--green); border-color:var(--gold); }
+  .round-tab:hover:not(.active) { border-color:var(--gold); color:var(--cream); }
+  #pairings-status.ok { color:#2ecc71; }
+  #pairings-status.err { color:#e74c3c; }
+  #pairings-status.saving { color:var(--gold); }
 
-  /* TOKEN SETUP */
-  #token-setup { background: rgba(0,0,0,0.2); padding: 20px; margin-bottom: 8px; }
-  #token-setup p { font-size: 12px; color: rgba(245,240,232,0.6); margin-bottom: 12px; line-height: 1.6; }
-  .token-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .token-row input {
-    flex: 1; min-width: 200px; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(201,168,76,0.3); color: var(--cream);
-    padding: 10px 12px; font-family: 'Oswald', sans-serif; font-size: 13px;
-  }
-  #token-status { font-size: 11px; letter-spacing: 1px; margin-top: 8px; }
-  #token-status.ok { color: #2ecc71; }
-  #token-status.err { color: #e74c3c; }
-
-  /* SCORE TABLE */
-  .score-table { width: 100%; border-collapse: collapse; }
-  .score-table th {
-    background: rgba(0,0,0,0.3); color: var(--gold);
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-    padding: 12px 10px; text-align: left;
-  }
-  .score-table th:not(:first-child) { text-align: center; }
-  .score-table td { padding: 8px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .score-table td:first-child { font-size: 13px; letter-spacing: 0.5px; }
-  .score-table td .hcp { font-size: 10px; color: rgba(245,240,232,0.4); }
-  .score-table input[type="number"] {
-    width: 60px; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1); color: var(--cream);
-    padding: 8px 6px; text-align: center; font-family: 'Oswald', sans-serif;
-    font-size: 14px; -moz-appearance: textfield;
-  }
-  .score-table input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-  .score-table input[type="number"]:focus { border-color: var(--gold); outline: none; }
-  .score-table .net-cell { font-size: 12px; color: var(--gold); text-align: center; }
-  .score-table .total-cell { font-weight: 500; font-size: 14px; text-align: center; }
-  .score-table tr:hover td { background: rgba(255,255,255,0.03); }
-
-  /* SAVE BAR */
-  .save-bar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: var(--green); border-top: 2px solid var(--gold);
-    padding: 14px 24px; display: flex; gap: 12px; align-items: center; justify-content: flex-end;
-  }
-  #save-status { font-size: 12px; letter-spacing: 1px; flex: 1; }
-  #save-status.ok { color: #2ecc71; }
-  #save-status.err { color: #e74c3c; }
-  #save-status.saving { color: var(--gold); }
-
-  .table-wrapper { overflow-x: auto; }
-
-  /* PAIRINGS */
-  .round-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-  .round-tab {
-    background: transparent; border: 1px solid rgba(201,168,76,0.3);
-    color: rgba(245,240,232,0.6); padding: 7px 14px;
-    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px;
-    text-transform: uppercase; cursor: pointer; transition: all 0.2s;
-  }
-  .round-tab.active { background: var(--gold); color: var(--green); border-color: var(--gold); }
-  .round-tab:hover:not(.active) { border-color: var(--gold); color: var(--cream); }
-
-  .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-  .group-card {
-    background: rgba(0,0,0,0.2); border: 1px solid rgba(201,168,76,0.15); padding: 14px;
-  }
-  .group-card-header {
-    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 10px;
-  }
-  .group-tee-input {
-    width: 100%; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(201,168,76,0.3); color: var(--cream);
-    padding: 7px 10px; font-family: 'Oswald', sans-serif; font-size: 13px;
-    margin-bottom: 10px;
-  }
-  .player-pool-label { font-size: 10px; letter-spacing: 2px; color: rgba(245,240,232,0.5); text-transform: uppercase; margin-bottom: 8px; }
-  .group-players { min-height: 60px; }
-  .group-player-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;
-  }
-  .remove-player { background: none; border: none; color: rgba(201,168,76,0.5); cursor: pointer; font-size: 16px; padding: 0 4px; }
-  .remove-player:hover { color: #e74c3c; }
-  .player-pool { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-  .pool-player {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-    color: var(--cream); padding: 5px 12px; font-family: 'Oswald', sans-serif;
-    font-size: 12px; cursor: pointer; transition: all 0.15s;
-  }
-  .pool-player:hover { background: var(--gold); color: var(--green); border-color: var(--gold); }
-  .add-group-btn {
-    background: transparent; border: 1px dashed rgba(201,168,76,0.3);
-    color: rgba(201,168,76,0.6); padding: 10px; width: 100%; cursor: pointer;
-    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px;
-    text-transform: uppercase; margin-top: 4px; transition: all 0.2s;
-  }
-  .add-group-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-  #pairings-status.ok { color: #2ecc71; }
-  #pairings-status.err { color: #e74c3c; }
-  #pairings-status.saving { color: var(--gold); }
-
-  @media (max-width: 600px) {
-    .score-table input[type="number"] { width: 48px; font-size: 13px; }
-    .score-table th, .score-table td { padding: 8px 4px; }
+  @media (max-width:600px) {
+    .score-table input[type="number"] { width:48px; font-size:13px; }
+    .score-table th, .score-table td { padding:8px 4px; }
   }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login-screen">
   <h1>ForeFathers Admin</h1>
   <p>Tournament Scoring Panel</p>
@@ -181,16 +77,13 @@
   <div id="login-error">Incorrect password</div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-header">
     <h1>ForeFathers Invitational — Scoring</h1>
     <button onclick="logout()">Log Out</button>
   </div>
-
   <div class="admin-body">
 
-    <!-- PAIRINGS -->
     <div class="section-label">Tee Time Pairings</div>
     <div id="pairings-panel">
       <div class="round-tabs">
@@ -207,7 +100,6 @@
       <div id="pairings-status" style="font-size:12px;letter-spacing:1px;margin-top:8px;"></div>
     </div>
 
-    <!-- SCORE ENTRY -->
     <div class="section-label" style="margin-top:40px;">Round Scores (Gross)</div>
     <div class="table-wrapper">
       <table class="score-table" id="score-table">
@@ -227,7 +119,6 @@
     </div>
 
   </div>
-
   <div class="save-bar">
     <div id="save-status"></div>
     <button class="btn secondary" style="width:auto;max-width:none;" onclick="loadScores()">Refresh</button>
@@ -237,124 +128,35 @@
 
 <script>
 const ADMIN_PASSWORD = 'forefathers2026';
-const REPO_OWNER = 'michaelconnell6-alt';
-const REPO_NAME = 'ffinvitational';
-const SCORES_FILE = 'scores.json';
+const REPO_OWNER    = 'michaelconnell6-alt';
+const REPO_NAME     = 'ffinvitational';
+const SCORES_FILE   = 'scores.json';
+const PAIRINGS_FILE = 'pairings.json';
 
-
-let scoresData = null;
-let fileSha = null;
+let scoresData   = null;
+let fileSha      = null;
+let pairingsData = null;
+let pairingsSha  = null;
+let activeRound  = 0;
 
 // ── AUTH ──────────────────────────────────────────────────────
 function login() {
-  const pw = document.getElementById('password-input').value;
-  if (pw === ADMIN_PASSWORD) {
+  if (document.getElementById('password-input').value === ADMIN_PASSWORD) {
     document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('admin-panel').style.display = 'block';
+    document.getElementById('admin-panel').style.display  = 'block';
     loadScores();
     loadPairings();
   } else {
     document.getElementById('login-error').style.display = 'block';
   }
 }
-
 function logout() {
   document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('admin-panel').style.display  = 'none';
   document.getElementById('password-input').value = '';
 }
 
-// ── IMAGE UPLOAD ──────────────────────────────────────────────
-async function uploadImage() {
-  const status = document.getElementById('img-upload-status');
-  const fileInput = document.getElementById('img-file-input');
-  const filenameInput = document.getElementById('img-filename');
-  const token = localStorage.getItem('ff_token');
-
-  if (!token) { status.textContent = '✗ No GitHub token saved — add it in the Token section below'; status.style.color = '#e74c3c'; return; }
-  if (!fileInput.files.length) { status.textContent = '✗ Please select an image file'; status.style.color = '#e74c3c'; return; }
-
-  const file = fileInput.files[0];
-  const filename = filenameInput.value.trim() || file.name;
-  const path = `images/${filename}`;
-
-  status.textContent = 'Reading file...'; status.style.color = 'var(--gold)';
-
-  const reader = new FileReader();
-  reader.onload = async function(e) {
-    const base64 = e.target.result.split(',')[1];
-    status.textContent = 'Uploading...'; status.style.color = 'var(--gold)';
-    try {
-      // Check if file already exists (need SHA to overwrite)
-      let sha = null;
-      const check = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      if (check.ok) { const existing = await check.json(); sha = existing.sha; }
-
-      const body = { message: `Upload ${filename}`, content: base64 };
-      if (sha) body.sha = sha;
-
-      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
-        method: 'PUT',
-        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      });
-      if (res.ok) {
-        status.textContent = `✓ ${filename} uploaded successfully`;
-        status.style.color = '#2ecc71';
-      } else {
-        const err = await res.json();
-        status.textContent = `✗ ${err.message || 'Upload failed'}`;
-        status.style.color = '#e74c3c';
-      }
-    } catch(err) {
-      status.textContent = '✗ Network error';
-      status.style.color = '#e74c3c';
-    }
-  };
-  reader.readAsDataURL(file);
-}
-
-// ── TOKEN ─────────────────────────────────────────────────────
-function loadTokenUI() {
-  const token = localStorage.getItem('ff_token');
-  if (token) {
-    document.getElementById('token-input').value = token;
-    document.getElementById('token-status').textContent = '✓ Token saved';
-    document.getElementById('token-status').className = 'ok';
-  }
-}
-
-function saveToken() {
-  const token = document.getElementById('token-input').value.trim();
-  localStorage.setItem('ff_token', token);
-  document.getElementById('token-status').textContent = '✓ Token saved locally';
-  document.getElementById('token-status').className = 'ok';
-}
-
-async function testToken() {
-  const token = document.getElementById('token-input').value.trim();
-  const status = document.getElementById('token-status');
-  status.textContent = 'Testing...'; status.className = '';
-  try {
-    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`, {
-      headers: { 'Authorization': `token ${token}` }
-    });
-    if (res.ok) {
-      status.textContent = '✓ Connected to repo successfully';
-      status.className = 'ok';
-    } else {
-      status.textContent = '✗ Could not connect — check token and repo name';
-      status.className = 'err';
-    }
-  } catch(e) {
-    status.textContent = '✗ Connection error';
-    status.className = 'err';
-  }
-}
-
-// ── FALLBACK DATA ─────────────────────────────────────────────
+// ── FALLBACK PLAYERS ──────────────────────────────────────────
 const FALLBACK_PLAYERS = [
   {"name":"Rob Leverone",    "handicap":8.4,  "strokes":[10,12,11,12],"scores":[null,null,null,null]},
   {"name":"Mikey Connell",   "handicap":6.9,  "strokes":[8, 10, 9,10],"scores":[null,null,null,null]},
@@ -372,182 +174,140 @@ const FALLBACK_PLAYERS = [
   {"name":"Court Russo",     "handicap":12.9, "strokes":[12,14,12,15],"scores":[null,null,null,null]}
 ];
 
-// ── LOAD SCORES ───────────────────────────────────────────────
+const ALL_PLAYERS = FALLBACK_PLAYERS.map(function(p){ return p.name; });
+
+// ── SCORES ────────────────────────────────────────────────────
 async function loadScores() {
   const token = localStorage.getItem('ff_token');
   setStatus('Loading scores...', 'saving');
-
-  // Try GitHub API first (gives us SHA for saves)
   if (token) {
     try {
-      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
-        headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+      const res = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + SCORES_FILE, {
+        headers: { 'Authorization': 'token ' + token, 'Cache-Control': 'no-cache' }
       });
       if (res.ok) {
         const json = await res.json();
-        fileSha = json.sha;
-        scoresData = JSON.parse(atob(json.content.replace(/\s/g,'')));
+        fileSha    = json.sha;
+        scoresData = JSON.parse(atob(json.content.replace(/\s/g, '')));
         setStatus('✓ Scores loaded from GitHub', 'ok');
         renderTable();
+        return;
+      }
+    } catch(e) {}
+  }
+  try {
+    const raw = await fetch('https://raw.githubusercontent.com/' + REPO_OWNER + '/' + REPO_NAME + '/main/' + SCORES_FILE + '?_=' + Date.now());
+    if (raw.ok) {
+      scoresData = await raw.json();
+      fileSha    = null;
+      setStatus('✓ Scores loaded (SHA will be fetched on save)', 'ok');
+      renderTable();
+      return;
+    }
+  } catch(e) {}
+  scoresData = { players: FALLBACK_PLAYERS };
+  fileSha = null;
+  setStatus('⚠ Using local data — save will fetch SHA automatically', 'err');
+  renderTable();
+}
+
+function renderTable() {
+  var tbody = document.getElementById('score-body');
+  tbody.innerHTML = '';
+  scoresData.players.forEach(function(p, pi) {
+    var gross = p.scores.reduce(function(a,v){ return a + (v||0); }, 0);
+    var rounds = p.scores.filter(function(v){ return v !== null; }).length;
+    var strokesTotal = p.scores.reduce(function(a,v,i){ return v !== null ? a + (p.strokes[i]||0) : a; }, 0);
+    var net = rounds > 0 ? gross - strokesTotal : null;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + p.name + '<br><span class="hcp">HCP ' + p.handicap + '</span></td>' +
+      p.scores.map(function(s, ri) {
+        return '<td style="text-align:center"><input type="number" value="' + (s||'') + '" placeholder="—" oninput="updateScore(' + pi + ',' + ri + ',this.value)"/></td>';
+      }).join('') +
+      '<td class="total-cell">' + (rounds > 0 ? gross : '—') + '</td>' +
+      '<td class="net-cell">'   + (net !== null  ? net  : '—') + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function updateScore(pi, ri, val) {
+  scoresData.players[pi].scores[ri] = val === '' ? null : parseInt(val);
+  var p = scoresData.players[pi];
+  var gross = p.scores.reduce(function(a,v){ return a+(v||0); }, 0);
+  var rounds = p.scores.filter(function(v){ return v !== null; }).length;
+  var strokesTotal = p.scores.reduce(function(a,v,i){ return v !== null ? a+(p.strokes[i]||0) : a; }, 0);
+  var net = rounds > 0 ? gross - strokesTotal : null;
+  var rows = document.getElementById('score-body').querySelectorAll('tr');
+  rows[pi].querySelector('.total-cell').textContent = rounds > 0 ? gross : '—';
+  rows[pi].querySelector('.net-cell').textContent   = net !== null ? net : '—';
+}
+
+async function saveScores() {
+  var token = localStorage.getItem('ff_token');
+  if (!token) { setStatus('No GitHub token — contact admin', 'err'); return; }
+  setStatus('Saving...', 'saving');
+  try {
+    if (!fileSha) {
+      var shaRes = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + SCORES_FILE, { headers: { 'Authorization': 'token ' + token } });
+      if (shaRes.ok) { var shaJson = await shaRes.json(); fileSha = shaJson.sha; }
+    }
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(scoresData, null, 2))));
+    var body    = { message: 'Update scores', content: content };
+    if (fileSha) body.sha = fileSha;
+    var res = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + SCORES_FILE, {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (res.ok) {
+      var json = await res.json();
+      fileSha = json.content.sha;
+      setStatus('✓ Scores saved! Site updates in ~30s', 'ok');
+    } else {
+      var err = await res.json();
+      setStatus('✗ Save failed: ' + (err.message || res.status), 'err');
+    }
+  } catch(e) { setStatus('✗ Error: ' + e.message, 'err'); }
+}
+
+function setStatus(msg, cls) {
+  var el = document.getElementById('save-status');
+  el.textContent = msg; el.className = cls;
+}
+
+// ── PAIRINGS ──────────────────────────────────────────────────
+async function loadPairings() {
+  var token = localStorage.getItem('ff_token');
+  setPairStatus('Loading...', 'saving');
+
+  if (token) {
+    try {
+      var res = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + PAIRINGS_FILE, {
+        headers: { 'Authorization': 'token ' + token, 'Cache-Control': 'no-cache' }
+      });
+      if (res.ok) {
+        var json    = await res.json();
+        pairingsSha = json.sha;
+        pairingsData = JSON.parse(atob(json.content.replace(/\s/g, '')));
+        setPairStatus('✓ Pairings loaded', 'ok');
+        renderPairings();
         return;
       }
     } catch(e) { /* fall through */ }
   }
 
-  // Fallback: public raw URL (no token needed, SHA fetched at save time)
   try {
-    const rawRes = await fetch(
-      `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${SCORES_FILE}?_=${Date.now()}`
-    );
-    if (rawRes.ok) {
-      scoresData = await rawRes.json();
-      fileSha = null;
-      setStatus(token ? '✓ Scores loaded (SHA will be fetched on save)' : '✓ Scores loaded — enter token above to enable saving', 'ok');
-      renderTable();
-      return;
-    }
-  } catch(e) { /* fall through */ }
-
-  // Final fallback: hardcoded blank data
-  setStatus('⚠ Could not load from GitHub — enter token and click Refresh', 'err');
-  scoresData = { players: FALLBACK_PLAYERS };
-  fileSha = null;
-  renderTable();
-}
-
-// ── RENDER TABLE ──────────────────────────────────────────────
-function renderTable() {
-  const tbody = document.getElementById('score-body');
-  tbody.innerHTML = '';
-  scoresData.players.forEach((p, pi) => {
-    const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
-    const rounds = p.scores.filter(v => v !== null).length;
-    const strokesTotal = p.scores.reduce((a, v, i) => v !== null ? a + (p.strokes[i] || 0) : a, 0);
-    const net = rounds > 0 ? gross - strokesTotal : null;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${p.name}<br><span class="hcp">HCP ${p.handicap}</span></td>
-      ${p.scores.map((s, ri) => `
-        <td style="text-align:center">
-          <input type="number" value="${s || ''}"
-            placeholder="—"
-            oninput="updateScore(${pi}, ${ri}, this.value)"
-          />
-        </td>`).join('')}
-      <td class="total-cell">${rounds > 0 ? gross : '—'}</td>
-      <td class="net-cell">${net !== null ? net : '—'}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function updateScore(playerIdx, roundIdx, val) {
-  scoresData.players[playerIdx].scores[roundIdx] = val === '' ? null : parseInt(val);
-  // Update totals live
-  const rows = document.getElementById('score-body').querySelectorAll('tr');
-  const p = scoresData.players[playerIdx];
-  const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
-  const rounds = p.scores.filter(v => v !== null).length;
-  const strokesTotal = p.scores.reduce((a, v, i) => v !== null ? a + (p.strokes[i] || 0) : a, 0);
-  const net = rounds > 0 ? gross - strokesTotal : null;
-  rows[playerIdx].querySelector('.total-cell').textContent = rounds > 0 ? gross : '—';
-  rows[playerIdx].querySelector('.net-cell').textContent = net !== null ? net : '—';
-}
-
-// ── SAVE SCORES ───────────────────────────────────────────────
-async function saveScores() {
-  const token = localStorage.getItem('ff_token');
-  if (!token) { setStatus('No GitHub token saved — enter it above first', 'err'); return; }
-  setStatus('Saving...', 'saving');
-  try {
-    // Always fetch fresh SHA before saving to avoid stale reference
-    if (!fileSha) {
-      const shaRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      if (shaRes.ok) {
-        const shaJson = await shaRes.json();
-        fileSha = shaJson.sha;
-      }
-    }
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(scoresData, null, 2))));
-    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${SCORES_FILE}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(Object.assign(
-        { message: 'Update scores', content: content },
-        fileSha ? { sha: fileSha } : {}
-      ))
-    });
-    if (res.ok) {
-      const json = await res.json();
-      fileSha = json.content.sha;
-      setStatus('✓ Scores saved! Site will update in ~30 seconds', 'ok');
-    } else {
-      const err = await res.json();
-      setStatus(`✗ Save failed (HTTP ${res.status}): ${err.message || 'unknown error'}`, 'err');
-    }
-  } catch(e) {
-    setStatus('✗ Error: ' + e.message, 'err');
-  }
-}
-
-function setStatus(msg, cls) {
-  const el = document.getElementById('save-status');
-  el.textContent = msg;
-  el.className = cls;
-}
-
-// ── PAIRINGS ──────────────────────────────────────────────────
-const PAIRINGS_FILE = 'pairings.json';
-let pairingsData = null;
-let pairingsSha = null;
-let activeRound = 0;
-
-const ALL_PLAYERS = [
-  'Rob Leverone','Mikey Connell','Joseph Lowry','Garrett Wardell',
-  'Russell Cobble','Justin Roy','Steve Williams','Micah Smoak',
-  'Nick Demarchi','John Beauregard','Derek Beauregard','Ryan Beauregard',
-  'Nick Brabant','Court Russo'
-];
-
-async function loadPairings() {
-  const token = localStorage.getItem('ff_token');
-  setPairStatus('Loading...', 'saving');
-
-  // Try GitHub API first (gives us SHA for saves)
-  if (token) {
-    try {
-      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
-        headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
-      });
-      if (res.ok) {
-        const json = await res.json();
-        pairingsSha = json.sha;
-        pairingsData = JSON.parse(atob(json.content.replace(/\s/g,'')));
-        setPairStatus('✓ Pairings loaded', 'ok');
-        renderPairings();
-        return;
-      }
-    } catch(e) { /* fall through to raw URL */ }
-  }
-
-  // Fallback: raw public URL
-  try {
-    const raw = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${PAIRINGS_FILE}?_=${Date.now()}`);
+    var raw = await fetch('https://raw.githubusercontent.com/' + REPO_OWNER + '/' + REPO_NAME + '/main/' + PAIRINGS_FILE + '?_=' + Date.now());
     if (raw.ok) {
       pairingsData = await raw.json();
-      pairingsSha = null;
+      pairingsSha  = null;
       setPairStatus('✓ Pairings loaded', 'ok');
     } else {
       pairingsData = { rounds: [
-        { round:1, course:'True Blue', date:'Friday, July 11', groups:[] },
-        { round:2, course:'Caledonia', date:'Friday, July 11', groups:[] },
-        { round:3, course:'Pawleys Plantation', date:'Saturday, July 12', groups:[] },
-        { round:4, course:'TPC Myrtle Beach', date:'Sunday, July 13', groups:[] }
+        { round:1, course:'True Blue',          date:'Friday, July 11',   groups:[] },
+        { round:2, course:'Caledonia',           date:'Friday, July 11',   groups:[] },
+        { round:3, course:'Pawleys Plantation',  date:'Saturday, July 12', groups:[] },
+        { round:4, course:'TPC Myrtle Beach',    date:'Sunday, July 13',   groups:[] }
       ]};
       setPairStatus('Using blank pairings', 'err');
     }
@@ -559,35 +319,41 @@ async function loadPairings() {
 
 function switchRound(idx) {
   activeRound = idx;
-  document.querySelectorAll('.round-tab').forEach((t,i) => t.classList.toggle('active', i === idx));
+  document.querySelectorAll('.round-tab').forEach(function(t, i){ t.classList.toggle('active', i === idx); });
   renderPairings();
 }
 
 function renderPairings() {
-  try {
-  if (!pairingsData) return;
-  const round = pairingsData.rounds[activeRound];
-  const assigned = [];
-  round.groups.forEach(function(g) { g.players.forEach(function(p) { assigned.push(p); }); });
-  const unassigned = ALL_PLAYERS.filter(function(p) { return assigned.indexOf(p) === -1; });
+  var builder = document.getElementById('pairings-builder');
+  if (!builder) return;
+  if (!pairingsData) { builder.innerHTML = ''; return; }
 
-  var html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">';
+  var round    = pairingsData.rounds[activeRound];
+  var assigned = [];
   for (var gi = 0; gi < round.groups.length; gi++) {
-    var g = round.groups[gi];
-    html += '<div style="background:rgba(0,0,0,0.2);border:1px solid rgba(201,168,76,0.15);padding:14px;">';
-    html += '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Group ' + (gi+1) + '</div>';
-    html += '<input placeholder="Tee Time (e.g. 8:06 AM)" value="' + (g.teeTime||'') + '" oninput="pairingsData.rounds[' + activeRound + '].groups[' + gi + '].teeTime=this.value" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:7px 10px;font-size:13px;margin-bottom:10px;"/>';
-    for (var pi = 0; pi < g.players.length; pi++) {
+    for (var pi = 0; pi < round.groups[gi].players.length; pi++) {
+      assigned.push(round.groups[gi].players[pi]);
+    }
+  }
+  var unassigned = ALL_PLAYERS.filter(function(p){ return assigned.indexOf(p) === -1; });
+
+  var html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:8px;">';
+  for (var g = 0; g < round.groups.length; g++) {
+    var grp = round.groups[g];
+    html += '<div style="background:rgba(0,0,0,0.25);border:1px solid rgba(201,168,76,0.2);padding:14px;">';
+    html += '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;">Group ' + (g+1) + '</div>';
+    html += '<input value="' + (grp.teeTime||'') + '" placeholder="Tee time (e.g. 8:06 AM)" oninput="pairingsData.rounds[' + activeRound + '].groups[' + g + '].teeTime=this.value" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:7px 10px;font-size:13px;margin-bottom:8px;outline:none;"/>';
+    for (var pp = 0; pp < grp.players.length; pp++) {
       html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:#f5f0e8;">';
-      html += '<span>' + g.players[pi] + '</span>';
-      html += '<button onclick="removeFromGroup(' + gi + ',\'' + g.players[pi] + '\')" style="background:none;border:none;color:rgba(201,168,76,0.5);cursor:pointer;font-size:16px;padding:0 4px;">×</button>';
+      html += '<span>' + grp.players[pp] + '</span>';
+      html += '<button onclick="removeFromGroup(' + g + ',\'' + grp.players[pp] + '\')" style="background:none;border:none;color:rgba(201,168,76,0.5);cursor:pointer;font-size:18px;line-height:1;padding:0 2px;">×</button>';
       html += '</div>';
     }
     if (unassigned.length > 0) {
-      html += '<select onchange="addToGroup(' + gi + ',this)" style="margin-top:8px;width:100%;background:#1a3a2a;border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:6px;font-size:12px;">';
+      html += '<select onchange="addToGroup(' + g + ',this)" style="margin-top:8px;width:100%;background:#1a3a2a;border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:6px;font-size:12px;">';
       html += '<option value="">+ Add player</option>';
-      for (var ui = 0; ui < unassigned.length; ui++) {
-        html += '<option value="' + unassigned[ui] + '">' + unassigned[ui] + '</option>';
+      for (var u = 0; u < unassigned.length; u++) {
+        html += '<option value="' + unassigned[u] + '">' + unassigned[u] + '</option>';
       }
       html += '</select>';
     }
@@ -596,85 +362,78 @@ function renderPairings() {
   html += '</div>';
 
   if (round.groups.length < 5) {
-    html += '<button onclick="addGroup()" style="background:transparent;border:1px dashed rgba(201,168,76,0.4);color:#c9a84c;padding:10px;width:100%;cursor:pointer;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:8px;">+ Add Group</button>';
+    html += '<button onclick="addGroup()" style="background:transparent;border:1px dashed rgba(201,168,76,0.4);color:#c9a84c;padding:10px;width:100%;cursor:pointer;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">+ Add Group</button>';
   }
 
   if (unassigned.length > 0) {
-    html += '<div style="margin-top:16px;"><div style="font-size:10px;letter-spacing:2px;color:rgba(245,240,232,0.5);text-transform:uppercase;margin-bottom:8px;">Unassigned Players</div><div style="display:flex;flex-wrap:wrap;gap:6px;">';
-    for (var ui2 = 0; ui2 < unassigned.length; ui2++) {
-      html += '<span onclick="promptAddToGroup(\'' + unassigned[ui2] + '\')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#f5f0e8;padding:5px 12px;font-size:12px;cursor:pointer;">' + unassigned[ui2] + '</span>';
+    html += '<div style="margin-top:12px;">';
+    html += '<div style="font-size:10px;letter-spacing:2px;color:rgba(245,240,232,0.5);text-transform:uppercase;margin-bottom:8px;">Unassigned Players</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    for (var uu = 0; uu < unassigned.length; uu++) {
+      html += '<span onclick="promptAddToGroup(\'' + unassigned[uu] + '\')" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#f5f0e8;padding:5px 12px;font-size:12px;cursor:pointer;letter-spacing:0.5px;">' + unassigned[uu] + '</span>';
     }
     html += '</div></div>';
   }
 
-  document.getElementById('pairings-builder').innerHTML = html;
-  } catch(e) {
-    var el = document.getElementById('pairings-builder');
-    if (el) el.innerHTML = '<p style="color:#e74c3c;font-size:12px;">Render error: ' + e.message + '</p>';
-  }
+  builder.innerHTML = html;
 }
 
 function addGroup() {
-  pairingsData.rounds[activeRound].groups.push({ teeTime: '', players: [] });
+  pairingsData.rounds[activeRound].groups.push({ teeTime:'', players:[] });
   renderPairings();
 }
-
 function addToGroup(gi, sel) {
-  const player = sel.value;
-  if (!player) return;
-  pairingsData.rounds[activeRound].groups[gi].players.push(player);
+  if (!sel.value) return;
+  pairingsData.rounds[activeRound].groups[gi].players.push(sel.value);
   renderPairings();
 }
-
-function promptAddToGroup(player) {
-  const round = pairingsData.rounds[activeRound];
-  if (round.groups.length === 0) { alert('Add a group first.'); return; }
-  if (round.groups.length === 1) { addToGroupByName(0, player); return; }
-  const choice = prompt(`Add ${player} to which group?\n${round.groups.map((g,i) => `${i+1}: ${g.teeTime||'Group '+(i+1)}`).join('\n')}\nEnter group number:`);
-  const idx = parseInt(choice) - 1;
-  if (!isNaN(idx) && idx >= 0 && idx < round.groups.length) addToGroupByName(idx, player);
-}
-
-function addToGroupByName(gi, player) {
-  pairingsData.rounds[activeRound].groups[gi].players.push(player);
-  renderPairings();
-}
-
 function removeFromGroup(gi, player) {
-  const g = pairingsData.rounds[activeRound].groups[gi];
-  g.players = g.players.filter(p => p !== player);
+  var g = pairingsData.rounds[activeRound].groups[gi];
+  g.players = g.players.filter(function(p){ return p !== player; });
   renderPairings();
+}
+function promptAddToGroup(player) {
+  var round = pairingsData.rounds[activeRound];
+  if (round.groups.length === 0) { alert('Add a group first.'); return; }
+  if (round.groups.length === 1) { pairingsData.rounds[activeRound].groups[0].players.push(player); renderPairings(); return; }
+  var choice = prompt('Add ' + player + ' to which group?\n' + round.groups.map(function(g,i){ return (i+1) + ': ' + (g.teeTime||'Group '+(i+1)); }).join('\n') + '\nEnter group number:');
+  var idx = parseInt(choice) - 1;
+  if (!isNaN(idx) && idx >= 0 && idx < round.groups.length) {
+    pairingsData.rounds[activeRound].groups[idx].players.push(player);
+    renderPairings();
+  }
 }
 
 async function savePairings() {
-  const token = localStorage.getItem('ff_token');
-  if (!token) { setPairStatus('No token saved', 'err'); return; }
+  var token = localStorage.getItem('ff_token');
+  if (!token) { setPairStatus('No GitHub token', 'err'); return; }
   setPairStatus('Saving...', 'saving');
   try {
     if (!pairingsSha) {
-      const shaRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
-        headers: { 'Authorization': `token ${token}` }
-      });
-      if (shaRes.ok) { const j = await shaRes.json(); pairingsSha = j.sha; }
+      var shaRes = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + PAIRINGS_FILE, { headers: { 'Authorization': 'token ' + token } });
+      if (shaRes.ok) { var sj = await shaRes.json(); pairingsSha = sj.sha; }
     }
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(pairingsData, null, 2))));
-    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(pairingsData, null, 2))));
+    var body    = { message: 'Update pairings', content: content };
+    if (pairingsSha) body.sha = pairingsSha;
+    var res = await fetch('https://api.github.com/repos/' + REPO_OWNER + '/' + REPO_NAME + '/contents/' + PAIRINGS_FILE, {
       method: 'PUT',
-      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.assign({ message: 'Update pairings', content }, pairingsSha ? { sha: pairingsSha } : {}))
+      headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     });
     if (res.ok) {
-      const j = await res.json(); pairingsSha = j.content.sha;
-      setPairStatus('✓ Pairings saved! Site will update in ~30 seconds', 'ok');
+      var j = await res.json();
+      pairingsSha = j.content.sha;
+      setPairStatus('✓ Pairings saved! Site updates in ~30s', 'ok');
     } else {
-      const err = await res.json();
-      setPairStatus(`✗ Save failed (${res.status}): ${err.message}`, 'err');
+      var err = await res.json();
+      setPairStatus('✗ Save failed: ' + (err.message || res.status), 'err');
     }
   } catch(e) { setPairStatus('✗ Error: ' + e.message, 'err'); }
 }
 
 function setPairStatus(msg, cls) {
-  const el = document.getElementById('pairings-status');
+  var el = document.getElementById('pairings-status');
   el.textContent = msg; el.className = cls;
 }
 </script>
