@@ -8,6 +8,18 @@
         {
           "teeTime": "",
           "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
         }
       ]
     },
@@ -24,6 +36,18 @@
             "Joseph Lowry",
             "Garrett Wardell"
           ]
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
         }
       ]
     },
@@ -31,13 +55,47 @@
       "round": 3,
       "course": "Pawleys Plantation",
       "date": "Saturday, July 12",
-      "groups": []
+      "groups": [
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        }
+      ]
     },
     {
       "round": 4,
       "course": "TPC Myrtle Beach",
       "date": "Sunday, July 13",
-      "groups": []
+      "groups": [
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        },
+        {
+          "teeTime": "",
+          "players": []
+        }
+      ]
     }
   ]
 }
