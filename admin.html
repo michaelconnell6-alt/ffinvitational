@@ -199,7 +199,7 @@
         <button class="round-tab" onclick="switchRound(2)">R3 · Pawleys</button>
         <button class="round-tab" onclick="switchRound(3)">R4 · TPC</button>
       </div>
-      <div id="pairings-builder"><p style="color:red;font-size:14px;">BUILDER PLACEHOLDER</p></div>
+      <div id="pairings-builder"></div>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
         <button class="btn secondary" style="width:auto;max-width:none;" onclick="loadPairings()">Refresh Pairings</button>
         <button class="btn" style="width:auto;max-width:none;" onclick="savePairings()">Save Pairings to Site</button>
@@ -571,41 +571,40 @@ function renderPairings() {
   round.groups.forEach(function(g) { g.players.forEach(function(p) { assigned.push(p); }); });
   const unassigned = ALL_PLAYERS.filter(function(p) { return assigned.indexOf(p) === -1; });
 
-  let html = `<div class="groups-grid">`;
-  round.groups.forEach((g, gi) => {
-    html += `
-      <div class="group-card">
-        <div class="group-card-header">Group ${gi + 1}</div>
-        <input class="group-tee-input" placeholder="Tee Time (e.g. 8:06 AM)"
-          value="${g.teeTime || ''}"
-          oninput="pairingsData.rounds[${activeRound}].groups[${gi}].teeTime = this.value"/>
-        <div class="group-players" id="group-players-${gi}">
-          ${g.players.map(p => `
-            <div class="group-player-row">
-              <span>${p}</span>
-              <button class="remove-player" onclick="removeFromGroup(${gi},'${p}')">×</button>
-            </div>`).join('')}
-        </div>
-        ${unassigned.length > 0 ? `
-        <select onchange="addToGroup(${gi}, this)" style="margin-top:8px;width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:6px;font-family:'Oswald',sans-serif;font-size:12px;">
-          <option value="">+ Add player</option>
-          ${unassigned.map(p => `<option value="${p}">${p}</option>`).join('')}
-        </select>` : ''}
-      </div>`;
-  });
-  html += `</div>`;
+  var html = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">';
+  for (var gi = 0; gi < round.groups.length; gi++) {
+    var g = round.groups[gi];
+    html += '<div style="background:rgba(0,0,0,0.2);border:1px solid rgba(201,168,76,0.15);padding:14px;">';
+    html += '<div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c9a84c;margin-bottom:10px;">Group ' + (gi+1) + '</div>';
+    html += '<input placeholder="Tee Time (e.g. 8:06 AM)" value="' + (g.teeTime||'') + '" oninput="pairingsData.rounds[' + activeRound + '].groups[' + gi + '].teeTime=this.value" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:7px 10px;font-size:13px;margin-bottom:10px;"/>';
+    for (var pi = 0; pi < g.players.length; pi++) {
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:#f5f0e8;">';
+      html += '<span>' + g.players[pi] + '</span>';
+      html += '<button onclick="removeFromGroup(' + gi + ',\'' + g.players[pi] + '\')" style="background:none;border:none;color:rgba(201,168,76,0.5);cursor:pointer;font-size:16px;padding:0 4px;">×</button>';
+      html += '</div>';
+    }
+    if (unassigned.length > 0) {
+      html += '<select onchange="addToGroup(' + gi + ',this)" style="margin-top:8px;width:100%;background:#1a3a2a;border:1px solid rgba(201,168,76,0.3);color:#f5f0e8;padding:6px;font-size:12px;">';
+      html += '<option value="">+ Add player</option>';
+      for (var ui = 0; ui < unassigned.length; ui++) {
+        html += '<option value="' + unassigned[ui] + '">' + unassigned[ui] + '</option>';
+      }
+      html += '</select>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
 
   if (round.groups.length < 5) {
-    html += `<button class="add-group-btn" onclick="addGroup()">+ Add Group</button>`;
+    html += '<button onclick="addGroup()" style="background:transparent;border:1px dashed rgba(201,168,76,0.4);color:#c9a84c;padding:10px;width:100%;cursor:pointer;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:8px;">+ Add Group</button>';
   }
 
   if (unassigned.length > 0) {
-    html += `<div style="margin-top:16px;">
-      <div class="player-pool-label">Unassigned Players</div>
-      <div class="player-pool">${unassigned.map(p =>
-        `<span class="pool-player" onclick="promptAddToGroup('${p}')">${p}</span>`
-      ).join('')}</div>
-    </div>`;
+    html += '<div style="margin-top:16px;"><div style="font-size:10px;letter-spacing:2px;color:rgba(245,240,232,0.5);text-transform:uppercase;margin-bottom:8px;">Unassigned Players</div><div style="display:flex;flex-wrap:wrap;gap:6px;">';
+    for (var ui2 = 0; ui2 < unassigned.length; ui2++) {
+      html += '<span onclick="promptAddToGroup(\'' + unassigned[ui2] + '\')" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#f5f0e8;padding:5px 12px;font-size:12px;cursor:pointer;">' + unassigned[ui2] + '</span>';
+    }
+    html += '</div></div>';
   }
 
   document.getElementById('pairings-builder').innerHTML = html;
