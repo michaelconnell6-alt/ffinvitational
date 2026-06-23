@@ -145,7 +145,7 @@ async function loadWeather() {
   try {
     const url = 'https://api.open-meteo.com/v1/forecast' +
       '?latitude=33.91&longitude=-79.12' +
-      '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode' +
+      '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code' +
       '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York&forecast_days=16';
     const res = await fetch(url);
     const data = await res.json();
@@ -161,7 +161,7 @@ async function loadWeather() {
           <div class="wx-temp">—</div>
           <div class="wx-cond">Not yet available</div>
         </div>`;
-      const [icon, desc] = weatherDesc(data.daily.weathercode[idx]);
+      const [icon, desc] = weatherDesc(data.daily.weather_code[idx]);
       const hi = Math.round(data.daily.temperature_2m_max[idx]);
       const lo = Math.round(data.daily.temperature_2m_min[idx]);
       const pop = data.daily.precipitation_probability_max[idx];
