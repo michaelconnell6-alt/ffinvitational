@@ -219,6 +219,24 @@
       <div id="pairings-status" style="font-size:12px;letter-spacing:1px;margin-top:8px;"></div>
     </div>
 
+    <!-- IMAGE UPLOAD -->
+    <div class="section-label" style="margin-top:40px;">Upload Image to Site</div>
+    <div style="background:rgba(0,0,0,0.2);border:1px solid rgba(201,168,76,0.15);padding:20px;">
+      <p style="font-size:12px;color:rgba(245,240,232,0.6);margin-bottom:14px;letter-spacing:0.5px;">Upload images directly to the GitHub repo (e.g. champion-steins.jpg, gallery photos).</p>
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:420px;">
+        <div>
+          <label style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;">Select Image File</label>
+          <input type="file" id="img-file-input" accept="image/*" style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:10px;width:100%;font-family:'Oswald',sans-serif;font-size:13px;"/>
+        </div>
+        <div>
+          <label style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px;">Save as filename (in images/ folder)</label>
+          <input type="text" id="img-filename" placeholder="champion-steins.jpg" style="background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:10px;width:100%;font-family:'Oswald',sans-serif;font-size:13px;outline:none;"/>
+        </div>
+        <button class="btn" style="width:auto;max-width:none;" onclick="uploadImage()">Upload Image to Site</button>
+        <div id="img-upload-status" style="font-size:12px;letter-spacing:1px;"></div>
+      </div>
+    </div>
+
     <!-- SCORE ENTRY -->
     <div class="section-label" style="margin-top:40px;">Round Scores (Gross)</div>
     <div class="table-wrapper">
@@ -275,6 +293,58 @@ function logout() {
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('admin-panel').style.display = 'none';
   document.getElementById('password-input').value = '';
+}
+
+// ── IMAGE UPLOAD ──────────────────────────────────────────────
+async function uploadImage() {
+  const status = document.getElementById('img-upload-status');
+  const fileInput = document.getElementById('img-file-input');
+  const filenameInput = document.getElementById('img-filename');
+  const token = localStorage.getItem('ff_token');
+
+  if (!token) { status.textContent = '✗ No GitHub token saved — add it in the Token section below'; status.style.color = '#e74c3c'; return; }
+  if (!fileInput.files.length) { status.textContent = '✗ Please select an image file'; status.style.color = '#e74c3c'; return; }
+
+  const file = fileInput.files[0];
+  const filename = filenameInput.value.trim() || file.name;
+  const path = `images/${filename}`;
+
+  status.textContent = 'Reading file...'; status.style.color = 'var(--gold)';
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    const base64 = e.target.result.split(',')[1];
+    status.textContent = 'Uploading...'; status.style.color = 'var(--gold)';
+    try {
+      // Check if file already exists (need SHA to overwrite)
+      let sha = null;
+      const check = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      if (check.ok) { const existing = await check.json(); sha = existing.sha; }
+
+      const body = { message: `Upload ${filename}`, content: base64 };
+      if (sha) body.sha = sha;
+
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${path}`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        status.textContent = `✓ ${filename} uploaded successfully`;
+        status.style.color = '#2ecc71';
+      } else {
+        const err = await res.json();
+        status.textContent = `✗ ${err.message || 'Upload failed'}`;
+        status.style.color = '#e74c3c';
+      }
+    } catch(err) {
+      status.textContent = '✗ Network error';
+      status.style.color = '#e74c3c';
+    }
+  };
+  reader.readAsDataURL(file);
 }
 
 // ── TOKEN ─────────────────────────────────────────────────────
