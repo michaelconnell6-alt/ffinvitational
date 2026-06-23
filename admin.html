@@ -289,7 +289,7 @@ async function loadPairings() {
         var json    = await res.json();
         pairingsSha = json.sha;
         pairingsData = JSON.parse(atob(json.content.replace(/\s/g, '')));
-        setPairStatus('✓ Pairings loaded', 'ok');
+        setPairStatus('✓ Pairings loaded (API)', 'ok');
         renderPairings();
         return;
       }
@@ -301,7 +301,7 @@ async function loadPairings() {
     if (raw.ok) {
       pairingsData = await raw.json();
       pairingsSha  = null;
-      setPairStatus('✓ Pairings loaded', 'ok');
+      setPairStatus('✓ Pairings loaded (raw)', 'ok');
     } else {
       pairingsData = { rounds: [
         { round:1, course:'True Blue',          date:'Friday, July 11',   groups:[] },
@@ -326,8 +326,8 @@ function switchRound(idx) {
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
   if (!builder) { alert('pairings-builder element not found!'); return; }
-  if (!pairingsData) { builder.innerHTML = '<p style="color:yellow;font-size:16px;">LOADED BUT NULL</p>'; return; }
-  builder.innerHTML = '<p style="color:yellow;font-size:16px;">DATA OK - ' + pairingsData.rounds.length + ' rounds</p>';
+  if (!pairingsData) { builder.innerHTML = '<p style="color:yellow;font-size:16px;">NULL (called from: ' + (new Error().stack||'unknown') + ')</p>'; return; }
+  builder.innerHTML = '<p style="color:lime;font-size:16px;">DATA OK - ' + pairingsData.rounds.length + ' rounds, ' + JSON.stringify(pairingsData.rounds[0]) + '</p>';
 
   var round    = pairingsData.rounds[activeRound];
   var assigned = [];
