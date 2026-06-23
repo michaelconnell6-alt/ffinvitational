@@ -564,10 +564,12 @@ function switchRound(idx) {
 }
 
 function renderPairings() {
+  try {
   if (!pairingsData) return;
   const round = pairingsData.rounds[activeRound];
-  const assigned = [].concat(...round.groups.map(g => g.players));
-  const unassigned = ALL_PLAYERS.filter(p => !assigned.includes(p));
+  const assigned = [];
+  round.groups.forEach(function(g) { g.players.forEach(function(p) { assigned.push(p); }); });
+  const unassigned = ALL_PLAYERS.filter(function(p) { return assigned.indexOf(p) === -1; });
 
   let html = `<div class="groups-grid">`;
   round.groups.forEach((g, gi) => {
@@ -607,6 +609,10 @@ function renderPairings() {
   }
 
   document.getElementById('pairings-builder').innerHTML = html;
+  } catch(e) {
+    var el = document.getElementById('pairings-builder');
+    if (el) el.innerHTML = '<p style="color:#e74c3c;font-size:12px;">Render error: ' + e.message + '</p>';
+  }
 }
 
 function addGroup() {
