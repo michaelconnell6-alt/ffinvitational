@@ -119,3 +119,58 @@ function renderLeaderboard(data) {
 }
 
 loadLeaderboard();
+
+// ── TEE TIMES ─────────────────────────────────────────────────
+async function loadTeetimes() {
+  try {
+    const res = await fetch('pairings.json?t=' + Date.now());
+    const data = await res.json();
+    renderTeetimes(data);
+  } catch(e) {}
+}
+
+let ttActiveRound = 0;
+let ttData = null;
+
+function renderTeetimes(data) {
+  ttData = data;
+  const hasAny = data.rounds.some(r => r.groups && r.groups.length > 0);
+  if (!hasAny) return;
+
+  const tabsEl = document.getElementById('tt-tabs');
+  const bodyEl = document.getElementById('teetimes-body');
+  if (!tabsEl || !bodyEl) return;
+
+  tabsEl.innerHTML = data.rounds.map((r, i) =>
+    `<button class="tt-tab ${i === 0 ? 'active' : ''}" onclick="showTtRound(${i})">
+      R${r.round} · ${r.course}
+    </button>`
+  ).join('');
+
+  showTtRound(0);
+}
+
+function showTtRound(idx) {
+  ttActiveRound = idx;
+  document.querySelectorAll('.tt-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  const round = ttData.rounds[idx];
+  const bodyEl = document.getElementById('teetimes-body');
+
+  if (!round.groups || round.groups.length === 0) {
+    bodyEl.innerHTML = `<p style="text-align:center;font-style:italic;color:#888;font-family:'EB Garamond',serif;">Pairings not yet set for this round.</p>`;
+    return;
+  }
+
+  bodyEl.innerHTML = `
+    <p class="tt-date">${round.date} · ${round.course}</p>
+    <div class="tt-groups">
+      ${round.groups.map((g, gi) => `
+        <div class="tt-group">
+          <div class="tt-group-header">Group ${gi + 1}${g.teeTime ? ' · ' + g.teeTime : ''}</div>
+          ${g.players.map(p => `<div class="tt-player">${p}</div>`).join('')}
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+loadTeetimes();

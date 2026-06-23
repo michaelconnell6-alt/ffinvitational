@@ -109,6 +109,58 @@
 
   .table-wrapper { overflow-x: auto; }
 
+  /* PAIRINGS */
+  .round-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .round-tab {
+    background: transparent; border: 1px solid rgba(201,168,76,0.3);
+    color: rgba(245,240,232,0.6); padding: 7px 14px;
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 1px;
+    text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+  }
+  .round-tab.active { background: var(--gold); color: var(--green); border-color: var(--gold); }
+  .round-tab:hover:not(.active) { border-color: var(--gold); color: var(--cream); }
+
+  .groups-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .group-card {
+    background: rgba(0,0,0,0.2); border: 1px solid rgba(201,168,76,0.15); padding: 14px;
+  }
+  .group-card-header {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .group-tee-input {
+    width: 100%; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3); color: var(--cream);
+    padding: 7px 10px; font-family: 'Oswald', sans-serif; font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .player-pool-label { font-size: 10px; letter-spacing: 2px; color: rgba(245,240,232,0.5); text-transform: uppercase; margin-bottom: 8px; }
+  .group-players { min-height: 60px; }
+  .group-player-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;
+  }
+  .remove-player { background: none; border: none; color: rgba(201,168,76,0.5); cursor: pointer; font-size: 16px; padding: 0 4px; }
+  .remove-player:hover { color: #e74c3c; }
+  .player-pool { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .pool-player {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream); padding: 5px 12px; font-family: 'Oswald', sans-serif;
+    font-size: 12px; cursor: pointer; transition: all 0.15s;
+  }
+  .pool-player:hover { background: var(--gold); color: var(--green); border-color: var(--gold); }
+  .add-group-btn {
+    background: transparent; border: 1px dashed rgba(201,168,76,0.3);
+    color: rgba(201,168,76,0.6); padding: 10px; width: 100%; cursor: pointer;
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; margin-top: 4px; transition: all 0.2s;
+  }
+  .add-group-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  #pairings-status.ok { color: #2ecc71; }
+  #pairings-status.err { color: #e74c3c; }
+  #pairings-status.saving { color: var(--gold); }
+
   @media (max-width: 600px) {
     .score-table input[type="number"] { width: 48px; font-size: 13px; }
     .score-table th, .score-table td { padding: 8px 4px; }
@@ -150,8 +202,25 @@
       <div id="token-status"></div>
     </div>
 
+    <!-- PAIRINGS -->
+    <div class="section-label">Tee Time Pairings</div>
+    <div id="pairings-panel">
+      <div class="round-tabs">
+        <button class="round-tab active" onclick="switchRound(0)">R1 · True Blue</button>
+        <button class="round-tab" onclick="switchRound(1)">R2 · Caledonia</button>
+        <button class="round-tab" onclick="switchRound(2)">R3 · Pawleys</button>
+        <button class="round-tab" onclick="switchRound(3)">R4 · TPC</button>
+      </div>
+      <div id="pairings-builder"></div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+        <button class="btn secondary" style="width:auto;max-width:none;" onclick="loadPairings()">Refresh Pairings</button>
+        <button class="btn" style="width:auto;max-width:none;" onclick="savePairings()">Save Pairings to Site</button>
+      </div>
+      <div id="pairings-status" style="font-size:12px;letter-spacing:1px;margin-top:8px;"></div>
+    </div>
+
     <!-- SCORE ENTRY -->
-    <div class="section-label">Round Scores (Gross)</div>
+    <div class="section-label" style="margin-top:40px;">Round Scores (Gross)</div>
     <div class="table-wrapper">
       <table class="score-table" id="score-table">
         <thead>
@@ -179,7 +248,7 @@
 </div>
 
 <script>
-const ADMIN_PASSWORD = 'ff2026';
+const ADMIN_PASSWORD = 'forefathers2026';
 const REPO_OWNER = 'michaelconnell6-alt';
 const REPO_NAME = 'ffinvitational';
 const SCORES_FILE = 'scores.json';
@@ -196,6 +265,7 @@ function login() {
     document.getElementById('admin-panel').style.display = 'block';
     loadTokenUI();
     loadScores();
+    loadPairings();
   } else {
     document.getElementById('login-error').style.display = 'block';
   }
@@ -390,6 +460,173 @@ function setStatus(msg, cls) {
   const el = document.getElementById('save-status');
   el.textContent = msg;
   el.className = cls;
+}
+
+// ── PAIRINGS ──────────────────────────────────────────────────
+const PAIRINGS_FILE = 'pairings.json';
+let pairingsData = null;
+let pairingsSha = null;
+let activeRound = 0;
+
+const ALL_PLAYERS = [
+  'Rob Leverone','Mikey Connell','Joseph Lowry','Garrett Wardell',
+  'Russell Cobble','Justin Roy','Steve Williams','Micah Smoak',
+  'Nick Demarchi','John Beauregard','Derek Beauregard','Ryan Beauregard',
+  'Nick Brabant','Court Russo'
+];
+
+async function loadPairings() {
+  const token = localStorage.getItem('ff_token');
+  setPairStatus('Loading...', 'saving');
+  try {
+    if (token) {
+      const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
+        headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+      });
+      if (res.ok) {
+        const json = await res.json();
+        pairingsSha = json.sha;
+        pairingsData = JSON.parse(atob(json.content.replace(/\n/g,'')));
+        setPairStatus('✓ Pairings loaded', 'ok');
+        renderPairings();
+        return;
+      }
+    }
+    // Fallback: raw URL
+    const raw = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${PAIRINGS_FILE}?_=${Date.now()}`);
+    if (raw.ok) {
+      pairingsData = await raw.json();
+      pairingsSha = null;
+      setPairStatus('✓ Pairings loaded', 'ok');
+    } else {
+      pairingsData = { rounds: [
+        { round:1, course:'True Blue', date:'Friday, July 11', groups:[] },
+        { round:2, course:'Caledonia', date:'Friday, July 11', groups:[] },
+        { round:3, course:'Pawleys Plantation', date:'Saturday, July 12', groups:[] },
+        { round:4, course:'TPC Myrtle Beach', date:'Sunday, July 13', groups:[] }
+      ]};
+      setPairStatus('Using blank pairings', 'err');
+    }
+    renderPairings();
+  } catch(e) {
+    setPairStatus('Could not load pairings', 'err');
+  }
+}
+
+function switchRound(idx) {
+  activeRound = idx;
+  document.querySelectorAll('.round-tab').forEach((t,i) => t.classList.toggle('active', i === idx));
+  renderPairings();
+}
+
+function renderPairings() {
+  if (!pairingsData) return;
+  const round = pairingsData.rounds[activeRound];
+  const assigned = round.groups.flatMap(g => g.players);
+  const unassigned = ALL_PLAYERS.filter(p => !assigned.includes(p));
+
+  let html = `<div class="groups-grid">`;
+  round.groups.forEach((g, gi) => {
+    html += `
+      <div class="group-card">
+        <div class="group-card-header">Group ${gi + 1}</div>
+        <input class="group-tee-input" placeholder="Tee Time (e.g. 8:06 AM)"
+          value="${g.teeTime || ''}"
+          oninput="pairingsData.rounds[${activeRound}].groups[${gi}].teeTime = this.value"/>
+        <div class="group-players" id="group-players-${gi}">
+          ${g.players.map(p => `
+            <div class="group-player-row">
+              <span>${p}</span>
+              <button class="remove-player" onclick="removeFromGroup(${gi},'${p}')">×</button>
+            </div>`).join('')}
+        </div>
+        ${unassigned.length > 0 ? `
+        <select onchange="addToGroup(${gi}, this)" style="margin-top:8px;width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(201,168,76,0.3);color:var(--cream);padding:6px;font-family:'Oswald',sans-serif;font-size:12px;">
+          <option value="">+ Add player</option>
+          ${unassigned.map(p => `<option value="${p}">${p}</option>`).join('')}
+        </select>` : ''}
+      </div>`;
+  });
+  html += `</div>`;
+
+  if (round.groups.length < 5) {
+    html += `<button class="add-group-btn" onclick="addGroup()">+ Add Group</button>`;
+  }
+
+  if (unassigned.length > 0) {
+    html += `<div style="margin-top:16px;">
+      <div class="player-pool-label">Unassigned Players</div>
+      <div class="player-pool">${unassigned.map(p =>
+        `<span class="pool-player" onclick="promptAddToGroup('${p}')">${p}</span>`
+      ).join('')}</div>
+    </div>`;
+  }
+
+  document.getElementById('pairings-builder').innerHTML = html;
+}
+
+function addGroup() {
+  pairingsData.rounds[activeRound].groups.push({ teeTime: '', players: [] });
+  renderPairings();
+}
+
+function addToGroup(gi, sel) {
+  const player = sel.value;
+  if (!player) return;
+  pairingsData.rounds[activeRound].groups[gi].players.push(player);
+  renderPairings();
+}
+
+function promptAddToGroup(player) {
+  const round = pairingsData.rounds[activeRound];
+  if (round.groups.length === 0) { alert('Add a group first.'); return; }
+  if (round.groups.length === 1) { addToGroupByName(0, player); return; }
+  const choice = prompt(`Add ${player} to which group?\n${round.groups.map((g,i) => `${i+1}: ${g.teeTime||'Group '+(i+1)}`).join('\n')}\nEnter group number:`);
+  const idx = parseInt(choice) - 1;
+  if (!isNaN(idx) && idx >= 0 && idx < round.groups.length) addToGroupByName(idx, player);
+}
+
+function addToGroupByName(gi, player) {
+  pairingsData.rounds[activeRound].groups[gi].players.push(player);
+  renderPairings();
+}
+
+function removeFromGroup(gi, player) {
+  const g = pairingsData.rounds[activeRound].groups[gi];
+  g.players = g.players.filter(p => p !== player);
+  renderPairings();
+}
+
+async function savePairings() {
+  const token = localStorage.getItem('ff_token');
+  if (!token) { setPairStatus('No token saved', 'err'); return; }
+  setPairStatus('Saving...', 'saving');
+  try {
+    if (!pairingsSha) {
+      const shaRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
+        headers: { 'Authorization': `token ${token}` }
+      });
+      if (shaRes.ok) { const j = await shaRes.json(); pairingsSha = j.sha; }
+    }
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(pairingsData, null, 2))));
+    const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ message: 'Update pairings', content }, pairingsSha ? { sha: pairingsSha } : {}))
+    });
+    if (res.ok) {
+      const j = await res.json(); pairingsSha = j.content.sha;
+      setPairStatus('✓ Pairings saved! Site will update in ~30 seconds', 'ok');
+    } else {
+      const err = await res.json();
+      setPairStatus(`✗ Save failed (${res.status}): ${err.message}`, 'err');
+    }
+  } catch(e) { setPairStatus('✗ Error: ' + e.message, 'err'); }
+}
+
+function setPairStatus(msg, cls) {
+  const el = document.getElementById('pairings-status');
+  el.textContent = msg; el.className = cls;
 }
 </script>
 </body>

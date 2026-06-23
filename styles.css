@@ -591,6 +591,38 @@
     color: var(--green-dark);
   }
 
+  /* ── TEE TIMES ── */
+  .teetimes-round-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .tt-tab {
+    background: transparent; border: 1px solid rgba(26,58,42,0.3);
+    color: var(--green-mid); padding: 8px 18px;
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+  }
+  .tt-tab.active { background: var(--green-dark); color: var(--gold); border-color: var(--green-dark); }
+  .tt-tab:hover:not(.active) { background: rgba(26,58,42,0.08); }
+  .tt-date {
+    text-align: center; font-family: 'EB Garamond', serif; font-style: italic;
+    color: #777; margin-bottom: 24px; font-size: 1rem;
+  }
+  .tt-groups {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;
+  }
+  .tt-group {
+    border: 1px solid #e0d8c8; background: #faf8f4;
+  }
+  .tt-group-header {
+    background: var(--green-dark); color: var(--gold);
+    font-family: 'Oswald', sans-serif; font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; padding: 10px 16px;
+  }
+  .tt-player {
+    padding: 9px 16px; border-bottom: 1px solid #ede7db;
+    font-family: 'Oswald', sans-serif; font-size: 0.95rem;
+    color: var(--green-dark); letter-spacing: 0.3px;
+  }
+  .tt-player:last-child { border-bottom: none; }
+
   /* ── PAST CHAMPIONS ── */
   .champions-list {
     max-width: 600px;
