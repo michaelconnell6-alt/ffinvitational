@@ -120,6 +120,68 @@ function renderLeaderboard(data) {
 
 loadLeaderboard();
 
+// ── WEATHER ───────────────────────────────────────────────────
+const TOURNAMENT_DATES = ['2026-07-10','2026-07-11','2026-07-12','2026-07-13'];
+const DAY_LABELS = ['Thu Jul 10','Fri Jul 11','Sat Jul 12','Sun Jul 13'];
+const DAY_NOTES  = ['Check-in','R1 + R2','R3','R4'];
+
+function weatherDesc(code) {
+  if (code === 0)                    return ['☀️','Clear'];
+  if (code <= 2)                     return ['🌤️','Partly Cloudy'];
+  if (code === 3)                    return ['☁️','Overcast'];
+  if (code <= 48)                    return ['🌫️','Fog'];
+  if (code <= 55)                    return ['🌦️','Drizzle'];
+  if (code <= 65)                    return ['🌧️','Rain'];
+  if (code <= 77)                    return ['❄️','Snow'];
+  if (code <= 82)                    return ['🌧️','Showers'];
+  if (code <= 86)                    return ['🌨️','Snow Showers'];
+  if (code <= 99)                    return ['⛈️','Storms'];
+  return ['🌡️','Unknown'];
+}
+
+async function loadWeather() {
+  const el = document.getElementById('weather-widget');
+  if (!el) return;
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast' +
+      '?latitude=33.91&longitude=-79.12' +
+      '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode' +
+      '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York&forecast_days=16';
+    const res = await fetch(url);
+    const data = await res.json();
+    const dates = data.daily.time;
+
+    const cards = TOURNAMENT_DATES.map((d, i) => {
+      const idx = dates.indexOf(d);
+      if (idx === -1) return `
+        <div class="wx-card">
+          <div class="wx-label">${DAY_LABELS[i]}</div>
+          <div class="wx-note">${DAY_NOTES[i]}</div>
+          <div class="wx-icon">📅</div>
+          <div class="wx-temp">—</div>
+          <div class="wx-cond">Not yet available</div>
+        </div>`;
+      const [icon, desc] = weatherDesc(data.daily.weathercode[idx]);
+      const hi = Math.round(data.daily.temperature_2m_max[idx]);
+      const lo = Math.round(data.daily.temperature_2m_min[idx]);
+      const pop = data.daily.precipitation_probability_max[idx];
+      return `
+        <div class="wx-card">
+          <div class="wx-label">${DAY_LABELS[i]}</div>
+          <div class="wx-note">${DAY_NOTES[i]}</div>
+          <div class="wx-icon">${icon}</div>
+          <div class="wx-temp">${hi}° <span class="wx-lo">/ ${lo}°</span></div>
+          <div class="wx-cond">${desc}</div>
+          <div class="wx-pop">💧 ${pop}%</div>
+        </div>`;
+    }).join('');
+    el.innerHTML = cards;
+  } catch(e) {
+    el.innerHTML = '<span style="font-family:Oswald,sans-serif;color:rgba(245,240,232,0.4);font-size:13px;">Could not load forecast</span>';
+  }
+}
+loadWeather();
+
 // ── TEE TIMES ─────────────────────────────────────────────────
 async function loadTeetimes() {
   try {

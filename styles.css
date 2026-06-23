@@ -591,6 +591,54 @@
     color: var(--green-dark);
   }
 
+  /* ── WEATHER ── */
+  .wx-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 130px;
+    flex: 1;
+    max-width: 160px;
+  }
+  .wx-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .wx-note {
+    font-family: 'EB Garamond', serif;
+    font-size: 11px;
+    color: rgba(245,240,232,0.4);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .wx-icon { font-size: 1.8rem; margin-bottom: 6px; }
+  .wx-temp {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    letter-spacing: 1px;
+  }
+  .wx-lo { font-size: 0.9rem; color: rgba(245,240,232,0.5); }
+  .wx-cond {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.7);
+    font-style: italic;
+    margin-top: 4px;
+  }
+  .wx-pop {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: rgba(245,240,232,0.4);
+    margin-top: 6px;
+  }
+
   /* ── TEE TIMES ── */
   .teetimes-round-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
   .tt-tab {
