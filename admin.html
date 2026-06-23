@@ -151,6 +151,7 @@ function login() {
   if (document.getElementById('password-input').value === ADMIN_PASSWORD) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('admin-panel').style.display  = 'block';
+    renderPairings();
     loadScores();
     loadPairings();
   } else {
@@ -332,7 +333,8 @@ function switchRound(idx) {
 
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
-  if (!builder || !pairingsData) return;
+  if (!builder || !pairingsData || !pairingsData.rounds) return;
+  try {
 
   var round    = pairingsData.rounds[activeRound];
   var assigned = [];
@@ -382,6 +384,7 @@ function renderPairings() {
   }
 
   builder.innerHTML = html;
+  } catch(e) { builder.innerHTML = '<p style="color:#e74c3c;font-size:13px;">Render error: ' + e.message + '</p>'; }
 }
 
 function addGroup() {
