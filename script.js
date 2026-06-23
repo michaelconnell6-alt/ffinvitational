@@ -54,7 +54,49 @@ function renderLeaderboard(data) {
 
   const pars = data.pars || [72, 70, 72, 72];
 
-  // Calculate totals
+  // Find last completed round (last round where any player has a score)
+  let lastRound = -1;
+  for (let r = 0; r < 4; r++) {
+    if (data.players.some(p => p.scores[r] !== null)) lastRound = r;
+  }
+
+  // Returns a name→position map for standings through a given round index
+  function standingsThru(thru) {
+    return data.players.map(p => {
+      const scores = p.scores.slice(0, thru + 1);
+      const played = scores.filter(s => s !== null).length;
+      if (played === 0) return { name: p.name, netVsPar: null };
+      const gross   = scores.reduce((a, v) => a + (v || 0), 0);
+      const strokes = scores.reduce((a, v, i) => v !== null ? a + ((p.strokes && p.strokes[i]) || 0) : a, 0);
+      const parTot  = pars.slice(0, thru + 1).reduce((a, v, i) => scores[i] !== null ? a + v : a, 0);
+      return { name: p.name, netVsPar: gross - strokes - parTot };
+    }).sort((a, b) => {
+      if (a.netVsPar === null && b.netVsPar === null) return 0;
+      if (a.netVsPar === null) return 1;
+      if (b.netVsPar === null) return -1;
+      return a.netVsPar - b.netVsPar;
+    }).reduce((map, p, i) => { map[p.name] = i + 1; return map; }, {});
+  }
+
+  const curMap  = lastRound >= 0 ? standingsThru(lastRound)     : {};
+  const prevMap = lastRound >  0 ? standingsThru(lastRound - 1) : {};
+
+  // Fire 🔥 = best net of last round, 💩 = worst net of last round
+  let fireName = null, poopName = null;
+  if (lastRound >= 0) {
+    const roundNets = data.players
+      .filter(p => p.scores[lastRound] !== null)
+      .map(p => ({ name: p.name, net: p.scores[lastRound] - ((p.strokes && p.strokes[lastRound]) || 0) }));
+    if (roundNets.length > 0) {
+      const best  = Math.min(...roundNets.map(p => p.net));
+      const worst = Math.max(...roundNets.map(p => p.net));
+      fireName = roundNets.find(p => p.net === best).name;
+      poopName = roundNets.find(p => p.net === worst).name;
+      if (fireName === poopName) poopName = null;
+    }
+  }
+
+  // Calculate overall totals for display
   const players = data.players.map(p => {
     const gross = p.scores.reduce((a, v) => a + (v || 0), 0);
     const strokesTotal = p.scores.reduce((a, v, i) => v !== null ? a + ((p.strokes && p.strokes[i]) || 0) : a, 0);
@@ -90,6 +132,21 @@ function renderLeaderboard(data) {
     const rowClass = isLeader ? 'lb-leader' : '';
     const posClass = isLeader ? 'pos-num gold' : 'pos-num';
 
+    // Movement arrow
+    let arrow = '', arrowStyle = '';
+    if (curMap[p.name] && prevMap[p.name]) {
+      const diff = prevMap[p.name] - curMap[p.name];
+      if (diff > 0)      { arrow = '↑'; arrowStyle = 'color:#2ecc71;font-weight:bold;'; }
+      else if (diff < 0) { arrow = '↓'; arrowStyle = 'color:#e74c3c;font-weight:bold;'; }
+      else               { arrow = '—'; arrowStyle = 'color:#555;'; }
+    } else if (lastRound >= 0 && curMap[p.name]) {
+      arrow = '—'; arrowStyle = 'color:#555;';
+    }
+    const arrowHtml = arrow ? `<span style="font-size:11px;margin-right:5px;${arrowStyle}">${arrow}</span>` : '';
+
+    // Fire / poop badge
+    const badge = p.name === fireName ? ' 🔥' : p.name === poopName ? ' 💩' : '';
+
     const roundCells = p.scores.map((s, ri) => {
       if (s === null) return `<td class="score-cell"><span class="score-dash">—</span></td>`;
       const roundNet = s - ((p.strokes && p.strokes[ri]) || 0);
@@ -110,7 +167,7 @@ function renderLeaderboard(data) {
     tbody.innerHTML += `
       <tr class="${rowClass}">
         <td><span class="${posClass}">${p.pos || (i + 1)}</span></td>
-        <td><span class="player-name-cell">${p.name}</span></td>
+        <td>${arrowHtml}<span class="player-name-cell">${p.name}${badge}</span></td>
         ${netCell}
         ${grossCell}
         ${roundCells}
