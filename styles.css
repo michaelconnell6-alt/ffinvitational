@@ -260,7 +260,7 @@
   /* ── COURSES ── */
   .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
   .course-img-wrap {
@@ -855,6 +855,7 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
+    .courses-grid { grid-template-columns: 1fr; }
     nav ul { flex-wrap: wrap; }
     nav ul li a { padding: 10px 12px; font-size: 11px; }
     .schedule-event { flex-direction: column; gap: 4px; }
