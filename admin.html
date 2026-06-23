@@ -517,8 +517,10 @@ const ALL_PLAYERS = [
 async function loadPairings() {
   const token = localStorage.getItem('ff_token');
   setPairStatus('Loading...', 'saving');
-  try {
-    if (token) {
+
+  // Try GitHub API first (gives us SHA for saves)
+  if (token) {
+    try {
       const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${PAIRINGS_FILE}`, {
         headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
       });
@@ -530,8 +532,11 @@ async function loadPairings() {
         renderPairings();
         return;
       }
-    }
-    // Fallback: raw URL
+    } catch(e) { /* fall through to raw URL */ }
+  }
+
+  // Fallback: raw public URL
+  try {
     const raw = await fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/${PAIRINGS_FILE}?_=${Date.now()}`);
     if (raw.ok) {
       pairingsData = await raw.json();
