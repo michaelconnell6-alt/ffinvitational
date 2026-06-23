@@ -135,9 +135,16 @@ const PAIRINGS_FILE = 'pairings.json';
 
 let scoresData   = null;
 let fileSha      = null;
-let pairingsData = null;
 let pairingsSha  = null;
 let activeRound  = 0;
+let pairingsData = {
+  rounds: [
+    { round:1, course:'True Blue',         date:'Friday, July 11',   groups:[] },
+    { round:2, course:'Caledonia',          date:'Friday, July 11',   groups:[] },
+    { round:3, course:'Pawleys Plantation', date:'Saturday, July 12', groups:[] },
+    { round:4, course:'TPC Myrtle Beach',   date:'Sunday, July 13',   groups:[] }
+  ]
+};
 
 // ── AUTH ──────────────────────────────────────────────────────
 function login() {
@@ -325,9 +332,7 @@ function switchRound(idx) {
 
 function renderPairings() {
   var builder = document.getElementById('pairings-builder');
-  if (!builder) { alert('pairings-builder element not found!'); return; }
-  if (!pairingsData) { builder.innerHTML = '<p style="color:yellow;font-size:16px;">NULL (called from: ' + (new Error().stack||'unknown') + ')</p>'; return; }
-  builder.innerHTML = '<p style="color:lime;font-size:16px;">DATA OK - ' + pairingsData.rounds.length + ' rounds, ' + JSON.stringify(pairingsData.rounds[0]) + '</p>';
+  if (!builder || !pairingsData) return;
 
   var round    = pairingsData.rounds[activeRound];
   var assigned = [];
