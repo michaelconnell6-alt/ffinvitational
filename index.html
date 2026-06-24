@@ -11,8 +11,104 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<style>
+  #intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: radial-gradient(ellipse at center, #0d2818 0%, #060f0a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: opacity 1.2s ease;
+  }
+  #intro-overlay.fade-out { opacity: 0; pointer-events: none; }
+  #golf-scene {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+  #golf-scene.hide { opacity: 0; }
+  #intro-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  #intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.9s ease;
+  }
+  #intro-logo {
+    width: min(300px, 62vw);
+    opacity: 0;
+    transform: scale(0.94);
+    filter: brightness(0) invert(1) blur(14px);
+  }
+  @keyframes introLogo {
+    50%  { opacity: 1; filter: brightness(0) invert(1) blur(2px) drop-shadow(0 0 30px rgba(201,168,76,0.5)); transform: scale(1.01); }
+    100% { opacity: 1; filter: brightness(0) invert(1) blur(0px) drop-shadow(0 0 18px rgba(201,168,76,0.2)); transform: scale(1); }
+  }
+  #intro-rule {
+    height: 1px;
+    width: 0;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    margin: 28px 0 24px;
+  }
+  @keyframes introRule { to { width: min(280px, 60vw); } }
+  #intro-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-top: 12px;
+    opacity: 0;
+  }
+  @keyframes introFade { to { opacity: 1; } }
+  #intro-skip {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.25);
+    color: rgba(245,240,232,0.35);
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    animation: introFade 0.6s ease forwards 0.8s;
+  }
+  #intro-skip:hover { color: #c9a84c; border-color: rgba(201,168,76,0.6); }
+</style>
 </head>
 <body>
+
+<!-- CINEMATIC INTRO -->
+<div id="intro-overlay">
+  <canvas id="golf-scene"></canvas>
+  <canvas id="intro-particles"></canvas>
+  <div id="intro-content">
+    <img id="intro-logo" src="images/logo.png" alt="ForeFathers Invitational">
+    <div id="intro-rule"></div>
+    <div id="intro-sub">2026 &nbsp;·&nbsp; Myrtle Beach, South Carolina</div>
+  </div>
+  <button id="intro-skip">Tap to enter</button>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -587,6 +683,393 @@
 
 <script src="script.js"></script>
 <script>
+  // ── CINEMATIC INTRO ──────────────────────────────────────────
+  (function() {
+    var overlay  = document.getElementById('intro-overlay');
+    if (!overlay) return;
+
+    var dismissed = false, autoTimer;
+    function dismiss() {
+      if (dismissed) return; dismissed = true;
+      clearTimeout(autoTimer);
+      overlay.classList.add('fade-out');
+      setTimeout(function() { overlay.style.display = 'none'; }, 1200);
+    }
+    overlay.addEventListener('click', dismiss);
+
+    // ── PARTICLES ──
+    function startParticles() {
+      var canvas = document.getElementById('intro-particles');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      var pts = [];
+      for (var i = 0; i < 65; i++) pts.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.4, speed: Math.random() * 0.35 + 0.12,
+        op: Math.random() * 0.45 + 0.1, drift: (Math.random()-0.5)*0.22,
+        tw: Math.random()*Math.PI*2
+      });
+      (function tick() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pts.forEach(function(p) {
+          p.y -= p.speed; p.x += p.drift; p.tw += 0.03;
+          if (p.y < -4) { p.y = canvas.height+4; p.x = Math.random()*canvas.width; }
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle = 'rgba(201,168,76,'+(p.op*(0.7+0.3*Math.sin(p.tw)))+')';
+          ctx.fill();
+        });
+        requestAnimationFrame(tick);
+      })();
+    }
+
+    // ── MAIN INTRO (logo, rule, sub) ──
+    function startMainIntro() {
+      var content = document.getElementById('intro-content');
+      var logo    = document.getElementById('intro-logo');
+      var rule    = document.getElementById('intro-rule');
+      var sub     = document.getElementById('intro-sub');
+      content.style.opacity = '1';
+      setTimeout(function() {
+        logo.style.animation = 'introLogo 2.2s cubic-bezier(0.22,1,0.36,1) forwards';
+      }, 200);
+      setTimeout(function() {
+        rule.style.animation = 'introRule 0.9s ease forwards';
+      }, 1800);
+      setTimeout(function() {
+        sub.style.animation = 'introFade 1s ease forwards';
+      }, 2800);
+      autoTimer = setTimeout(dismiss, 6000);
+    }
+
+    // ── GOLF BALL ANIMATION (camera-follow close-up) ──
+    function runGolfBall(onComplete) {
+      var canvas = document.getElementById('golf-scene');
+      if (!canvas) { onComplete(); return; }
+      var c = canvas.getContext('2d');
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      var W = canvas.width, H = canvas.height;
+
+      // Close-up layout: large ball, horizon near middle
+      var groundY     = H * 0.58;
+      var ballR       = Math.min(18, W * 0.0225);
+      var ballScreenX = W * 0.38;   // ball is always here (camera follows)
+      var ballY       = groundY - ballR;
+      var ballA       = 1;
+      var spinAngle   = 0;
+
+      // The cup "world distance" — how far the cup travels to reach the ball
+      var cupWorldDist = W * 2.6;
+      var scrollX      = 0;         // increases as ball rolls; world shifts left
+
+      var cupRX = 22, cupRY = 9, flagH = 210;
+
+      var ROLL_MS = 2800, PAUSE_MS = 80, DROP_MS = 600;
+      var phase = 'rolling', t0 = null;
+
+      // Preload logo for flag
+      var logoImg = new Image();
+      logoImg.src = 'images/logo.png';
+
+      function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+      function easeInCubic(t)  { return t * t * t; }
+
+      // Pre-generate grass grain texture on an offscreen canvas (done once)
+      var grassTex = (function() {
+        var tc = document.createElement('canvas');
+        tc.width = 256; tc.height = 256;
+        var tctx = tc.getContext('2d');
+        tctx.fillStyle = '#329946';
+        tctx.fillRect(0, 0, 256, 256);
+        // Deterministic grain using simple hash
+        for (var ty = 0; ty < 256; ty++) {
+          for (var tx = 0; tx < 256; tx++) {
+            var h = ((tx * 7919 + ty * 4969) * 2654435761) >>> 0;
+            var v = h & 0xff;
+            if (v < 28) {
+              tctx.fillStyle = 'rgba(0,0,0,0.18)';
+              tctx.fillRect(tx, ty, 1, 1);
+            } else if (v > 232) {
+              tctx.fillStyle = 'rgba(255,255,255,0.10)';
+              tctx.fillRect(tx, ty, 1, 1);
+            }
+          }
+        }
+        return tc;
+      })();
+
+      function drawGround() {
+        // Putting green base — vivid, well-lit green
+        var grd = c.createLinearGradient(0, groundY, 0, H);
+        grd.addColorStop(0,   '#3dba56');  // bright at horizon (eye-level)
+        grd.addColorStop(0.35,'#2a9440');
+        grd.addColorStop(1,   '#1b6a2c');  // slightly deeper toward bottom
+        c.fillStyle = grd;
+        c.fillRect(0, groundY, W, H - groundY);
+
+        // Mowing stripes — alternating light/dark bands
+        var sw = Math.max(W / 6, 72);
+        var offset = ((scrollX * 0.65) % (sw * 2) + sw * 2) % (sw * 2);
+        for (var sx = -offset; sx < W + sw * 2; sx += sw * 2) {
+          // Light stripe
+          var lg = c.createLinearGradient(0, groundY, 0, H);
+          lg.addColorStop(0, 'rgba(255,255,255,0.09)');
+          lg.addColorStop(1, 'rgba(255,255,255,0.02)');
+          c.fillStyle = lg;
+          c.fillRect(sx, groundY, sw, H - groundY);
+          // Dark stripe next to it
+          var dg = c.createLinearGradient(0, groundY, 0, H);
+          dg.addColorStop(0, 'rgba(0,0,0,0.07)');
+          dg.addColorStop(1, 'rgba(0,0,0,0.02)');
+          c.fillStyle = dg;
+          c.fillRect(sx + sw, groundY, sw, H - groundY);
+        }
+
+        // Grass grain texture (tiled, scrolling)
+        var texOff = Math.floor(scrollX * 0.65) % 256;
+        c.save();
+        c.globalAlpha = 0.28;
+        c.imageSmoothingEnabled = false;
+        for (var tx = -texOff; tx < W; tx += 256) {
+          for (var ty = 0; ty < H - groundY; ty += 256) {
+            c.drawImage(grassTex, tx, groundY + ty);
+          }
+        }
+        c.restore();
+
+        // Surface sheen — subtle dew/reflection at horizon
+        var sheen = c.createRadialGradient(W * 0.5, groundY, 0, W * 0.5, groundY + 10, W * 0.45);
+        sheen.addColorStop(0, 'rgba(200,255,210,0.13)');
+        sheen.addColorStop(1, 'rgba(200,255,210,0)');
+        c.fillStyle = sheen;
+        c.fillRect(0, groundY, W, 50);
+
+        // Horizon fringe edge
+        var edge = c.createLinearGradient(0, groundY - 3, 0, groundY + 10);
+        edge.addColorStop(0,   'rgba(80,210,100,0)');
+        edge.addColorStop(0.45,'rgba(72,200,90,0.55)');
+        edge.addColorStop(1,   'rgba(50,160,65,0)');
+        c.fillStyle = edge;
+        c.fillRect(0, groundY - 3, W, 13);
+      }
+
+      function drawCup() {
+        // Cup screen position: starts far right, arrives at ball's X when scrollX = cupWorldDist
+        var cx = ballScreenX + cupWorldDist - scrollX;
+        if (cx > W + 80 || cx < -80) return;
+
+        // Hole
+        c.fillStyle = '#030805';
+        c.beginPath();
+        c.ellipse(cx, groundY + cupRY * 0.55, cupRX * 1.08, cupRY, 0, 0, Math.PI*2);
+        c.fill();
+
+        // White liner
+        var lg = c.createLinearGradient(cx - cupRX, 0, cx + cupRX, 0);
+        lg.addColorStop(0,   'rgba(255,255,255,0.05)');
+        lg.addColorStop(0.4, 'rgba(255,255,255,0.2)');
+        lg.addColorStop(1,   'rgba(255,255,255,0.04)');
+        c.fillStyle = lg;
+        c.beginPath();
+        c.ellipse(cx, groundY, cupRX * 0.84, cupRY * 0.52, 0, 0, Math.PI*2);
+        c.fill();
+
+        // Front rim
+        c.strokeStyle = 'rgba(255,255,255,0.14)';
+        c.lineWidth = 1.5;
+        c.beginPath();
+        c.ellipse(cx, groundY, cupRX, cupRY * 0.58, 0, Math.PI, 0, true);
+        c.stroke();
+
+        // Dark metallic flagstick
+        var sg = c.createLinearGradient(cx - 2, 0, cx + 2, 0);
+        sg.addColorStop(0,    'rgba(40,40,40,0.9)');
+        sg.addColorStop(0.42, 'rgba(120,120,120,0.9)');
+        sg.addColorStop(1,    'rgba(30,30,30,0.9)');
+        c.strokeStyle = sg;
+        c.lineWidth = 3;
+        c.beginPath();
+        c.moveTo(cx, groundY);
+        c.lineTo(cx, groundY - flagH);
+        c.stroke();
+
+        // Red flag — rectangular with slight taper (attached left side to pole)
+        var ft = groundY - flagH + 2;
+        var fh = 52, fw = 72;
+        // Main red body
+        c.fillStyle = '#cc2020';
+        c.beginPath();
+        c.moveTo(cx, ft);
+        c.lineTo(cx + fw, ft + 5);
+        c.lineTo(cx + fw, ft + fh - 3);
+        c.lineTo(cx, ft + fh);
+        c.closePath();
+        c.fill();
+        // Shadow on right edge
+        var flagShadow = c.createLinearGradient(cx, 0, cx + fw, 0);
+        flagShadow.addColorStop(0,   'rgba(0,0,0,0)');
+        flagShadow.addColorStop(0.7, 'rgba(0,0,0,0)');
+        flagShadow.addColorStop(1,   'rgba(0,0,0,0.25)');
+        c.fillStyle = flagShadow;
+        c.beginPath();
+        c.moveTo(cx, ft);
+        c.lineTo(cx + fw, ft + 5);
+        c.lineTo(cx + fw, ft + fh - 3);
+        c.lineTo(cx, ft + fh);
+        c.closePath();
+        c.fill();
+        // Highlight on top-left
+        var flagHL = c.createLinearGradient(cx, ft, cx, ft + fh * 0.4);
+        flagHL.addColorStop(0, 'rgba(255,255,255,0.18)');
+        flagHL.addColorStop(1, 'rgba(255,255,255,0)');
+        c.fillStyle = flagHL;
+        c.beginPath();
+        c.moveTo(cx, ft);
+        c.lineTo(cx + fw, ft + 5);
+        c.lineTo(cx + fw, ft + fh * 0.4 - 1);
+        c.lineTo(cx, ft + fh * 0.4);
+        c.closePath();
+        c.fill();
+        // Logo on flag (white, clipped to flag shape)
+        if (logoImg.complete && logoImg.naturalWidth > 0) {
+          c.save();
+          c.beginPath();
+          c.moveTo(cx, ft);
+          c.lineTo(cx + fw, ft + 5);
+          c.lineTo(cx + fw, ft + fh - 3);
+          c.lineTo(cx, ft + fh);
+          c.closePath();
+          c.clip();
+          var imgAspect = logoImg.naturalWidth / logoImg.naturalHeight;
+          var imgW = fw * 0.8;
+          var imgH = imgW / imgAspect;
+          if (imgH > fh * 0.72) { imgH = fh * 0.72; imgW = imgH * imgAspect; }
+          c.filter = 'brightness(0) invert(1)';
+          c.globalAlpha = 0.88;
+          c.drawImage(logoImg, cx + (fw - imgW) * 0.38, ft + (fh - imgH) / 2 + 1, imgW, imgH);
+          c.filter = 'none';
+          c.restore();
+        }
+      }
+
+      function drawBall() {
+        if (ballA <= 0) return;
+        var bx = ballScreenX, by = ballY, br = ballR;
+        c.save();
+        c.globalAlpha = ballA;
+
+        // Shadow (shrinks as ball sinks into cup)
+        var shadowScale = Math.max(0, 1 - Math.max(0, by - (groundY - br)) / (br * 2.5));
+        c.fillStyle = 'rgba(0,0,0,0.28)';
+        c.beginPath();
+        c.ellipse(bx + br*0.18, groundY - 1, br * 0.95 * shadowScale, br * 0.22 * shadowScale, 0, 0, Math.PI*2);
+        c.fill();
+
+        // Ball body — rich 3-stop radial gradient
+        var bg = c.createRadialGradient(bx - br*0.38, by - br*0.38, br*0.06, bx, by, br);
+        bg.addColorStop(0,    '#ffffff');
+        bg.addColorStop(0.32, '#f4f4f4');
+        bg.addColorStop(0.72, '#d2d2d2');
+        bg.addColorStop(1,    '#acacac');
+        c.fillStyle = bg;
+        c.beginPath();
+        c.arc(bx, by, br, 0, Math.PI*2);
+        c.fill();
+
+        // Dimples — hexagonal grid clipped to ball, rotates with spin
+        c.save();
+        c.beginPath();
+        c.arc(bx, by, br - 0.5, 0, Math.PI*2);
+        c.clip();
+        c.translate(bx, by);
+        c.rotate(spinAngle);
+        var dr = br * 0.105;
+        var sp = dr * 2.55;
+        var rows_d = Math.ceil((br * 2) / sp) + 3;
+        for (var ri_d = 0; ri_d < rows_d; ri_d++) {
+          var dy_d = -(rows_d / 2) * sp + ri_d * sp;
+          var rowOff = (ri_d % 2) * sp * 0.5;
+          var cols_d = Math.ceil((br * 2) / sp) + 3;
+          for (var ci_d = 0; ci_d < cols_d; ci_d++) {
+            var dx_d = -(cols_d / 2) * sp + ci_d * sp + rowOff;
+            if (dx_d*dx_d + dy_d*dy_d < (br * 0.87) * (br * 0.87)) {
+              // Dimple shadow
+              c.fillStyle = 'rgba(158,158,158,0.55)';
+              c.beginPath();
+              c.arc(dx_d, dy_d, dr, 0, Math.PI*2);
+              c.fill();
+              // Dimple inner highlight
+              c.fillStyle = 'rgba(255,255,255,0.18)';
+              c.beginPath();
+              c.arc(dx_d - dr*0.28, dy_d - dr*0.28, dr * 0.4, 0, Math.PI*2);
+              c.fill();
+            }
+          }
+        }
+        c.restore();
+
+        // Specular highlight
+        var spec = c.createRadialGradient(bx - br*0.44, by - br*0.44, 0, bx - br*0.3, by - br*0.3, br*0.56);
+        spec.addColorStop(0,   'rgba(255,255,255,0.92)');
+        spec.addColorStop(0.5, 'rgba(255,255,255,0.4)');
+        spec.addColorStop(1,   'rgba(255,255,255,0)');
+        c.fillStyle = spec;
+        c.beginPath();
+        c.arc(bx, by, br, 0, Math.PI*2);
+        c.fill();
+
+        c.restore();
+      }
+
+      function tick(ts) {
+        if (!t0) t0 = ts;
+        var elapsed = ts - t0;
+        W = canvas.width; H = canvas.height;
+
+        if (phase === 'rolling') {
+          var prog  = Math.min(elapsed / ROLL_MS, 1);
+          var eased = easeOutQuart(prog);
+          scrollX   = cupWorldDist * eased;          // world scrolls left
+          spinAngle = eased * Math.PI * 22;           // ball spins proportionally
+          ballY     = groundY - ballR;
+          if (prog >= 1) { phase = 'pause'; t0 = ts; scrollX = cupWorldDist; }
+
+        } else if (phase === 'pause') {
+          // Tiny wobble at the edge of the cup
+          ballY = groundY - ballR + Math.sin(elapsed / 55) * 1.5 * Math.max(0, 1 - elapsed / PAUSE_MS);
+          if (elapsed > PAUSE_MS) { phase = 'dropping'; t0 = ts; }
+
+        } else if (phase === 'dropping') {
+          var prog = Math.min(elapsed / DROP_MS, 1);
+          ballY = groundY - ballR + (ballR * 2.8) * easeInCubic(prog);
+          ballA = 1 - Math.max(0, (prog - 0.38) / 0.62);
+          if (prog >= 1) {
+            c.clearRect(0, 0, W, H);
+            var sc = document.getElementById('golf-scene');
+            if (sc) sc.classList.add('hide');
+            setTimeout(onComplete, 500);
+            return;
+          }
+        }
+
+        c.clearRect(0, 0, W, H);
+        drawGround();
+        drawCup();
+        drawBall();
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    // ── KICK IT OFF ──
+    startParticles();
+    runGolfBall(startMainIntro);
+
+  })();
+
   // Hamburger menu
   var toggle = document.getElementById('nav-toggle');
   var menu = document.getElementById('nav-menu');
