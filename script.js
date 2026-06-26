@@ -52,6 +52,14 @@ function renderLeaderboard(data) {
   const tbody = document.getElementById('leaderboard-body');
   if (!tbody) return;
 
+  // Snapshot current row positions + scores before re-render (for FLIP animation)
+  const prevRects  = {};
+  const prevScores = {};
+  tbody.querySelectorAll('tr[data-player]').forEach(row => {
+    prevRects[row.dataset.player]  = row.getBoundingClientRect().top;
+    prevScores[row.dataset.player] = row.dataset.score;
+  });
+
   const pars = data.pars || [72, 70, 72, 72];
 
   // Find last completed round (last round where any player has a score)
@@ -167,7 +175,7 @@ function renderLeaderboard(data) {
       : `<td class="score-cell"><span class="score-dash">—</span></td>`;
 
     tbody.innerHTML += `
-      <tr class="${rowClass}">
+      <tr class="${rowClass}" data-player="${p.name}" data-score="${p.netVsPar ?? ''}">
         <td><span class="${posClass}">${p.pos || (i + 1)}</span></td>
         <td>${arrowHtml}<span class="player-name-cell">${p.name}${badge}</span></td>
         ${netCell}
@@ -175,9 +183,53 @@ function renderLeaderboard(data) {
         ${roundCells}
       </tr>`;
   });
+
+  // ── FLIP ANIMATION ──────────────────────────────────────────
+  // Measure new positions, apply inverse transforms, then animate to zero
+  const newRows = {};
+  tbody.querySelectorAll('tr[data-player]').forEach(row => {
+    newRows[row.dataset.player] = { el: row, top: row.getBoundingClientRect().top };
+  });
+
+  // Apply inverted transforms synchronously (before paint)
+  Object.entries(newRows).forEach(([name, { el, top }]) => {
+    if (prevRects[name] !== undefined) {
+      const delta = prevRects[name] - top;
+      if (Math.abs(delta) > 2) {
+        el.style.transform  = `translateY(${delta}px)`;
+        el.style.transition = 'none';
+      }
+      // Gold flash if score changed
+      if (prevScores[name] !== undefined && prevScores[name] !== el.dataset.score) {
+        el.style.background = 'rgba(201,168,76,0.18)';
+      }
+    } else {
+      // New row — start invisible
+      el.style.opacity   = '0';
+      el.style.transform = 'translateX(-12px)';
+      el.style.transition = 'none';
+    }
+  });
+
+  // Force reflow so transforms take effect before transition starts
+  tbody.getBoundingClientRect();
+
+  // Play: animate everything to final state
+  Object.entries(newRows).forEach(([name, { el }]) => {
+    if (prevRects[name] !== undefined) {
+      el.style.transition = 'transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94), background 1.2s ease';
+      el.style.transform  = 'translateY(0)';
+      el.style.background = '';
+    } else {
+      el.style.transition = 'opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s';
+      el.style.opacity    = '1';
+      el.style.transform  = 'translateX(0)';
+    }
+  });
 }
 
 loadLeaderboard();
+setInterval(loadLeaderboard, 30000); // auto-refresh every 30s
 
 // ── WEATHER ───────────────────────────────────────────────────
 const TOURNAMENT_DATES = ['2026-07-10','2026-07-11','2026-07-12','2026-07-13'];
