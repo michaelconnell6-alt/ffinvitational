@@ -1267,6 +1267,82 @@
     });
   }
 </script>
+
+<!-- ── ADD TO HOME SCREEN PROMPT ── -->
+<div id="a2hs-banner" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;width:calc(100% - 32px);max-width:420px;background:#111d14;border:1px solid rgba(201,168,76,0.5);border-radius:14px;padding:14px 16px;box-shadow:0 4px 24px rgba(0,0,0,0.5);display:none;align-items:center;gap:12px;">
+  <img src="favicon-180.png" style="width:44px;height:44px;border-radius:10px;flex-shrink:0;" alt="">
+  <div style="flex:1;min-width:0;">
+    <div style="font-family:Oswald,sans-serif;font-size:13px;letter-spacing:1px;color:#f5f0e8;font-weight:500;">ForeFathers Invitational</div>
+    <div id="a2hs-msg" style="font-family:Oswald,sans-serif;font-size:11px;letter-spacing:0.5px;color:rgba(245,240,232,0.55);margin-top:2px;">Add to your home screen</div>
+  </div>
+  <button id="a2hs-install" style="background:#c9a84c;color:#0a1208;border:none;border-radius:8px;padding:8px 14px;font-family:Oswald,sans-serif;font-size:11px;letter-spacing:1.5px;cursor:pointer;flex-shrink:0;">ADD</button>
+  <button id="a2hs-dismiss" style="background:none;border:none;color:rgba(245,240,232,0.4);cursor:pointer;padding:4px;font-size:18px;flex-shrink:0;line-height:1;">&#x2715;</button>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'ff_a2hs_dismissed';
+  var banner = document.getElementById('a2hs-banner');
+  var installBtn = document.getElementById('a2hs-install');
+  var dismissBtn = document.getElementById('a2hs-dismiss');
+  var msg = document.getElementById('a2hs-msg');
+
+  // Don't show if already installed as PWA
+  if (window.matchMedia('(display-mode: standalone)').matches) return;
+  // Don't show if dismissed in last 7 days
+  var dismissed = localStorage.getItem(STORAGE_KEY);
+  if (dismissed && Date.now() - parseInt(dismissed) < 7 * 24 * 60 * 60 * 1000) return;
+  // Only show on mobile
+  if (!(/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent))) return;
+
+  var deferredPrompt = null;
+  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  function showBanner() {
+    banner.style.display = 'flex';
+  }
+
+  function hideBanner() {
+    banner.style.display = 'none';
+  }
+
+  dismissBtn.addEventListener('click', function() {
+    hideBanner();
+    localStorage.setItem(STORAGE_KEY, Date.now().toString());
+  });
+
+  if (isIOS) {
+    // iOS: show instructions (no native prompt available)
+    msg.textContent = 'Tap Share → Add to Home Screen';
+    installBtn.textContent = 'GOT IT';
+    installBtn.addEventListener('click', function() {
+      hideBanner();
+      localStorage.setItem(STORAGE_KEY, Date.now().toString());
+    });
+    setTimeout(showBanner, 3000);
+  } else {
+    // Android: intercept native install prompt
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(showBanner, 3000);
+    });
+
+    installBtn.addEventListener('click', function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(result) {
+        deferredPrompt = null;
+        hideBanner();
+        if (result.outcome === 'accepted') {
+          localStorage.setItem(STORAGE_KEY, Date.now().toString());
+        }
+      });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
                                                                                             
