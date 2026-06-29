@@ -17,6 +17,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ForeFathers">
+<!-- Open Graph / Social Sharing -->
+<meta property="og:type"         content="website">
+<meta property="og:url"          content="https://forefathersinvitational.com/">
+<meta property="og:title"        content="ForeFathers Invitational 2026">
+<meta property="og:description"  content="July 9–12, 2026 · Myrtle Beach, SC · Birdie House · 14 players, 4 rounds, one champion.">
+<meta property="og:image"        content="https://forefathersinvitational.com/og-image.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="ForeFathers Invitational 2026">
+<meta name="twitter:description" content="July 9–12, 2026 · Myrtle Beach, SC · 14 players, 4 rounds, one champion.">
+<meta name="twitter:image"       content="https://forefathersinvitational.com/og-image.png">
 <style>
   #intro-overlay {
     position: fixed;
@@ -134,6 +146,8 @@
     <li><a href="admin.html">Admin</a></li>
   </ul>
 </nav>
+
+<div id="nav-backdrop"></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -501,6 +515,7 @@
       </tbody>
     </table></div>
     <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
+    <p id="lb-updated" class="lb-updated-ts"></p>
   </div>
 </section>
 
@@ -1332,22 +1347,82 @@
 
   })();
 
-  // Hamburger menu
-  var toggle = document.getElementById('nav-toggle');
-  var menu = document.getElementById('nav-menu');
-  if (toggle && menu) {
+  // ── HAMBURGER MENU ─────────────────────────────────────────────
+  (function() {
+    var toggle   = document.getElementById('nav-toggle');
+    var menu     = document.getElementById('nav-menu');
+    var backdrop = document.getElementById('nav-backdrop');
+    if (!toggle || !menu) return;
+
+    function openNav() {
+      toggle.classList.add('open');
+      menu.classList.add('open');
+      if (backdrop) {
+        backdrop.classList.add('visible');
+        requestAnimationFrame(function() { backdrop.classList.add('open'); });
+      }
+      document.body.style.overflow = 'hidden';
+    }
+    function closeNav() {
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+      if (backdrop) {
+        backdrop.classList.remove('open');
+        setTimeout(function() { backdrop.classList.remove('visible'); }, 260);
+      }
+      document.body.style.overflow = '';
+    }
+
     toggle.addEventListener('click', function() {
-      toggle.classList.toggle('open');
-      menu.classList.toggle('open');
+      menu.classList.contains('open') ? closeNav() : openNav();
     });
-    // Close menu when a link is clicked
+
+    // Close on link click
     menu.querySelectorAll('a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        toggle.classList.remove('open');
-        menu.classList.remove('open');
-      });
+      a.addEventListener('click', closeNav);
     });
-  }
+
+    // Close on backdrop tap
+    if (backdrop) backdrop.addEventListener('click', closeNav);
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeNav();
+    });
+  })();
+
+  // ── ACTIVE NAV HIGHLIGHTING ────────────────────────────────────
+  (function() {
+    var sections = document.querySelectorAll('section[id], header.hero');
+    var navLinks = document.querySelectorAll('#nav-menu a[href^="#"]');
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        navLinks.forEach(function(a) {
+          var href = a.getAttribute('href').replace('#','');
+          a.classList.toggle('nav-active', href === id);
+        });
+      });
+    }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+
+    sections.forEach(function(s) { if (s.id) observer.observe(s); });
+  })();
+
+  // ── LEADERBOARD "UPDATED X AGO" TIMESTAMP ─────────────────────
+  (function() {
+    var tsEl = document.getElementById('lb-updated');
+    function tick() {
+      if (!tsEl || !window._lbLastUpdated) return;
+      var diff = Math.floor((Date.now() - window._lbLastUpdated) / 1000);
+      if (diff < 5)        tsEl.textContent = 'Just updated';
+      else if (diff < 60)  tsEl.textContent = 'Updated ' + diff + 's ago';
+      else if (diff < 120) tsEl.textContent = 'Updated 1 min ago';
+      else                 tsEl.textContent = 'Updated ' + Math.floor(diff/60) + ' min ago';
+    }
+    setInterval(tick, 1000);
+  })();
 </script>
 
 <!-- ── ADD TO HOME SCREEN PROMPT ── -->
