@@ -23,7 +23,7 @@
   .btn.secondary:hover { background:rgba(201,168,76,0.1); }
   #login-error { color:#e74c3c; font-size:12px; letter-spacing:1px; display:none; }
 
-  #admin-panel { display:none; padding:0 0 60px; }
+  #admin-panel { display:none; padding:0 0 100px; }
   .admin-header { background:rgba(0,0,0,0.3); border-bottom:2px solid var(--gold); padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
   .admin-header h1 { font-family:'Playfair Display',serif; color:var(--gold); font-size:1.3rem; }
   .admin-header button { background:none; border:1px solid rgba(201,168,76,0.3); color:var(--cream); padding:6px 16px; cursor:pointer; font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:1px; }
@@ -43,7 +43,7 @@
   .score-table .total-cell { font-weight:500; font-size:14px; text-align:center; }
   .score-table tr:hover td { background:rgba(255,255,255,0.03); }
 
-  .save-bar { position:fixed; bottom:0; left:0; right:0; background:var(--green); border-top:2px solid var(--gold); padding:14px 24px; display:flex; gap:12px; align-items:center; justify-content:flex-end; }
+  .save-bar { position:fixed; bottom:0; left:0; right:0; background:var(--green); border-top:2px solid var(--gold); padding:14px 24px; padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px)); display:flex; gap:12px; align-items:center; justify-content:flex-end; flex-wrap:wrap; }
   #save-status { font-size:12px; letter-spacing:1px; flex:1; }
   #save-status.ok { color:#2ecc71; }
   #save-status.err { color:#e74c3c; }
@@ -61,6 +61,9 @@
   @media (max-width:600px) {
     .score-table input[type="number"] { width:48px; font-size:13px; }
     .score-table th, .score-table td { padding:8px 4px; }
+    #admin-panel { padding-bottom: 120px; }
+    .save-bar { padding:12px 16px; padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px)); gap:8px; }
+    .save-bar .btn { padding:10px 18px; font-size:12px; }
   }
 </style>
 </head>

@@ -240,6 +240,15 @@ function renderLeaderboard(data) {
   });
 }
 
+// Track last successful load for "Updated X ago" display
+window._lbLastUpdated = null;
+
+var _origRenderLb = renderLeaderboard;
+renderLeaderboard = function(data) {
+  _origRenderLb(data);
+  window._lbLastUpdated = Date.now();
+};
+
 loadLeaderboard();
 setInterval(loadLeaderboard, 30000); // auto-refresh every 30s
 
