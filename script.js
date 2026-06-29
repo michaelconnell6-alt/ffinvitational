@@ -399,9 +399,18 @@ async function shareLeaderboard() {
 
   await document.fonts.ready;
 
+  // Load logo image first
+  const logo = await new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = 'images/logo.png';
+  });
+
   const W = 1080;
   const ROW_H = 92;
-  const HEADER_H = 310;
+  const LOGO_H = logo ? 160 : 0;
+  const HEADER_H = 310 + LOGO_H;
   const FOOTER_H = 130;
   const H = HEADER_H + rows.length * ROW_H + FOOTER_H;
 
@@ -431,36 +440,57 @@ async function shareLeaderboard() {
   ctx.lineWidth = 1;
   ctx.strokeRect(32, 32, W - 64, H - 64);
 
-  // Header — logo text
-  ctx.fillStyle = '#c9a84c';
-  ctx.font = '500 54px Oswald, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('FOREFATHERS INVITATIONAL', W / 2, 115);
+  // Header — logo image (white tint) or fallback text
+  let headerY = 60;
+  if (logo) {
+    const logoW = Math.min(520, logo.naturalWidth);
+    const logoRatio = logo.naturalHeight / logo.naturalWidth;
+    const logoH = logoW * logoRatio;
+    const logoX = (W - logoW) / 2;
+    // Draw logo in gold tint using composite
+    ctx.save();
+    ctx.drawImage(logo, logoX, headerY, logoW, logoH);
+    ctx.globalCompositeOperation = 'source-atop';
+    ctx.fillStyle = '#c9a84c';
+    ctx.fillRect(logoX, headerY, logoW, logoH);
+    ctx.restore();
+    headerY += logoH + 24;
+  } else {
+    ctx.fillStyle = '#c9a84c';
+    ctx.font = '500 54px Oswald, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('FOREFATHERS INVITATIONAL', W / 2, headerY + 54);
+    headerY += 80;
+  }
 
   ctx.fillStyle = 'rgba(245,240,232,0.5)';
   ctx.font = '400 26px Oswald, sans-serif';
-  ctx.fillText('2026 · MYRTLE BEACH, SC · LEADERBOARD', W / 2, 158);
+  ctx.textAlign = 'center';
+  ctx.fillText('2026 · MYRTLE BEACH, SC · LEADERBOARD', W / 2, headerY + 8);
+  headerY += 40;
 
   // Gold divider
   ctx.strokeStyle = '#c9a84c';
   ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(80, 186); ctx.lineTo(W - 80, 186); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, headerY + 12); ctx.lineTo(W - 80, headerY + 12); ctx.stroke();
+  headerY += 58;
 
   // Column labels
   ctx.fillStyle = 'rgba(245,240,232,0.32)';
   ctx.font = '400 20px Oswald, sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText('POS', 90, 232);
-  ctx.fillText('PLAYER', 210, 232);
+  ctx.fillText('POS', 90, headerY);
+  ctx.fillText('PLAYER', 210, headerY);
   ctx.textAlign = 'right';
-  ctx.fillText('NET', W - 90, 232);
+  ctx.fillText('NET', W - 90, headerY);
+  headerY += 16;
 
   ctx.strokeStyle = 'rgba(245,240,232,0.1)';
   ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(80, 248); ctx.lineTo(W - 80, 248); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, headerY); ctx.lineTo(W - 80, headerY); ctx.stroke();
 
   // Player rows
-  let y = HEADER_H;
+  let y = headerY + 16;
   rows.forEach((row, i) => {
     const posEl  = row.querySelector('.pos-num');
     const nameEl = row.querySelector('.player-name-cell');
