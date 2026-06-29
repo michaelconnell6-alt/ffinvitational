@@ -1057,3 +1057,67 @@
     .roster-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .player-card { padding: 18px 14px; }
   }
+
+
+  /* ── SKELETON LOADING ── */
+  .lb-skeleton-row td { position: relative; overflow: hidden; }
+  .lb-skeleton-row td > * { visibility: hidden; }
+  .lb-skeleton-row td::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 8px; right: 8px;
+    transform: translateY(-50%);
+    height: 11px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+      rgba(245,240,232,0.04) 0%,
+      rgba(245,240,232,0.11) 50%,
+      rgba(245,240,232,0.04) 100%);
+    background-size: 300% 100%;
+    animation: lb-shimmer 1.6s ease-in-out infinite;
+  }
+  @keyframes lb-shimmer {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  /* ── PAGE TRANSITIONS ── */
+  .ff-animate {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .ff-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SHARE BUTTON ── */
+  .lb-header-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .lb-share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 999px;
+    color: rgba(245,240,232,0.65);
+    padding: 8px 16px 8px 12px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+  .lb-share-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .lb-share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .lb-share-btn.generating { opacity: 0.6; pointer-events: none; }
+

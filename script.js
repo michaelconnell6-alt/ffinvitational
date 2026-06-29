@@ -34,12 +34,24 @@
   })();
 
 // ── LIVE LEADERBOARD ─────────────────────────────────────────
+function showLeaderboardSkeleton() {
+  document.querySelectorAll('#leaderboard-body tr').forEach(row => {
+    row.classList.add('lb-skeleton-row');
+  });
+}
+
 async function loadLeaderboard() {
+  showLeaderboardSkeleton();
   try {
     const res = await fetch('scores.json?t=' + Date.now());
     const data = await res.json();
     renderLeaderboard(data);
-  } catch(e) { /* scores.json not available, keep static table */ }
+  } catch(e) {
+    // fetch failed — remove skeletons, show static dashes
+    document.querySelectorAll('#leaderboard-body .lb-skeleton-row').forEach(row => {
+      row.classList.remove('lb-skeleton-row');
+    });
+  }
 }
 
 function fmtVsPar(diff) {
@@ -347,3 +359,199 @@ function showTtRound(idx) {
 }
 
 loadTeetimes();
+
+
+// ── PAGE TRANSITIONS ─────────────────────────────────────────
+(function() {
+  const sections = document.querySelectorAll('section');
+  const vh = window.innerHeight;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('ff-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top > vh * 0.85) {
+      // Below the fold — animate in on scroll
+      section.classList.add('ff-animate');
+      observer.observe(section);
+    }
+    // Already visible sections stay as-is
+  });
+})();
+
+// ── SHARE LEADERBOARD ─────────────────────────────────────────
+async function shareLeaderboard() {
+  const rows = [...document.querySelectorAll('#leaderboard-body tr[data-player]')];
+  if (rows.length === 0) {
+    alert('Scores haven\'t been posted yet — check back during the tournament!');
+    return;
+  }
+
+  const btn = document.getElementById('lb-share-btn');
+  if (btn) btn.classList.add('generating');
+
+  await document.fonts.ready;
+
+  const W = 1080;
+  const ROW_H = 92;
+  const HEADER_H = 310;
+  const FOOTER_H = 130;
+  const H = HEADER_H + rows.length * ROW_H + FOOTER_H;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#080f09';
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle radial glow at top
+  const grd = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, 600);
+  grd.addColorStop(0, 'rgba(201,168,76,0.10)');
+  grd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, W, H);
+
+  // Outer gold border
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(18, 18, W - 36, H - 36);
+
+  // Inner subtle border
+  ctx.strokeStyle = 'rgba(201,168,76,0.22)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(32, 32, W - 64, H - 64);
+
+  // Header — logo text
+  ctx.fillStyle = '#c9a84c';
+  ctx.font = '500 54px Oswald, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('FOREFATHERS INVITATIONAL', W / 2, 115);
+
+  ctx.fillStyle = 'rgba(245,240,232,0.5)';
+  ctx.font = '400 26px Oswald, sans-serif';
+  ctx.fillText('2026 · MYRTLE BEACH, SC · LEADERBOARD', W / 2, 158);
+
+  // Gold divider
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(80, 186); ctx.lineTo(W - 80, 186); ctx.stroke();
+
+  // Column labels
+  ctx.fillStyle = 'rgba(245,240,232,0.32)';
+  ctx.font = '400 20px Oswald, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('POS', 90, 232);
+  ctx.fillText('PLAYER', 210, 232);
+  ctx.textAlign = 'right';
+  ctx.fillText('NET', W - 90, 232);
+
+  ctx.strokeStyle = 'rgba(245,240,232,0.1)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, 248); ctx.lineTo(W - 80, 248); ctx.stroke();
+
+  // Player rows
+  let y = HEADER_H;
+  rows.forEach((row, i) => {
+    const posEl  = row.querySelector('.pos-num');
+    const nameEl = row.querySelector('.player-name-cell');
+    const netEl  = row.querySelector('.net-score');
+    const isLeader = row.classList.contains('lb-leader');
+
+    const pos  = posEl  ? posEl.textContent.replace(/[🔥💩↑↓—]/g,'').trim() : String(i + 1);
+    const name = nameEl ? nameEl.textContent.replace(/[🔥💩]/g,'').trim() : '';
+    const net  = netEl  ? netEl.textContent.trim() : '—';
+
+    const cy = y + ROW_H / 2;
+
+    // Leader row highlight
+    if (isLeader) {
+      ctx.fillStyle = 'rgba(201,168,76,0.07)';
+      ctx.fillRect(60, y, W - 120, ROW_H);
+      ctx.strokeStyle = 'rgba(201,168,76,0.5)';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(60, y); ctx.lineTo(60, y + ROW_H); ctx.stroke();
+    }
+
+    // Position
+    if (isLeader) {
+      ctx.fillStyle = '#c9a84c';
+      ctx.beginPath();
+      ctx.arc(128, cy, 26, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#080f09';
+      ctx.font = '500 24px Oswald, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(pos, 128, cy + 9);
+    } else {
+      ctx.fillStyle = 'rgba(245,240,232,0.45)';
+      ctx.font = '400 24px Oswald, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(pos, 128, cy + 9);
+    }
+
+    // Name
+    ctx.textAlign = 'left';
+    ctx.fillStyle = isLeader ? '#f5f0e8' : 'rgba(245,240,232,0.82)';
+    ctx.font = (isLeader ? '500' : '400') + ' 30px Oswald, sans-serif';
+    ctx.fillText(name, 200, cy + 10);
+
+    // Net score
+    ctx.textAlign = 'right';
+    const num = parseFloat(net);
+    if (net === 'E')      ctx.fillStyle = '#c9a84c';
+    else if (num < 0)     ctx.fillStyle = '#2ecc71';
+    else if (num > 0)     ctx.fillStyle = '#e74c3c';
+    else                  ctx.fillStyle = 'rgba(245,240,232,0.4)';
+    ctx.font = '500 38px Oswald, sans-serif';
+    ctx.fillText(net, W - 90, cy + 13);
+
+    // Row separator
+    if (i < rows.length - 1) {
+      ctx.strokeStyle = 'rgba(245,240,232,0.06)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(80, y + ROW_H);
+      ctx.lineTo(W - 80, y + ROW_H);
+      ctx.stroke();
+    }
+
+    y += ROW_H;
+  });
+
+  // Footer
+  ctx.strokeStyle = 'rgba(201,168,76,0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, y + 30); ctx.lineTo(W - 80, y + 30); ctx.stroke();
+
+  ctx.fillStyle = 'rgba(245,240,232,0.28)';
+  ctx.font = '400 22px Oswald, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('forefathersinvitational.com', W / 2, y + 72);
+
+  // Share or download
+  canvas.toBlob(async blob => {
+    if (btn) btn.classList.remove('generating');
+    const file = new File([blob], 'forefathers-leaderboard.png', { type: 'image/png' });
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: 'ForeFathers Invitational Leaderboard', files: [file] });
+        return;
+      }
+    } catch(e) {}
+    // Fallback: download
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'forefathers-leaderboard.png'; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+  }, 'image/png');
+}
