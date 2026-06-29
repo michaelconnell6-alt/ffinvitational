@@ -932,6 +932,26 @@
     letter-spacing: 2px;
     text-transform: uppercase;
   }
+  footer .footer-instagram {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 9px 18px;
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 999px;
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  footer .footer-instagram:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
 
   /* ── HAMBURGER BUTTON (hidden on desktop) ── */
   .nav-toggle {
