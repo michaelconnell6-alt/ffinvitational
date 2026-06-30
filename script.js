@@ -253,9 +253,9 @@ loadLeaderboard();
 setInterval(loadLeaderboard, 30000); // auto-refresh every 30s
 
 // ── WEATHER ───────────────────────────────────────────────────
-const TOURNAMENT_DATES = ['2026-07-10','2026-07-11','2026-07-12','2026-07-13'];
-const DAY_LABELS = ['Thu Jul 10','Fri Jul 11','Sat Jul 12','Sun Jul 13'];
-const DAY_NOTES  = ['Check-in','R1 + R2','R3','R4'];
+const TOURNAMENT_DATES = ['2026-07-09','2026-07-10','2026-07-11','2026-07-12'];
+const DAY_LABELS = ['Thu Jul 9','Fri Jul 10','Sat Jul 11','Sun Jul 12'];
+const DAY_NOTES  = ['Check-in','R1 · R2','R3','R4'];
 
 function weatherDesc(code) {
   if (code === 0)                    return ['☀️','Clear'];
@@ -276,7 +276,7 @@ async function loadWeather() {
   if (!el) return;
   try {
     const url = 'https://api.open-meteo.com/v1/forecast' +
-      '?latitude=33.91&longitude=-79.12' +
+      '?latitude=33.6891&longitude=-78.8867' +
       '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code' +
       '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York&forecast_days=16';
     const res = await fetch(url);
