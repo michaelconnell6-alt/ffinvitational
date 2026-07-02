@@ -11,6 +11,13 @@
 
   html { scroll-padding-top: 52px; }
 
+  /* ── CUSTOM SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--green-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+  * { scrollbar-width: thin; scrollbar-color: var(--gold) var(--green-dark); }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
@@ -435,6 +442,18 @@
     border-collapse: collapse;
     font-size: 0.95rem;
     background: #fff;
+  }
+
+  /* Sticky thead — offset 52px for fixed nav */
+  .leaderboard-table thead tr.lb-banner th {
+    position: sticky;
+    top: 52px;
+    z-index: 3;
+  }
+  .leaderboard-table thead tr.lb-cols th {
+    position: sticky;
+    top: 96px; /* 52px nav + ~44px banner row */
+    z-index: 3;
   }
 
   /* Top banner above headers */
