@@ -4,25 +4,53 @@
       "round": 1,
       "course": "True Blue",
       "date": "Friday, July 10",
-      "groups": []
+      "groups": [
+        { "teeTime": "8:06 AM", "players": [] },
+        { "teeTime": "8:15 AM", "players": [] },
+        { "teeTime": "8:24 AM", "players": [] },
+        { "teeTime": "8:33 AM", "players": [] }
+      ]
     },
     {
       "round": 2,
       "course": "Caledonia",
       "date": "Friday, July 10",
-      "groups": []
+      "groups": [
+        {
+          "teeTime": "2:00 PM",
+          "players": [
+            "Rob Leverone",
+            "Mikey Connell",
+            "Joseph Lowry",
+            "Garrett Wardell"
+          ]
+        },
+        { "teeTime": "2:09 PM", "players": [] },
+        { "teeTime": "2:18 PM", "players": [] },
+        { "teeTime": "2:27 PM", "players": [] }
+      ]
     },
     {
       "round": 3,
       "course": "TPC Myrtle Beach",
       "date": "Saturday, July 11",
-      "groups": []
+      "groups": [
+        { "teeTime": "9:15 AM", "players": [] },
+        { "teeTime": "9:24 AM", "players": [] },
+        { "teeTime": "9:33 AM", "players": [] },
+        { "teeTime": "9:42 AM", "players": [] }
+      ]
     },
     {
       "round": 4,
       "course": "Pawleys Plantation",
       "date": "Sunday, July 12",
-      "groups": []
+      "groups": [
+        { "teeTime": "8:09 AM", "players": [] },
+        { "teeTime": "8:18 AM", "players": [] },
+        { "teeTime": "8:27 AM", "players": [] },
+        { "teeTime": "8:36 AM", "players": [] }
+      ]
     }
   ]
 }
