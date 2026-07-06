@@ -1,19 +1,19 @@
 {
   "players": [
-    {"name": "Rob Leverone",     "handicap": 8.4,  "strokes": [10, 12, 12, 11], "scores": [null, null, null, null]},
+    {"name": "Rob Leverone",     "handicap": 7.4,  "strokes": [9,  11, 11,  9], "scores": [null, null, null, null]},
     {"name": "Mikey Connell",    "handicap": 6.9,  "strokes": [8,  10, 10,  9], "scores": [null, null, null, null]},
-    {"name": "Joseph Lowry",     "handicap": 9.3,  "strokes": [11, 13, 13, 12], "scores": [null, null, null, null]},
+    {"name": "Joseph Lowry",     "handicap": 8.8,  "strokes": [11, 13, 13, 11], "scores": [null, null, null, null]},
     {"name": "Garrett Wardell",  "handicap": 11.7, "strokes": [14, 16, 16, 15], "scores": [null, null, null, null]},
-    {"name": "Russell Cobble",   "handicap": 5.7,  "strokes": [7,   9,  8,  7], "scores": [null, null, null, null]},
-    {"name": "Justin Roy",       "handicap": 13.0, "strokes": [16, 18, 18, 16], "scores": [null, null, null, null]},
-    {"name": "Steve Williams",   "handicap": 10.3, "strokes": [13, 15, 15, 13], "scores": [null, null, null, null]},
+    {"name": "Russell Cobble",   "handicap": 4.8,  "strokes": [6,   8,  7,  6], "scores": [null, null, null, null]},
+    {"name": "Justin Roy",       "handicap": 12.2, "strokes": [15, 17, 17, 15], "scores": [null, null, null, null]},
+    {"name": "Steve Williams",   "handicap": 10.4, "strokes": [13, 15, 15, 13], "scores": [null, null, null, null]},
     {"name": "Micah Smoak",      "handicap": 6.6,  "strokes": [8,  10, 10,  8], "scores": [null, null, null, null]},
     {"name": "Nick Demarchi",    "handicap": 12.4, "strokes": [15, 17, 17, 16], "scores": [null, null, null, null]},
-    {"name": "John Beauregard",  "handicap": 5.8,  "strokes": [7,   9,  8,  7], "scores": [null, null, null, null]},
+    {"name": "John Beauregard",  "handicap": 6.5,  "strokes": [8,  10,  9,  8], "scores": [null, null, null, null]},
     {"name": "Derek Beauregard", "handicap": 10.2, "strokes": [13, 14, 14, 13], "scores": [null, null, null, null]},
-    {"name": "Ryan Beauregard",  "handicap": 6.3,  "strokes": [8,   9,  9,  8], "scores": [null, null, null, null]},
+    {"name": "Ryan Beauregard",  "handicap": 5.1,  "strokes": [6,   8,  8,  7], "scores": [null, null, null, null]},
     {"name": "Nick Brabant",     "handicap": 17.9, "strokes": [22, 24, 25, 22], "scores": [null, null, null, null]},
-    {"name": "Court Russo",      "handicap": 12.9, "strokes": [12, 14, 15, 12], "scores": [null, null, null, null]}
+    {"name": "Court Russo",      "handicap": 14.3, "strokes": [18, 20, 20, 18], "scores": [null, null, null, null]}
   ],
   "courses": ["True Blue", "Caledonia", "TPC Myrtle Beach", "Pawleys Plantation"],
   "pars": [72, 70, 72, 72],
