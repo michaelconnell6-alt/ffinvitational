@@ -5,10 +5,22 @@
       "course": "True Blue",
       "date": "Friday, July 10",
       "groups": [
-        { "teeTime": "8:06 AM", "players": [] },
-        { "teeTime": "8:15 AM", "players": [] },
-        { "teeTime": "8:24 AM", "players": [] },
-        { "teeTime": "8:33 AM", "players": [] }
+        {
+          "teeTime": "8:06 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:15 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:24 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:33 AM",
+          "players": []
+        }
       ]
     },
     {
@@ -25,9 +37,18 @@
             "Garrett Wardell"
           ]
         },
-        { "teeTime": "2:09 PM", "players": [] },
-        { "teeTime": "2:18 PM", "players": [] },
-        { "teeTime": "2:27 PM", "players": [] }
+        {
+          "teeTime": "2:09 PM",
+          "players": []
+        },
+        {
+          "teeTime": "2:18 PM",
+          "players": []
+        },
+        {
+          "teeTime": "2:27 PM",
+          "players": []
+        }
       ]
     },
     {
@@ -35,10 +56,22 @@
       "course": "TPC Myrtle Beach",
       "date": "Saturday, July 11",
       "groups": [
-        { "teeTime": "9:15 AM", "players": [] },
-        { "teeTime": "9:24 AM", "players": [] },
-        { "teeTime": "9:33 AM", "players": [] },
-        { "teeTime": "9:42 AM", "players": [] }
+        {
+          "teeTime": "9:15 AM",
+          "players": []
+        },
+        {
+          "teeTime": "9:24 AM",
+          "players": []
+        },
+        {
+          "teeTime": "9:33 AM",
+          "players": []
+        },
+        {
+          "teeTime": "9:42 AM",
+          "players": []
+        }
       ]
     },
     {
@@ -46,10 +79,22 @@
       "course": "Pawleys Plantation",
       "date": "Sunday, July 12",
       "groups": [
-        { "teeTime": "8:09 AM", "players": [] },
-        { "teeTime": "8:18 AM", "players": [] },
-        { "teeTime": "8:27 AM", "players": [] },
-        { "teeTime": "8:36 AM", "players": [] }
+        {
+          "teeTime": "8:09 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:18 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:27 AM",
+          "players": []
+        },
+        {
+          "teeTime": "8:36 AM",
+          "players": []
+        }
       ]
     }
   ]
