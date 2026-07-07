@@ -152,6 +152,7 @@
 
 <script>
 const ADMIN_PASSWORD = 'forefathers2026';
+const GITHUB_TOKEN  = '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';
 const REPO_OWNER    = 'michaelconnell6-alt';
 const REPO_NAME     = 'ffinvitational';
 const SCORES_FILE   = 'scores.json';
@@ -210,7 +211,7 @@ const ALL_PLAYERS = FALLBACK_PLAYERS.map(function(p){ return p.name; });
 
 // ── SCORES ────────────────────────────────────────────────────
 async function loadScores() {
-  const token = localStorage.getItem('ff_token');
+  const token = GITHUB_TOKEN;
   setStatus('Loading scores...', 'saving');
   if (token) {
     try {
@@ -275,7 +276,7 @@ function updateScore(pi, ri, val) {
 }
 
 async function saveScores() {
-  var token = localStorage.getItem('ff_token');
+  var token = GITHUB_TOKEN;
   if (!token) { setStatus('No GitHub token — contact admin', 'err'); return; }
   setStatus('Saving...', 'saving');
   try {
@@ -309,7 +310,7 @@ function setStatus(msg, cls) {
 
 // ── PAIRINGS ──────────────────────────────────────────────────
 async function loadPairings() {
-  var token = localStorage.getItem('ff_token');
+  var token = GITHUB_TOKEN;
   setPairStatus('Loading...', 'saving');
 
   if (token) {
@@ -446,7 +447,7 @@ function promptAddToGroup(player) {
 }
 
 async function savePairings() {
-  var token = localStorage.getItem('ff_token');
+  var token = GITHUB_TOKEN;
   if (!token) { setPairStatus('No GitHub token', 'err'); return; }
   setPairStatus('Saving...', 'saving');
   try {
