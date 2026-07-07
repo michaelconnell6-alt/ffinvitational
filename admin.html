@@ -95,8 +95,12 @@
     <label>Password</label>
     <input type="password" id="password-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()"/>
   </div>
+  <div class="input-group">
+    <label>GitHub Token <span style="color:rgba(201,168,76,0.5);font-size:10px;">(one-time per device)</span></label>
+    <input type="password" id="token-input" placeholder="ghp_..." onkeydown="if(event.key==='Enter')login()"/>
+  </div>
   <button class="btn" onclick="login()">Enter</button>
-  <div id="login-error">Incorrect password</div>
+  <div id="login-error">Incorrect password or missing token</div>
 </div>
 
 <div id="admin-panel">
@@ -152,7 +156,7 @@
 
 <script>
 const ADMIN_PASSWORD = 'forefathers2026';
-const GITHUB_TOKEN  = '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';
+const localStorage.getItem('ff_token')  = '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';
 const REPO_OWNER    = 'michaelconnell6-alt';
 const REPO_NAME     = 'ffinvitational';
 const SCORES_FILE   = 'scores.json';
@@ -172,8 +176,16 @@ let pairingsData = {
 };
 
 // ── AUTH ──────────────────────────────────────────────────────
+(function() {
+  var saved = localStorage.getItem('ff_token');
+  if (saved) { var el = document.getElementById('token-input'); if (el) el.value = saved; }
+})();
+
 function login() {
-  if (document.getElementById('password-input').value === ADMIN_PASSWORD) {
+  var tok = document.getElementById('token-input').value.trim();
+  if (tok) localStorage.setItem('ff_token', tok);
+  var savedToken = localStorage.getItem('ff_token');
+  if (document.getElementById('password-input').value === ADMIN_PASSWORD && savedToken) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('admin-panel').style.display  = 'block';
     renderPairings();
@@ -211,7 +223,7 @@ const ALL_PLAYERS = FALLBACK_PLAYERS.map(function(p){ return p.name; });
 
 // ── SCORES ────────────────────────────────────────────────────
 async function loadScores() {
-  const token = GITHUB_TOKEN;
+  const token = localStorage.getItem('ff_token');
   setStatus('Loading scores...', 'saving');
   if (token) {
     try {
@@ -276,7 +288,7 @@ function updateScore(pi, ri, val) {
 }
 
 async function saveScores() {
-  var token = GITHUB_TOKEN;
+  var token = localStorage.getItem('ff_token');
   if (!token) { setStatus('No GitHub token — contact admin', 'err'); return; }
   setStatus('Saving...', 'saving');
   try {
@@ -310,7 +322,7 @@ function setStatus(msg, cls) {
 
 // ── PAIRINGS ──────────────────────────────────────────────────
 async function loadPairings() {
-  var token = GITHUB_TOKEN;
+  var token = localStorage.getItem('ff_token');
   setPairStatus('Loading...', 'saving');
 
   if (token) {
@@ -447,7 +459,7 @@ function promptAddToGroup(player) {
 }
 
 async function savePairings() {
-  var token = GITHUB_TOKEN;
+  var token = localStorage.getItem('ff_token');
   if (!token) { setPairStatus('No GitHub token', 'err'); return; }
   setPairStatus('Saving...', 'saving');
   try {
