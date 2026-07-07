@@ -248,6 +248,55 @@
     padding-top: 2px;
   }
   .event-body {}
+
+  /* ── CHAMPIONS MENU DROPDOWN ── */
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold);
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .menu-toggle:hover { background: rgba(201,168,76,0.1); }
+  .menu-toggle-arrow { transition: transform 0.3s ease; display: inline-block; }
+  .menu-toggle[aria-expanded="true"] .menu-toggle-arrow { transform: rotate(180deg); }
+
+  .champions-menu {
+    margin-top: 14px;
+    background: #f7f4ef;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 20px 24px;
+    max-width: 480px;
+    overflow: hidden;
+    animation: menuReveal 0.3s ease;
+  }
+  @keyframes menuReveal {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .cm-header { text-align: center; margin-bottom: 14px; }
+  .cm-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: #1a5c2e; font-weight: 700; }
+  .cm-sub { font-family: 'EB Garamond', serif; font-size: 0.78rem; color: #666; margin-top: 2px; }
+  .cm-section { margin-bottom: 12px; text-align: center; }
+  .cm-section-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.85rem; color: #1a5c2e; font-weight: 700; margin-bottom: 6px; }
+  .cm-two-col { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 6px; }
+  .cm-item { }
+  .cm-item.cm-centered { text-align: center; }
+  .cm-item-name { font-family: 'EB Garamond', serif; font-size: 0.9rem; font-weight: 600; color: #1a1a1a; }
+  .cm-item-desc { font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.78rem; color: #666; }
+  .cm-wine { text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.78rem; color: #666; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px; margin-top: 4px; }
+  .cm-honor { text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.85rem; color: #1a5c2e; margin-top: 10px; }
   .event-name {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
