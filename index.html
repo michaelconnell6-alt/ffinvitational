@@ -1378,25 +1378,25 @@
 
   })();
 
+  // ── CHAMPIONS DINNER MENU TOGGLE ───────────────────────────────
+  function toggleMenu(btn) {
+    var menuEl = btn.nextElementSibling;
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    if (open) {
+      menuEl.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      menuEl.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
   // ── HAMBURGER MENU ─────────────────────────────────────────────
   (function() {
     var toggle   = document.getElementById('nav-toggle');
     var menu     = document.getElementById('nav-menu');
     var backdrop = document.getElementById('nav-backdrop');
     if (!toggle || !menu) return;
-
-    function toggleMenu(btn) {
-      var menu = btn.nextElementSibling;
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      if (open) {
-        menu.hidden = true;
-        btn.setAttribute('aria-expanded', 'false');
-        btn.querySelector('.menu-toggle-arrow').style.transform = '';
-      } else {
-        menu.hidden = false;
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    }
 
     function openNav() {
       toggle.classList.add('open');
