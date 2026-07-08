@@ -344,6 +344,13 @@ function renderTeetimes(data) {
   showTtRound(0);
 }
 
+const TEE_INFO = {
+  'True Blue':           'Blue Tees · 6,662 yds',
+  'Caledonia':           'Black Tees · 6,317 yds',
+  'Pawleys Plantation':  'Green/Winged Teal Tees · 6,592 yds',
+  'TPC Myrtle Beach':    'Blue Tees · 6,587 yds'
+};
+
 function showTtRound(idx) {
   ttActiveRound = idx;
   document.querySelectorAll('.tt-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
@@ -355,8 +362,11 @@ function showTtRound(idx) {
     return;
   }
 
+  const teeInfo = TEE_INFO[round.course] || '';
+
   bodyEl.innerHTML = `
     <p class="tt-date">${round.date} · ${round.course}</p>
+    ${teeInfo ? `<p class="tt-tees">${teeInfo}</p>` : ''}
     <div class="tt-groups">
       ${round.groups.map((g, gi) => `
         <div class="tt-group">
