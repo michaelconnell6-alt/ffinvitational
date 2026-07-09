@@ -57,15 +57,28 @@
         },
         {
           "teeTime": "2:09 PM",
-          "players": []
+          "players": [
+            "Russell Cobble",
+            "Ryan Beauregard",
+            "John Beauregard",
+            "Justin Roy"
+          ]
         },
         {
           "teeTime": "2:18 PM",
-          "players": []
+          "players": [
+            "Court Russo",
+            "Nick Brabant",
+            "Steve Williams"
+          ]
         },
         {
           "teeTime": "2:27 PM",
-          "players": []
+          "players": [
+            "Micah Smoak",
+            "Nick Demarchi",
+            "Derek Beauregard"
+          ]
         }
       ]
     },
