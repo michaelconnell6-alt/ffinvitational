@@ -130,19 +130,37 @@
       "groups": [
         {
           "teeTime": "8:09 AM",
-          "players": []
+          "players": [
+            "John Beauregard",
+            "Ryan Beauregard",
+            "Mikey Connell"
+          ]
         },
         {
           "teeTime": "8:18 AM",
-          "players": []
+          "players": [
+            "Steve Williams",
+            "Rob Leverone",
+            "Nick Brabant"
+          ]
         },
         {
           "teeTime": "8:27 AM",
-          "players": []
+          "players": [
+            "Russell Cobble",
+            "Garrett Wardell",
+            "Nick Demarchi",
+            "Derek Beauregard"
+          ]
         },
         {
           "teeTime": "8:36 AM",
-          "players": []
+          "players": [
+            "Micah Smoak",
+            "Joseph Lowry",
+            "Justin Roy",
+            "Court Russo"
+          ]
         }
       ]
     }
