@@ -9,7 +9,7 @@
     --text-dark: #1a1a1a;
   }
 
-  html { scroll-padding-top: 52px; }
+  html { scroll-padding-top: 64px; }
 
   /* ── CUSTOM SCROLLBAR ── */
   ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -493,17 +493,7 @@
     background: #fff;
   }
 
-  /* Sticky thead — offset 52px for fixed nav */
-  .leaderboard-table thead tr.lb-banner th {
-    position: sticky;
-    top: 52px;
-    z-index: 3;
-  }
-  .leaderboard-table thead tr.lb-cols th {
-    position: sticky;
-    top: 96px; /* 52px nav + ~44px banner row */
-    z-index: 3;
-  }
+  /* Headers scroll with table (tournament complete — sticky not needed) */
 
   /* Top banner above headers */
   .leaderboard-table thead tr.lb-banner th {
