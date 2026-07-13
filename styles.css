@@ -1254,7 +1254,7 @@
   }
   .gallery-folder-hint {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     background: rgba(26,61,26,0.75);
