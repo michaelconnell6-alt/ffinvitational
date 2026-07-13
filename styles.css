@@ -819,6 +819,94 @@
     font-style: italic;
   }
 
+  /* ── 2026 RECAP ── */
+  #recap { background: var(--green-dark); }
+  #recap .section-eyebrow { color: rgba(201,168,76,0.7); }
+  #recap .section-title { color: var(--cream); }
+  #recap .section-rule { background: rgba(201,168,76,0.3); }
+
+  .recap-champion {
+    text-align: center;
+    padding: 32px 24px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    margin-bottom: 32px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255,255,255,0.04);
+  }
+  .recap-champ-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .recap-champ-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--cream);
+    font-weight: 700;
+  }
+  .recap-champ-detail {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: rgba(245,240,232,0.5);
+    font-size: 1rem;
+    margin-top: 6px;
+    min-height: 1.2em;
+  }
+
+  .recap-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .recap-stat {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .recap-stat-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .recap-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    font-weight: 700;
+  }
+  .recap-stat-sub {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: rgba(245,240,232,0.4);
+    font-size: 0.82rem;
+    margin-top: 4px;
+    min-height: 1.2em;
+  }
+
+  .recap-narrative {
+    max-width: 680px;
+    margin: 0 auto;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.75);
+    text-align: center;
+    font-style: italic;
+    min-height: 60px;
+  }
+
   /* ── FORMAT ── */
   .rules-grid {
     display: grid;

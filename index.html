@@ -138,9 +138,10 @@
     <li><a href="#courses">Courses</a></li>
     <li><a href="#roster">Roster</a></li>
     <li><a href="#leaderboard">Leaderboard</a></li>
-    <li><a href="#teetimes">Tee Times</a></li>
+    <!-- <li><a href="#teetimes">Tee Times</a></li> -->
     <li><a href="#lodging">Lodging</a></li>
     <li><a href="#champions">Past Champions</a></li>
+    <li><a href="#recap">2026 Recap</a></li>
     <li><a href="#format">Format</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="admin.html">Admin</a></li>
@@ -158,14 +159,10 @@
     July 9–12, 2026 &nbsp;·&nbsp; Myrtle Beach, South Carolina<br>
     Birdie House &nbsp;·&nbsp; 3427 Dewey Road
   </div>
-  <div class="countdown" id="countdown">
-    <div class="countdown-unit"><span class="countdown-num" id="cd-days">—</span><span class="countdown-label">Days</span></div>
-    <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span class="countdown-num" id="cd-hours">—</span><span class="countdown-label">Hours</span></div>
-    <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span class="countdown-num" id="cd-mins">—</span><span class="countdown-label">Minutes</span></div>
-    <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span class="countdown-num" id="cd-secs">—</span><span class="countdown-label">Seconds</span></div>
+  <div class="countdown" id="countdown" style="flex-direction:column;gap:6px;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);letter-spacing:2px;">2026 Champion</div>
+    <div style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--cream);font-weight:700;">Micah Smoak</div>
+    <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;color:rgba(245,240,232,0.5);letter-spacing:3px;text-transform:uppercase;margin-top:6px;">See You in 2027</div>
   </div>
 </header>
 
@@ -502,7 +499,7 @@
     <div class="section-header">
       <div class="lb-header-top">
         <div>
-          <div class="section-eyebrow">2026 Tournament</div>
+          <div class="section-eyebrow">2026 Final Results</div>
           <h2 class="section-title" style="margin-bottom:0">Leaderboard</h2>
         </div>
         <button id="lb-share-btn" class="lb-share-btn" onclick="shareLeaderboard()">
@@ -833,11 +830,11 @@
           <div class="champion-score">Arcadia Bluffs / TreeTops</div>
         </div>
       </div>
-      <div class="champion-row champion-row-pending">
+      <div class="champion-row">
         <div class="champion-year">2026</div>
-        <div class="champion-trophy" style="opacity:0.35;">🏆</div>
+        <div class="champion-trophy">🏆</div>
         <div class="champion-info">
-          <div class="champion-name" style="color:#bbb;font-style:italic;">To Be Crowned</div>
+          <div class="champion-name">Micah Smoak</div>
           <div class="champion-score">Myrtle Beach, SC</div>
         </div>
       </div>
@@ -846,6 +843,54 @@
       <img src="images/champion-steins.jpg" alt="ForeFathers Invitational Champion Steins" class="steins-img"/>
       <p class="steins-caption">The ForeFathers Invitational Champion Steins</p>
     </div>
+  </div>
+</section>
+
+<!-- 2026 RECAP -->
+<section id="recap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Myrtle Beach 2026</div>
+      <h2 class="section-title">Tournament Recap</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <!-- Champion callout -->
+    <div class="recap-champion">
+      <div class="recap-champ-label">2026 Champion</div>
+      <div class="recap-champ-name">Micah Smoak</div>
+      <div class="recap-champ-detail"><!-- e.g. "−14 net · Myrtle Beach, SC" --></div>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="recap-stats">
+      <div class="recap-stat">
+        <div class="recap-stat-label">Low Round</div>
+        <div class="recap-stat-value">—</div>
+        <div class="recap-stat-sub"><!-- Name · Course --></div>
+      </div>
+      <div class="recap-stat">
+        <div class="recap-stat-label">Low Gross</div>
+        <div class="recap-stat-value">—</div>
+        <div class="recap-stat-sub"><!-- Name · Score --></div>
+      </div>
+      <div class="recap-stat">
+        <div class="recap-stat-label">Pink Iron Winner</div>
+        <div class="recap-stat-value">—</div>
+        <div class="recap-stat-sub"><!-- Name · Round --></div>
+      </div>
+      <div class="recap-stat">
+        <div class="recap-stat-label">Biggest Comeback</div>
+        <div class="recap-stat-value">—</div>
+        <div class="recap-stat-sub"><!-- Name · detail --></div>
+      </div>
+    </div>
+
+    <!-- Narrative -->
+    <div class="recap-narrative">
+      <p><!-- Write the story of the tournament here. How did it unfold? Who was in contention? What happened on the back nine? --></p>
+    </div>
+
   </div>
 </section>
 
