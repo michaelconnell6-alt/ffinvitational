@@ -1245,6 +1245,27 @@
     padding-bottom: 8px;
     margin-bottom: 20px;
   }
+  .gallery-folder {
+    cursor: pointer;
+    position: relative;
+  }
+  .gallery-folder:hover img {
+    opacity: 0.85;
+  }
+  .gallery-folder-hint {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26,61,26,0.75);
+    color: var(--gold);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px 0;
+  }
   .gallery-note {
     text-align: center;
     font-style: italic;

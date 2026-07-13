@@ -1,3 +1,14 @@
+// 2026 Gallery folder toggle
+function toggleGallery2026(card) {
+  var expanded = document.getElementById('gallery-2026-expanded');
+  var isOpen = expanded.style.display !== 'none';
+  expanded.style.display = isOpen ? 'none' : 'block';
+  if (card) {
+    var hint = card.querySelector('.gallery-folder-hint');
+    if (hint) hint.textContent = isOpen ? 'Tap to expand · 53 photos' : 'Tap to collapse ▲';
+  }
+}
+
 // Lightbox
   function openLightbox(img) {
     document.getElementById('lightbox-img').src = img.src;
