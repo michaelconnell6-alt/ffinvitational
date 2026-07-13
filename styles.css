@@ -1224,6 +1224,27 @@
     height: 32px;
     opacity: 0.3;
   }
+  .gallery-cover {
+    grid-column: 1 / -1;
+    max-height: 480px;
+    overflow: hidden;
+  }
+  .gallery-cover img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .gallery-year-header {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green);
+    border-bottom: 1px solid rgba(26,61,26,0.2);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+  }
   .gallery-note {
     text-align: center;
     font-style: italic;
