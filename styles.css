@@ -144,6 +144,21 @@
     -webkit-mask-image: linear-gradient(to left, black 0%, black 30%, transparent 100%);
   }
 
+  /* ── HERO GROUP PHOTO BG (left bleed) ── */
+  .hero-group-photo-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 38%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.28;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: linear-gradient(to right, black 0%, black 30%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 30%, transparent 100%);
+  }
+
   /* ── HERO CHAMPION BLOCK ── */
   .hero-champion-block {
     display: flex;
