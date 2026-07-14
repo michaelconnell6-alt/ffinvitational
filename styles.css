@@ -149,7 +149,7 @@
   .hero-group-photo-bg {
     position: fixed;
     top: 0; left: 0;
-    width: 55%;
+    width: 65%;
     height: 100vh;
     background-size: 100% auto;
     background-position: left 30%;
@@ -157,8 +157,8 @@
     opacity: 0.28;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to right, black 0%, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 0%, black 40%, transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 60%, transparent 100%);
   }
 
   /* ── HERO CHAMPION BLOCK ── */
