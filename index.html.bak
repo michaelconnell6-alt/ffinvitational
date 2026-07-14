@@ -173,15 +173,144 @@
 <section id="schedule">
   <div class="container">
     <div class="section-header">
-      <div class="section-eyebrow">Coming Soon</div>
-      <h2 class="section-title">ForeFathers 2027</h2>
+      <div class="section-eyebrow">How It Went</div>
+      <h2 class="section-title">The Week That Was</h2>
       <div class="section-rule"></div>
     </div>
 
-    <div class="schedule-tbd">
-      <div class="schedule-tbd-icon">⛳</div>
-      <div class="schedule-tbd-text">Location &amp; dates to be announced</div>
-      <div class="schedule-tbd-sub">Details coming soon.</div>
+    <!-- Thursday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Thu · Jul 9</div>
+        <div class="day-title">Arrival Day</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">4:00 PM</div>
+          <div class="event-body">
+            <div class="event-name">Arrived at Birdie House</div>
+            <div class="event-note">Beers, hot dogs, and the annual debate about who has the best handicap</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Fri · Jul 10</div>
+        <div class="day-title">Opening Rounds</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Round 1</div>
+          <div class="event-body">
+            <div class="event-name">True Blue Golf Club</div>
+            <div class="event-note">Micah Smoak took the lead and never gave it back</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Round 2</div>
+          <div class="event-body">
+            <div class="event-name">Caledonia Golf &amp; Fish Club</div>
+            <div class="event-note">36 holes in a day. The field started to thin out mentally.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Sat · Jul 11</div>
+        <div class="day-title">Moving Day</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Round 3</div>
+          <div class="event-body">
+            <div class="event-name">TPC Myrtle Beach</div>
+            <div class="event-note">Steve Williams made history with the tournament's first-ever hole-in-one</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Afternoon</div>
+          <div class="event-body">
+            <div class="event-name">Beach, bars, recovery</div>
+            <div class="event-note">The beach didn't card anyone</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">7:00 PM</div>
+          <div class="event-body">
+            <div class="event-name">Champions Dinner</div>
+            <div class="event-note">Prepared by Steve Williams — who earlier that day made a hole-in-one</div>
+            <button class="menu-toggle" onclick="toggleMenu(this)" aria-expanded="false">
+              View Menu <span class="menu-toggle-arrow">▾</span>
+            </button>
+            <div class="champions-menu" hidden>
+              <div class="cm-header">
+                <div class="cm-title">Champions Dinner</div>
+                <div class="cm-sub">Saturday, July 11, 2026 · Birdie House</div>
+              </div>
+              <div class="cm-section">
+                <div class="cm-section-title">Starters</div>
+                <div class="cm-two-col">
+                  <div class="cm-item"><div class="cm-item-name">Toasted Ravioli</div><div class="cm-item-desc">Smoked mozzarella and basil,<br>house marinara for dipping</div></div>
+                  <div class="cm-item"><div class="cm-item-name">Italian Meatballs</div><div class="cm-item-desc">Chef's blend of veal, pork &amp; beef,<br>melted mozzarella, shaved parm</div></div>
+                </div>
+                <div class="cm-item cm-centered"><div class="cm-item-name">Sourdough Bread</div><div class="cm-item-desc">Pane e Olio</div></div>
+              </div>
+              <div class="cm-section">
+                <div class="cm-section-title">Salad</div>
+                <div class="cm-item cm-centered"><div class="cm-item-name">Caesar Salad</div><div class="cm-item-desc">Romaine Hearts, Shaved Parmesan, House Dressing, Garlic Croutons</div></div>
+              </div>
+              <div class="cm-section">
+                <div class="cm-section-title">Entrée</div>
+                <div class="cm-item cm-centered"><div class="cm-item-name">Chicken Parmesan</div><div class="cm-item-desc">Hand-Breaded Chicken Breast, Fresh Mozzarella,<br>Served with Linguini, topped with House Marinara</div></div>
+              </div>
+              <div class="cm-section">
+                <div class="cm-section-title">Dessert</div>
+                <div class="cm-item cm-centered"><div class="cm-item-name">Molten Chocolate Lava Cake</div><div class="cm-item-desc">Vanilla Bean Ice Cream &amp; Warm Chocolate Sauce</div></div>
+              </div>
+              <div class="cm-wine">Chianti Classico · Italy</div>
+              <div class="cm-honor">Served in Honor of Michael Connell</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sunday -->
+    <div class="schedule-day">
+      <div class="schedule-day-header">
+        <div class="day-badge">Sun · Jul 12</div>
+        <div class="day-title">Championship Sunday</div>
+      </div>
+      <div class="schedule-events">
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">Check-Out</div>
+          <div class="event-body">
+            <div class="event-name">Birdie House Checkout</div>
+            <div class="event-note">3427 Dewey Road, Myrtle Beach, SC 29579</div>
+          </div>
+        </div>
+        <div class="schedule-event">
+          <div class="event-dot"></div>
+          <div class="event-time">8:09 – 8:36 AM</div>
+          <div class="event-body">
+            <div class="event-name">Pawleys Plantation Golf &amp; Country Club</div>
+            <div class="event-note">Micah Smoak closed it out at +5 net — wire-to-wire champion</div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1358,12 +1487,4 @@
       var diff = Math.floor((Date.now() - window._lbLastUpdated) / 1000);
       if (diff < 5)        tsEl.textContent = 'Just updated';
       else if (diff < 60)  tsEl.textContent = 'Updated ' + diff + 's ago';
-      else if (diff < 120) tsEl.textContent = 'Updated 1m ago';
-      else tsEl.textContent = 'Updated ' + Math.floor(diff / 60) + 'm ago';
-    }
-    tick();
-    setInterval(tick, 5000);
-  })();
-</script>
-</body>
-</html>
+      else if (diff < 120) tsEl.
