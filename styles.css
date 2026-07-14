@@ -131,10 +131,10 @@
 
   /* ── HERO CHAMPION PHOTO BG ── */
   .hero-champ-photo-bg {
-    position: fixed;
+    position: absolute;
     top: 0; right: 0;
     width: 55%;
-    height: 100vh;
+    height: 100%;
     background-size: 100% auto;
     background-position: left 30%;
     background-repeat: no-repeat;
@@ -147,10 +147,10 @@
 
   /* ── HERO GROUP PHOTO BG (left bleed) ── */
   .hero-group-photo-bg {
-    position: fixed;
+    position: absolute;
     top: 0; left: 0;
     width: 65%;
-    height: 100vh;
+    height: 100%;
     background-size: 100% auto;
     background-position: left 30%;
     background-repeat: no-repeat;
