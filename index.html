@@ -1487,4 +1487,12 @@
       var diff = Math.floor((Date.now() - window._lbLastUpdated) / 1000);
       if (diff < 5)        tsEl.textContent = 'Just updated';
       else if (diff < 60)  tsEl.textContent = 'Updated ' + diff + 's ago';
-      else if (diff < 120) tsEl.textContent = 'Upd
+      else if (diff < 120) tsEl.textContent = 'Updated 1m ago';
+      else tsEl.textContent = 'Updated ' + Math.floor(diff / 60) + 'm ago';
+    }
+    tick();
+    setInterval(tick, 5000);
+  })();
+</script>
+</body>
+</html>
