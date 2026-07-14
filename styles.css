@@ -133,30 +133,32 @@
   .hero-champ-photo-bg {
     position: fixed;
     top: 0; right: 0;
-    width: 38%;
+    width: 55%;
     height: 100vh;
-    background-size: cover;
-    background-position: center top;
+    background-size: 100% auto;
+    background-position: left 30%;
+    background-repeat: no-repeat;
     opacity: 0.28;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to left, black 0%, black 30%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to left, black 0%, black 30%, transparent 100%);
+    mask-image: linear-gradient(to left, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, black 0%, black 40%, transparent 100%);
   }
 
   /* ── HERO GROUP PHOTO BG (left bleed) ── */
   .hero-group-photo-bg {
     position: fixed;
     top: 0; left: 0;
-    width: 38%;
+    width: 55%;
     height: 100vh;
-    background-size: cover;
-    background-position: center top;
+    background-size: 100% auto;
+    background-position: left 30%;
+    background-repeat: no-repeat;
     opacity: 0.28;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to right, black 0%, black 30%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 0%, black 30%, transparent 100%);
+    mask-image: linear-gradient(to right, black 0%, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 40%, transparent 100%);
   }
 
   /* ── HERO CHAMPION BLOCK ── */
