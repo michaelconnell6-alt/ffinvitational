@@ -1,7 +1,7 @@
 // ForeFathers Invitational — Service Worker
 // Cache-first for static assets, network-first for live data
 
-const CACHE_NAME = 'ff-invitational-v1';
+const CACHE_NAME = 'ff-invitational-v2';
 
 const STATIC_ASSETS = [
   '/',

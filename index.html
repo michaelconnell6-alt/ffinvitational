@@ -1078,7 +1078,7 @@
         rule.style.animation = 'introRule 0.9s ease forwards';
       }, 1800);
       setTimeout(function() {
-        sub.style.animation = 'introFade 1s ease forwards';
+        if (sub) sub.style.animation = 'introFade 1s ease forwards';
       }, 2800);
       autoTimer = setTimeout(dismiss, 6000);
     }
