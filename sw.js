@@ -1,84 +1,56 @@
 // ForeFathers Invitational — Service Worker
-// Cache-first for static assets, network-first for live data
+// Network-first for everything — ensures users always get fresh code
+// Only cache images/fonts for performance
 
-const CACHE_NAME = 'ff-invitational-v2';
+const CACHE_NAME = 'ff-invitational-v3';
 
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/manifest.json',
-  '/favicon.ico',
-  '/favicon-16.png',
-  '/favicon-32.png',
-  '/favicon-48.png',
-  '/favicon-180.png',
-  '/favicon-192.png',
-  '/images/logo.png',
-  '/images/champion-steins.jpg',
-  '/image_from_ios_720.jpg'
-];
-
-// Live data — always try network first, fall back to cache
-const NETWORK_FIRST = [
-  '/scores.json',
-  '/pairings.json'
-];
-
-// Install: cache all static assets
+// Install: skip waiting so new SW activates immediately
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS);
-    }).then(() => self.skipWaiting())
-  );
+  self.skipWaiting();
 });
 
-// Activate: clear old caches
+// Activate: wipe ALL old caches, claim all clients
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then(keys => Promise.all(keys.map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
-// Fetch: cache-first for static, network-first for live data
+// Fetch: network-first for HTML/JS/CSS, cache-first for images
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-
-  // Only handle same-origin requests
   if (url.origin !== location.origin) return;
 
-  const isNetworkFirst = NETWORK_FIRST.some(path => url.pathname.endsWith(path.replace('/', '')));
+  const isImage = /\.(jpg|jpeg|png|gif|webp|svg|ico)$/i.test(url.pathname);
 
-  if (isNetworkFirst) {
-    // Network first — get fresh scores/pairings, fall back to cache if offline
+  if (isImage) {
+    // Cache-first for images (they don't change)
+    event.respondWith(
+      caches.match(event.request).then(cached => {
+        if (cached) return cached;
+        return fetch(event.request).then(response => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
+          }
+          return response;
+        });
+      })
+    );
+  } else {
+    // Network-first for HTML, JS, CSS, JSON — always get fresh code
     event.respondWith(
       fetch(event.request)
         .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
+          }
           return response;
         })
         .catch(() => caches.match(event.request))
-    );
-  } else {
-    // Cache first — serve instantly from cache, update in background
-    event.respondWith(
-      caches.match(event.request).then(cached => {
-        const fetchPromise = fetch(event.request).then(response => {
-          if (response.ok) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          }
-          return response;
-        }).catch(() => {});
-        return cached || fetchPromise;
-      })
     );
   }
 });
