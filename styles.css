@@ -129,6 +129,80 @@
     opacity: 0.93;
   }
 
+  /* ── HERO CHAMPION PHOTO BG ── */
+  .hero-champ-photo-bg {
+    position: fixed;
+    top: 0; right: 0;
+    width: 38%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.5) 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.5) 0%, transparent 100%);
+  }
+
+  /* ── HERO CHAMPION BLOCK ── */
+  .hero-champion-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 28px 36px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-champ-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.9;
+  }
+  .hero-champ-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--cream);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .hero-champ-score {
+    font-family: 'EB Garamond', serif;
+    font-size: 1rem;
+    color: rgba(245,240,232,0.6);
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .hero-champ-cta {
+    margin-top: 14px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    background: var(--gold);
+    padding: 8px 22px;
+    text-decoration: none;
+    border-radius: 1px;
+    transition: opacity 0.2s;
+  }
+  .hero-champ-cta:hover { opacity: 0.85; }
+  .hero-next-year {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+    margin-top: 20px;
+  }
+
   /* ── COUNTDOWN ── */
   .countdown {
     display: inline-flex;
@@ -1016,39 +1090,46 @@
   }
   .recap-awards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 14px;
-    margin-bottom: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
   }
   .recap-award {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 4px;
-    padding: 20px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px;
+    padding: 28px 20px 22px;
     text-align: center;
+    transition: border-color 0.2s, background 0.2s;
   }
-  .award-icon { font-size: 1.8rem; margin-bottom: 8px; }
-  .award-name {
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-    line-height: 1.4;
+  .recap-award:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.4);
   }
+  .award-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
   .award-winner {
     font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
+    font-size: 1.35rem;
     color: var(--cream);
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .award-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.5;
+    opacity: 0.85;
   }
   .award-desc {
     font-family: 'EB Garamond', serif;
     font-style: italic;
     font-size: 0.85rem;
-    color: rgba(245,240,232,0.5);
+    color: rgba(245,240,232,0.45);
+    margin-top: 8px;
   }
 
   /* Group photo */
