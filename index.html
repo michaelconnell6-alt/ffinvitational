@@ -115,7 +115,7 @@
     <img id="intro-logo" src="images/logo.png" alt="ForeFathers Invitational">
     <div id="intro-rule"></div>
   </div>
-  <button id="intro-skip" onclick="document.getElementById('intro-overlay').dispatchEvent(new Event('click'))">Tap to enter</button>
+  <button id="intro-skip" onclick="window.dismissIntro && window.dismissIntro()">TAP TO ENTER</button>
 </div>
 
 
@@ -1022,13 +1022,13 @@
     if (!overlay) return;
 
     var dismissed = false, autoTimer;
-    function dismiss() {
+    window.dismissIntro = function() {
       if (dismissed) return; dismissed = true;
       clearTimeout(autoTimer);
       overlay.classList.add('fade-out');
       setTimeout(function() { overlay.style.display = 'none'; }, 1200);
-    }
-    overlay.addEventListener('click', dismiss);
+    };
+    overlay.addEventListener('click', window.dismissIntro);
 
     // ── PARTICLES ──
     function startParticles() {
@@ -1072,7 +1072,7 @@
       setTimeout(function() {
         if (sub) sub.style.animation = 'introFade 1s ease forwards';
       }, 2800);
-      autoTimer = setTimeout(dismiss, 6000);
+      autoTimer = setTimeout(window.dismissIntro, 6000);
     }
 
     // ── GOLF BALL ANIMATION (camera-follow close-up) ──
