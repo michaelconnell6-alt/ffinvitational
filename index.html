@@ -933,7 +933,7 @@
       setTimeout(function() {
         if (sub) sub.style.animation = 'introFade 1s ease forwards';
       }, 2800);
-      autoTimer = setTimeout(window.dismissIntro, 6000);
+      autoTimer = setTimeout(window.dismissIntro, ('ontouchstart' in window) ? 3500 : 6000);
     }
 
     // ── GOLF BALL ANIMATION (camera-follow close-up) ──

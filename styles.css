@@ -1602,12 +1602,34 @@
     nav ul li a { padding: 14px 20px; font-size: 12px; letter-spacing: 2px; }
     nav ul li a.nav-active { border-bottom: none; border-left: 3px solid var(--gold); padding-left: 17px; }
 
-    /* HERO */
-    .hero { padding: 24px 16px 32px; }
+    /* HERO FIXED PHOTOS — hide on mobile, too wide and cause scroll jank */
+    .hero-champ-photo-bg,
+    .hero-group-photo-bg { display: none; }
 
-    /* SECTIONS */
-    section { padding: 48px 16px; }
-    .section-header { margin-bottom: 32px; }
+    /* HERO — static group photo as subtle background instead */
+    .hero { padding: 24px 16px 32px; }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('photos/IMG_1068.jpg');
+      background-size: cover;
+      background-position: center 20%;
+      opacity: 0.10;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    /* SECTIONS — tighter vertical rhythm on small screens */
+    section { padding: 40px 16px; }
+    .section-header { margin-bottom: 28px; }
+
+    /* TOUCH TARGETS — 44px minimum per HIG */
+    .hero-champ-cta { min-height: 44px; display: inline-flex; align-items: center; }
+    .gallery-item img { min-height: 44px; }
+    .champion-row { min-height: 44px; }
+    .menu-toggle { min-height: 44px; padding-top: 10px; padding-bottom: 10px; }
 
     /* COURSES */
     .courses-grid { grid-template-columns: 1fr; }
