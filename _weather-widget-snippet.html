@@ -1,0 +1,30 @@
+<!--
+  WEATHER WIDGET — restore this for 2027
+  =======================================
+  1. Paste the <section> block below into index.html after the hero (before <!-- SCHEDULE -->)
+  2. Update TOURNAMENT_DATES and DAY_LABELS in script.js (search for "── WEATHER ──")
+  3. Update the lat/lon in the API URL if the location changes (currently Myrtle Beach: 33.6891, -78.8867)
+-->
+
+<!-- HTML (goes in index.html) -->
+<!-- WEATHER -->
+<section id="weather" style="background:var(--green-dark);padding:28px 0;border-bottom:1px solid rgba(201,168,76,0.2);">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:16px;">
+      <span style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,0.7);">Myrtle Beach Forecast · Tournament Week</span>
+    </div>
+    <div id="weather-widget" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <span style="font-family:'Oswald',sans-serif;color:rgba(245,240,232,0.4);font-size:13px;letter-spacing:1px;">Loading forecast...</span>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT (already in script.js — search for "── WEATHER ──") -->
+<!-- Update these values at the top of the weather block: -->
+<!--
+const TOURNAMENT_DATES = ['2027-07-XX','2027-07-XX','2027-07-XX','2027-07-XX'];
+const DAY_LABELS = ['Thu Jul X','Fri Jul X','Sat Jul X','Sun Jul X'];
+const DAY_NOTES  = ['Check-in','R1 · R2','R3','R4'];
+// API lat/lon: update if location changes
+// ?latitude=33.6891&longitude=-78.8867  ← Myrtle Beach
+-->
