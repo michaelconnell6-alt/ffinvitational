@@ -119,7 +119,7 @@ function renderLeaderboard(data) {
     prevSorted.forEach((p, i) => { prevPositions[p.name] = i + 1; });
   }
 
-  // Fire 🔥 = best net of last round, 💩 = worst net of last round
+  // Fire = best net of last round, poop = worst net of last round
   let fireName = null, poopName = null;
   if (lastRound >= 0) {
     const roundNets = data.players
@@ -215,13 +215,11 @@ function renderLeaderboard(data) {
   });
 
   // ── FLIP ANIMATION ──────────────────────────────────────────
-  // Measure new positions, apply inverse transforms, then animate to zero
   const newRows = {};
   tbody.querySelectorAll('tr[data-player]').forEach(row => {
     newRows[row.dataset.player] = { el: row, top: row.getBoundingClientRect().top };
   });
 
-  // Apply inverted transforms synchronously (before paint)
   Object.entries(newRows).forEach(([name, { el, top }]) => {
     if (prevRects[name] !== undefined) {
       const delta = prevRects[name] - top;
@@ -229,22 +227,18 @@ function renderLeaderboard(data) {
         el.style.transform  = `translateY(${delta}px)`;
         el.style.transition = 'none';
       }
-      // Gold flash if score changed
       if (prevScores[name] !== undefined && prevScores[name] !== el.dataset.score) {
         el.style.background = 'rgba(201,168,76,0.18)';
       }
     } else {
-      // New row — start invisible
       el.style.opacity   = '0';
       el.style.transform = 'translateX(-12px)';
       el.style.transition = 'none';
     }
   });
 
-  // Force reflow so transforms take effect before transition starts
   tbody.getBoundingClientRect();
 
-  // Play: animate everything to final state
   Object.entries(newRows).forEach(([name, { el }]) => {
     if (prevRects[name] !== undefined) {
       el.style.transition = 'transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94), background 1.2s ease';
@@ -415,11 +409,9 @@ loadTeetimes();
   sections.forEach(section => {
     const rect = section.getBoundingClientRect();
     if (rect.top > vh * 0.85) {
-      // Below the fold — animate in on scroll
       section.classList.add('ff-animate');
       observer.observe(section);
     }
-    // Already visible sections stay as-is
   });
 })();
 
@@ -436,7 +428,6 @@ async function shareLeaderboard() {
 
   await document.fonts.ready;
 
-  // Load logo image first
   const logo = await new Promise(resolve => {
     const img = new Image();
     img.onload = () => resolve(img);
@@ -456,35 +447,29 @@ async function shareLeaderboard() {
   canvas.height = H;
   const ctx = canvas.getContext('2d');
 
-  // Background
   ctx.fillStyle = '#080f09';
   ctx.fillRect(0, 0, W, H);
 
-  // Subtle radial glow at top
   const grd = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, 600);
   grd.addColorStop(0, 'rgba(201,168,76,0.10)');
   grd.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, W, H);
 
-  // Outer gold border
   ctx.strokeStyle = '#c9a84c';
   ctx.lineWidth = 6;
   ctx.strokeRect(18, 18, W - 36, H - 36);
 
-  // Inner subtle border
   ctx.strokeStyle = 'rgba(201,168,76,0.22)';
   ctx.lineWidth = 1;
   ctx.strokeRect(32, 32, W - 64, H - 64);
 
-  // Header — logo image (white tint) or fallback text
   let headerY = 60;
   if (logo) {
     const logoW = Math.min(520, logo.naturalWidth);
     const logoRatio = logo.naturalHeight / logo.naturalWidth;
     const logoH = logoW * logoRatio;
     const logoX = (W - logoW) / 2;
-    // Draw logo in gold tint using composite
     ctx.save();
     ctx.drawImage(logo, logoX, headerY, logoW, logoH);
     ctx.globalCompositeOperation = 'source-atop';
@@ -506,13 +491,11 @@ async function shareLeaderboard() {
   ctx.fillText('2026 · MYRTLE BEACH, SC · LEADERBOARD', W / 2, headerY + 8);
   headerY += 40;
 
-  // Gold divider
   ctx.strokeStyle = '#c9a84c';
   ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(80, headerY + 12); ctx.lineTo(W - 80, headerY + 12); ctx.stroke();
   headerY += 58;
 
-  // Column labels
   ctx.fillStyle = 'rgba(245,240,232,0.32)';
   ctx.font = '400 20px Oswald, sans-serif';
   ctx.textAlign = 'left';
@@ -526,7 +509,6 @@ async function shareLeaderboard() {
   ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(80, headerY); ctx.lineTo(W - 80, headerY); ctx.stroke();
 
-  // Player rows
   let y = headerY + 16;
   rows.forEach((row, i) => {
     const posEl  = row.querySelector('.pos-num');
@@ -540,7 +522,6 @@ async function shareLeaderboard() {
 
     const cy = y + ROW_H / 2;
 
-    // Leader row highlight
     if (isLeader) {
       ctx.fillStyle = 'rgba(201,168,76,0.07)';
       ctx.fillRect(60, y, W - 120, ROW_H);
@@ -549,7 +530,6 @@ async function shareLeaderboard() {
       ctx.beginPath(); ctx.moveTo(60, y); ctx.lineTo(60, y + ROW_H); ctx.stroke();
     }
 
-    // Position
     if (isLeader) {
       ctx.fillStyle = '#c9a84c';
       ctx.beginPath();
@@ -566,13 +546,11 @@ async function shareLeaderboard() {
       ctx.fillText(pos, 128, cy + 9);
     }
 
-    // Name
     ctx.textAlign = 'left';
     ctx.fillStyle = isLeader ? '#f5f0e8' : 'rgba(245,240,232,0.82)';
     ctx.font = (isLeader ? '500' : '400') + ' 30px Oswald, sans-serif';
     ctx.fillText(name, 200, cy + 10);
 
-    // Net score
     ctx.textAlign = 'right';
     const num = parseFloat(net);
     if (net === 'E')      ctx.fillStyle = '#c9a84c';
@@ -582,7 +560,6 @@ async function shareLeaderboard() {
     ctx.font = '500 38px Oswald, sans-serif';
     ctx.fillText(net, W - 90, cy + 13);
 
-    // Row separator
     if (i < rows.length - 1) {
       ctx.strokeStyle = 'rgba(245,240,232,0.06)';
       ctx.lineWidth = 1;
@@ -595,7 +572,6 @@ async function shareLeaderboard() {
     y += ROW_H;
   });
 
-  // Footer
   ctx.strokeStyle = 'rgba(201,168,76,0.3)';
   ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(80, y + 30); ctx.lineTo(W - 80, y + 30); ctx.stroke();
@@ -605,7 +581,6 @@ async function shareLeaderboard() {
   ctx.textAlign = 'center';
   ctx.fillText('forefathersinvitational.com', W / 2, y + 72);
 
-  // Share or download
   canvas.toBlob(async blob => {
     if (btn) btn.classList.remove('generating');
     const file = new File([blob], 'forefathers-leaderboard.png', { type: 'image/png' });
