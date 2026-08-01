@@ -1753,3 +1753,87 @@
   .lb-share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
   .lb-share-btn.generating { opacity: 0.6; pointer-events: none; }
 
+
+  /* ── 2027 HUB ── */
+  #y2027 {
+    background: var(--cream);
+    padding: 72px 0 56px;
+  }
+  .y2027-location-banner {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    background: var(--green-dark);
+    border-radius: 6px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+  .y2027-loc-item {
+    flex: 1;
+    min-width: 160px;
+    padding: 20px 24px;
+    text-align: center;
+    border-right: 1px solid rgba(201,168,76,0.2);
+  }
+  .y2027-loc-item:last-child { border-right: none; }
+  .y2027-loc-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .y2027-loc-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--cream);
+    font-weight: 600;
+  }
+  .y2027-status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .y2027-status-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .y2027-status-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 22px 18px;
+    text-align: center;
+    border: 1.5px solid #e8e0cc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .y2027-status-card.confirmed {
+    border-color: rgba(46,140,70,0.35);
+    background: #f4faf6;
+  }
+  .y2027-status-card.tbd {
+    border-color: #e8e0cc;
+    background: #faf8f2;
+  }
+  .y2027-status-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  .y2027-status-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 4px;
+  }
+  .y2027-status-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--green-dark);
+  }
+  .y2027-status-card.tbd .y2027-status-val {
+    color: #a09070;
+    font-style: italic;
+  }
