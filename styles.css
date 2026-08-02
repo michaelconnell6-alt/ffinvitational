@@ -1837,3 +1837,42 @@
     color: #a09070;
     font-style: italic;
   }
+}
+
+/* ── 2027 Reveal Video ─────────────────────────────────────── */
+.y2027-reveal-video {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.y2027-reveal-label {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold, #c9a84c);
+  margin-bottom: 1rem;
+}
+
+.y2027-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  /* 9:16 aspect ratio for Shorts */
+  padding-bottom: 177.78%;
+  height: 0;
+  border: 2px solid var(--gold, #c9a84c);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.y2027-video-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
