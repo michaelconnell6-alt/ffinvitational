@@ -554,7 +554,7 @@
     gap: 20px;
   }
   .player-card {
-    background: var(--white);
+    background: var(--cream);
     border-top: 3px solid var(--gold);
     padding: 24px 20px;
     text-align: center;
@@ -1265,7 +1265,7 @@
   .rule-card {
     display: flex;
     gap: 18px;
-    background: var(--white);
+    background: var(--cream);
     padding: 20px 22px;
     border-left: 3px solid var(--gold);
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -1818,7 +1818,7 @@
     .y2027-status-grid { grid-template-columns: repeat(2, 1fr); }
   }
   .y2027-status-card {
-    background: #fff;
+    background: var(--cream);
     border-radius: 6px;
     padding: 22px 18px;
     text-align: center;
