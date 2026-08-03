@@ -1838,13 +1838,13 @@
     font-style: italic;
   }
 
-  /* ── Countdown ── */
+  /* ── Countdown (standalone band below hero) ── */
   .y2027-countdown {
     text-align: center;
     background: var(--green-dark);
-    border-radius: 8px;
-    padding: 28px 24px 24px;
-    margin-bottom: 40px;
+    padding: 32px 24px 28px;
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
   }
   .y2027-cd-label {
     font-family: 'Oswald', sans-serif;
