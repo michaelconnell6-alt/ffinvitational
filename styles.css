@@ -1837,6 +1837,161 @@
     color: #a09070;
     font-style: italic;
   }
+
+  /* ── Tee Schedule ── */
+  .y2027-schedule {
+    margin-bottom: 40px;
+  }
+  .y2027-sub-header {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .y2027-rounds-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 700px) {
+    .y2027-rounds-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .y2027-round {
+    background: var(--green-dark);
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .y2027-round-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .y2027-round-date {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(250,248,240,0.55);
+  }
+  .y2027-round-session {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .y2027-round-session.am {
+    background: rgba(201,168,76,0.2);
+    color: var(--gold);
+  }
+  .y2027-round-session.pm {
+    background: rgba(201,168,76,0.1);
+    color: rgba(201,168,76,0.75);
+  }
+  .y2027-round-course {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .y2027-round-sub {
+    font-size: 0.72rem;
+    color: rgba(250,248,240,0.45);
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Cost & Includes ── */
+  .y2027-cost-block {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    background: var(--green-dark);
+    border-radius: 8px;
+    padding: 28px 36px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .y2027-cost-left {
+    text-align: center;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(201,168,76,0.25);
+    padding-right: 36px;
+  }
+  @media (max-width: 600px) {
+    .y2027-cost-block { flex-direction: column; gap: 20px; padding: 24px 20px; }
+    .y2027-cost-left { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.25); padding-right: 0; padding-bottom: 16px; }
+  }
+  .y2027-cost-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .y2027-cost-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(250,248,240,0.45);
+    margin-top: 4px;
+  }
+  .y2027-includes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+  }
+  .y2027-include-item {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 160px;
+  }
+
+  /* ── Travel ── */
+  .y2027-travel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 18px 24px;
+    margin-bottom: 36px;
+  }
+  .y2027-travel-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .y2027-travel-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3px;
+  }
+  .y2027-travel-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
 }
 
 /* ── 2027 Reveal Video ─────────────────────────────────────── */
