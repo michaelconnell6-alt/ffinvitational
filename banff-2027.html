@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banff '27 – ForeFathers Invitational</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c9a84c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ForeFathers">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="banff-2027.html" class="nav-active">Banff '27</a></li>
+    <li><a href="banff-2027.html#leaderboard">Leaderboard</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="champions.html">Champions</a></li>
+    <li><a href="roster.html">Roster</a></li>
+    <li><a href="format.html">Format</a></li>
+    <li><a href="recap.html">2026 Recap</a></li>
+    <li><a href="admin.html">Admin</a></li>
+  </ul>
+</nav>
+
+<div id="nav-backdrop"></div>
+
+<!-- Countdown -->
+<div class="y2027-countdown">
+  <div class="y2027-cd-label">Days Until Banff</div>
+  <div class="y2027-cd-units">
+    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-days">—</span><span class="y2027-cd-unit-lbl">Days</span></div>
+    <div class="y2027-cd-sep">:</div>
+    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-hours">—</span><span class="y2027-cd-unit-lbl">Hours</span></div>
+    <div class="y2027-cd-sep">:</div>
+    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-mins">—</span><span class="y2027-cd-unit-lbl">Minutes</span></div>
+    <div class="y2027-cd-sep">:</div>
+    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-secs">—</span><span class="y2027-cd-unit-lbl">Seconds</span></div>
+  </div>
+</div>
+
+<!-- 2027 HUB -->
+<section id="y2027">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-eyebrow">ForeFathers 2027</div>
+      <h2 class="section-title">Banff, Alberta</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="y2027-location-banner">
+      <div class="y2027-loc-item confirmed">
+        <div class="y2027-loc-label">Destination</div>
+        <div class="y2027-loc-value">Banff, Alberta, Canada 🇨🇦</div>
+      </div>
+      <div class="y2027-loc-item confirmed">
+        <div class="y2027-loc-label">Dates</div>
+        <div class="y2027-loc-value">July 8–11, 2027</div>
+      </div>
+      <div class="y2027-loc-item confirmed">
+        <div class="y2027-loc-label">Entry</div>
+        <div class="y2027-loc-value">~$1,850 / player</div>
+      </div>
+    </div>
+
+    <!-- Tee Schedule -->
+    <div class="y2027-schedule">
+      <div class="y2027-sub-header">Tee Schedule</div>
+      <div class="y2027-rounds-grid">
+        <div class="y2027-round">
+          <div class="y2027-round-meta">
+            <span class="y2027-round-date">Thu · Jul 8</span>
+            <span class="y2027-round-session pm">PM</span>
+          </div>
+          <div class="y2027-round-course">Kananaskis Country</div>
+          <div class="y2027-round-sub">Mt. Kidd Course</div>
+        </div>
+        <div class="y2027-round">
+          <div class="y2027-round-meta">
+            <span class="y2027-round-date">Fri · Jul 9</span>
+            <span class="y2027-round-session am">AM</span>
+          </div>
+          <div class="y2027-round-course">Stewart Creek</div>
+          <div class="y2027-round-sub">Canmore, AB</div>
+        </div>
+        <div class="y2027-round">
+          <div class="y2027-round-meta">
+            <span class="y2027-round-date">Fri · Jul 9</span>
+            <span class="y2027-round-session pm">PM</span>
+          </div>
+          <div class="y2027-round-course">Silvertip Resort</div>
+          <div class="y2027-round-sub">Canmore, AB</div>
+        </div>
+        <div class="y2027-round">
+          <div class="y2027-round-meta">
+            <span class="y2027-round-date">Sat · Jul 10</span>
+            <span class="y2027-round-session am">AM</span>
+          </div>
+          <div class="y2027-round-course">Banff Springs</div>
+          <div class="y2027-round-sub">Stanley Thompson Course</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Banff -->
+    <div class="y2027-why">
+      <div class="y2027-sub-header">Why Banff?</div>
+      <div class="y2027-why-copy">
+        Four championship golf courses. The Canadian Rockies.<br>
+        Glacier-fed rivers. Long summer evenings. Wildlife.<br>
+        <em>One of the most beautiful golf destinations in the world.</em>
+      </div>
+      <div class="y2027-photo-grid">
+        <img class="y2027-photo photo-a" src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg" alt="Banff Springs Golf Course" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-b" src="https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg" alt="Kananaskis Country" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-c" src="https://silvertipresort.com/wp-content/uploads/revslider/real-estate-slider-1/Silvertip-Golf-September-2011-12-1-scaled-1.webp" alt="Silvertip Resort" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-d" src="https://www.stewartcreekgolf.com/gallery/golf-course/stewart-creek-hole01.jpg" alt="Stewart Creek" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- Cost & Includes -->
+    <div class="y2027-cost-block">
+      <div class="y2027-cost-left">
+        <div class="y2027-cost-amount">~$1,850</div>
+        <div class="y2027-cost-label">per player · estimated</div>
+      </div>
+      <div class="y2027-includes">
+        <div class="y2027-include-item">⛳ 4 Rounds of Golf</div>
+        <div class="y2027-include-item">🏨 Lodging</div>
+        <div class="y2027-include-item">🎁 Tee Gifts</div>
+        <div class="y2027-include-item">🍳 Breakfast Each Day</div>
+        <div class="y2027-include-item">🚌 Transportation</div>
+      </div>
+    </div>
+
+    <!-- Travel -->
+    <div class="y2027-travel">
+      <div class="y2027-travel-icon">✈️</div>
+      <div class="y2027-travel-text">
+        <div class="y2027-travel-label">Closest Airport</div>
+        <div class="y2027-travel-val">Calgary International (YYC) &nbsp;·&nbsp; ~1 hr to Banff / Canmore</div>
+      </div>
+    </div>
+
+    <!-- Lodging -->
+    <div class="y2027-travel">
+      <div class="y2027-travel-icon">🏨</div>
+      <div class="y2027-travel-text">
+        <div class="y2027-travel-label">Lodging</div>
+        <div class="y2027-travel-val">The Malcolm Hotel, Canmore &nbsp;·&nbsp; Mountain View Double Queens</div>
+      </div>
+    </div>
+
+    <!-- Status Grid -->
+    <div class="y2027-status-grid">
+      <div class="y2027-status-card confirmed">
+        <div class="y2027-status-icon">✅</div>
+        <div class="y2027-status-label">Destination</div>
+        <div class="y2027-status-val">Banff, Alberta</div>
+      </div>
+      <div class="y2027-status-card confirmed">
+        <div class="y2027-status-icon">✅</div>
+        <div class="y2027-status-label">Dates</div>
+        <div class="y2027-status-val">July 8–11, 2027</div>
+      </div>
+      <div class="y2027-status-card confirmed">
+        <div class="y2027-status-icon">✅</div>
+        <div class="y2027-status-label">Courses</div>
+        <div class="y2027-status-val">4 Confirmed</div>
+      </div>
+      <div class="y2027-status-card confirmed">
+        <div class="y2027-status-icon">✅</div>
+        <div class="y2027-status-label">Entry Fee</div>
+        <div class="y2027-status-val">~$1,850</div>
+      </div>
+      <div class="y2027-status-card confirmed">
+        <div class="y2027-status-icon">✅</div>
+        <div class="y2027-status-label">Lodging</div>
+        <div class="y2027-status-val">Malcolm Hotel</div>
+      </div>
+      <div class="y2027-status-card tbd">
+        <div class="y2027-status-icon">🕐</div>
+        <div class="y2027-status-label">Tee Times</div>
+        <div class="y2027-status-val">Coming Soon</div>
+      </div>
+    </div>
+
+    <!-- Reveal Video -->
+    <div class="y2027-reveal-video">
+      <div class="y2027-reveal-label">Destination Revealed</div>
+      <div class="y2027-video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/_IvZ-ugw0_w"
+          title="ForeFathers 2027 — Banff Destination Reveal"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Banff, Alberta · 2027</div>
+      <h2 class="section-title">Tournament Courses</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-img-wrap">
+          <img src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg" alt="Banff Springs Golf Course" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+        <div class="course-number">Round 1 · TBD</div>
+        <div class="course-name">Banff Springs Golf Course</div>
+        <div class="course-location">Banff, Alberta</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Stanley Thompson</span></div>
+          <div class="course-detail-row"><span>Par</span><span>71</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
+        </div>
+        <a href="https://www.banffmountaingolf.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-img-wrap">
+          <img src="https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg" alt="Kananaskis Country Golf Course" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+        <div class="course-number">Round 2 · TBD</div>
+        <div class="course-name">Kananaskis Country Golf</div>
+        <div class="course-location">Kananaskis, Alberta</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Course</span><span>Mt. Kidd</span></div>
+          <div class="course-detail-row"><span>Designer</span><span>Robert Trent Jones Sr.</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
+        </div>
+        <a href="https://www.kananaskisgolf.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-img-wrap">
+          <img src="https://www.stewartcreekgolf.com/gallery/golf-course/stewart-creek-hole01.jpg" alt="Stewart Creek Golf & Country Club" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+        <div class="course-number">Round 3 · TBD</div>
+        <div class="course-name">Stewart Creek Golf &amp; CC</div>
+        <div class="course-location">Canmore, Alberta</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Gary Browning</span></div>
+          <div class="course-detail-row"><span>Par</span><span>72</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
+        </div>
+        <a href="https://www.stewartcreekgolf.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-img-wrap">
+          <img src="https://silvertipresort.com/wp-content/uploads/revslider/real-estate-slider-1/Silvertip-Golf-September-2011-12-1-scaled-1.webp" alt="Silvertip Golf Resort" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
+        </div>
+        <div class="course-number">Round 4 · TBD</div>
+        <div class="course-name">Silvertip Golf Resort</div>
+        <div class="course-location">Canmore, Alberta</div>
+        <div class="course-details">
+          <div class="course-detail-row"><span>Designer</span><span>Les Furber</span></div>
+          <div class="course-detail-row"><span>Par</span><span>72</span></div>
+          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
+        </div>
+        <a href="https://silvertipresort.com" target="_blank" class="course-link">Visit Website →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard">
+  <div class="container">
+    <div class="section-header">
+      <div class="lb-header-top">
+        <div>
+          <div class="section-eyebrow">2027 Season</div>
+          <h2 class="section-title" style="margin-bottom:0">Leaderboard</h2>
+        </div>
+        <button id="lb-share-btn" class="lb-share-btn" onclick="shareLeaderboard()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share
+        </button>
+      </div>
+      <div class="section-rule" style="margin-top:16px"></div>
+    </div>
+    <div class="leaderboard-wrapper"><table class="leaderboard-table">
+      <thead>
+        <tr class="lb-banner">
+          <th colspan="8">ForeFathers Invitational &nbsp;·&nbsp; 2027 Leaderboard</th>
+        </tr>
+        <tr class="lb-cols">
+          <th>Pos</th>
+          <th>Player</th>
+          <th>Net</th>
+          <th>Gross</th>
+          <th>R1<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
+          <th>R2<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
+          <th>R3<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
+          <th>R4<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <tr><td><span class="pos-num gold">1</span></td><td><span class="player-name-cell">John Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">2</span></td><td><span class="player-name-cell">Justin Roy</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">3</span></td><td><span class="player-name-cell">Russell Cobble</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">4</span></td><td><span class="player-name-cell">Micah Smoak</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">5</span></td><td><span class="player-name-cell">Nick Demarchi</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">6</span></td><td><span class="player-name-cell">Court Russo</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">7</span></td><td><span class="player-name-cell">Derek Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">8</span></td><td><span class="player-name-cell">Garrett Wardell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">9</span></td><td><span class="player-name-cell">Nick Brabant</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">10</span></td><td><span class="player-name-cell">Ryan Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">11</span></td><td><span class="player-name-cell">Rob Leverone</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">12</span></td><td><span class="player-name-cell">Joseph Lowry</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">13</span></td><td><span class="player-name-cell">Steve Williams</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+        <tr><td><span class="pos-num">14</span></td><td><span class="player-name-cell">Mikey Connell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
+    <p id="lb-updated" class="lb-updated-ts"></p>
+  </div>
+</section>
+
+<!-- TEE TIMES -->
+<section id="teetimes">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Coming Soon</div>
+      <h2 class="section-title">2027 Pairings</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="schedule-tbd">
+      <div class="schedule-tbd-icon">🏌️</div>
+      <div class="schedule-tbd-text">Tee times to be announced</div>
+      <div class="schedule-tbd-sub">Details coming soon.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ForeFathers Invitational</div>
+  <p>Est. 2021 &nbsp;·&nbsp; Six Seasons Strong</p>
+  <a class="footer-instagram" href="https://www.instagram.com/forefathersinvitational" target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    Follow us on Instagram
+  </a>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').catch(function() {});
+    });
+  }
+
+  // ── HAMBURGER MENU ──
+  (function() {
+    var toggle   = document.getElementById('nav-toggle');
+    var menu     = document.getElementById('nav-menu');
+    var backdrop = document.getElementById('nav-backdrop');
+    if (!toggle || !menu) return;
+    function openNav() {
+      toggle.classList.add('open'); menu.classList.add('open');
+      if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function() { backdrop.classList.add('open'); }); }
+      document.body.style.overflow = 'hidden';
+    }
+    function closeNav() {
+      toggle.classList.remove('open'); menu.classList.remove('open');
+      if (backdrop) { backdrop.classList.remove('open'); setTimeout(function() { backdrop.classList.remove('visible'); }, 260); }
+      document.body.style.overflow = '';
+    }
+    toggle.addEventListener('click', function() { menu.classList.contains('open') ? closeNav() : openNav(); });
+    menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
+    if (backdrop) backdrop.addEventListener('click', closeNav);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeNav(); });
+  })();
+
+  // ── LEADERBOARD "UPDATED X AGO" ──
+  (function() {
+    var tsEl = document.getElementById('lb-updated');
+    function tick() {
+      if (!tsEl || !window._lbLastUpdated) return;
+      var diff = Math.floor((Date.now() - window._lbLastUpdated) / 1000);
+      if (diff < 5)        tsEl.textContent = 'Just updated';
+      else if (diff < 60)  tsEl.textContent = 'Updated ' + diff + 's ago';
+      else if (diff < 120) tsEl.textContent = 'Updated 1m ago';
+      else tsEl.textContent = 'Updated ' + Math.floor(diff / 60) + 'm ago';
+    }
+    tick(); setInterval(tick, 5000);
+  })();
+</script>
+<script>
+  // ── COUNTDOWN TO BANFF 2027 ──
+  (function() {
+    var target = new Date('2027-07-08T12:00:00-06:00');
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      var now = new Date(), diff = target - now;
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) { document.getElementById(id).textContent = '00'; });
+        return;
+      }
+      document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
+      document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+      document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>
