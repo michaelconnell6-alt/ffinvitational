@@ -2122,8 +2122,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: url('https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg') center 35% / cover no-repeat;
-  opacity: 0.14;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Icefields_Parkway.jpg/1920px-Icefields_Parkway.jpg') center 40% / cover no-repeat;
+  opacity: 0.18;
   pointer-events: none;
   z-index: -1;
 }
