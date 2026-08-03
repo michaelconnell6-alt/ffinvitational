@@ -119,6 +119,48 @@
       </div>
     </div>
 
+    <!-- Course Map -->
+    <div class="y2027-sub-header" style="margin-top:48px;">The Route</div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <div id="course-map" style="height:420px;border-radius:8px;overflow:hidden;border:1px solid rgba(201,168,76,0.3);box-shadow:0 4px 24px rgba(0,0,0,0.4);margin-bottom:48px;"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    (function() {
+      var map = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 15
+      }).addTo(map);
+
+      function pin(label, color, border) {
+        return L.divIcon({
+          className: '',
+          html: '<div style="background:' + color + ';color:#fff;font-family:Oswald,sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 9px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,0.5);border:1px solid ' + border + ';pointer-events:none;">' + label + '</div>',
+          iconAnchor: [0, 10]
+        });
+      }
+
+      var locations = [
+        { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB' },
+        { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM' },
+        { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM' },
+        { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM' },
+        { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM' }
+      ];
+
+      var bounds = [];
+      locations.forEach(function(loc) {
+        bounds.push(loc.latlng);
+        L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
+          .addTo(map)
+          .bindPopup(loc.popup, { className: 'map-popup' });
+      });
+
+      map.fitBounds(bounds, { padding: [40, 40] });
+    })();
+    </script>
+
     <!-- Why Banff -->
     <div class="y2027-why">
       <div class="y2027-sub-header">Why Banff?</div>

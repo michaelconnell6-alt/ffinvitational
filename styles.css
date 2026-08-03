@@ -2045,6 +2045,7 @@
   @media (max-width: 600px) {
     .y2027-cost-block { flex-direction: column; gap: 20px; padding: 24px 20px; }
     .y2027-cost-left { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.25); padding-right: 0; padding-bottom: 16px; }
+    .y2027-includes { grid-template-columns: repeat(2, 1fr); }
   }
   .y2027-cost-amount {
     font-family: 'Playfair Display', serif;
@@ -2062,9 +2063,10 @@
     margin-top: 4px;
   }
   .y2027-includes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 20px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
   }
   .y2027-include-item {
     font-family: 'Oswald', sans-serif;
@@ -2073,8 +2075,7 @@
     color: var(--cream);
     display: flex;
     align-items: center;
-    gap: 6px;
-    min-width: 160px;
+    gap: 8px;
   }
 
   /* ── Travel ── */
@@ -2123,6 +2124,19 @@
   color: var(--gold, #c9a84c);
   margin-bottom: 1rem;
 }
+
+/* Leaflet map popup */
+.map-popup .leaflet-popup-content-wrapper {
+  background: #1a3a2a;
+  color: #faf8f0;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.map-popup .leaflet-popup-tip { background: #1a3a2a; }
+.map-popup .leaflet-popup-close-button { color: #c9a84c; }
 
 .y2027-video-wrap {
   position: relative;
