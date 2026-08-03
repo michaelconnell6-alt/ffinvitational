@@ -25,8 +25,9 @@
     <span></span><span></span><span></span>
   </button>
   <ul id="nav-menu">
+    <li><a href="index.html">Home</a></li>
     <li><a href="banff-2027.html" class="nav-active">Banff '27</a></li>
-    <li><a href="banff-2027.html#leaderboard">Leaderboard</a></li>
+    <li><a href="leaderboard.html">Leaderboard</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="champions.html">Champions</a></li>
     <li><a href="roster.html">Roster</a></li>
@@ -286,60 +287,6 @@
   </div>
 </section>
 
-<!-- LEADERBOARD -->
-<section id="leaderboard">
-  <div class="container">
-    <div class="section-header">
-      <div class="lb-header-top">
-        <div>
-          <div class="section-eyebrow">2027 Season</div>
-          <h2 class="section-title" style="margin-bottom:0">Leaderboard</h2>
-        </div>
-        <button id="lb-share-btn" class="lb-share-btn" onclick="shareLeaderboard()">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          Share
-        </button>
-      </div>
-      <div class="section-rule" style="margin-top:16px"></div>
-    </div>
-    <div class="leaderboard-wrapper"><table class="leaderboard-table">
-      <thead>
-        <tr class="lb-banner">
-          <th colspan="8">ForeFathers Invitational &nbsp;·&nbsp; 2027 Leaderboard</th>
-        </tr>
-        <tr class="lb-cols">
-          <th>Pos</th>
-          <th>Player</th>
-          <th>Net</th>
-          <th>Gross</th>
-          <th>R1<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
-          <th>R2<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
-          <th>R3<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
-          <th>R4<br><span style="font-size:8px;opacity:0.6;font-weight:300">TBD</span></th>
-        </tr>
-      </thead>
-      <tbody id="leaderboard-body">
-        <tr><td><span class="pos-num gold">1</span></td><td><span class="player-name-cell">John Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">2</span></td><td><span class="player-name-cell">Justin Roy</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">3</span></td><td><span class="player-name-cell">Russell Cobble</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">4</span></td><td><span class="player-name-cell">Micah Smoak</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">5</span></td><td><span class="player-name-cell">Nick Demarchi</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">6</span></td><td><span class="player-name-cell">Court Russo</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">7</span></td><td><span class="player-name-cell">Derek Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">8</span></td><td><span class="player-name-cell">Garrett Wardell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">9</span></td><td><span class="player-name-cell">Nick Brabant</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">10</span></td><td><span class="player-name-cell">Ryan Beauregard</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">11</span></td><td><span class="player-name-cell">Rob Leverone</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">12</span></td><td><span class="player-name-cell">Joseph Lowry</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">13</span></td><td><span class="player-name-cell">Steve Williams</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-        <tr><td><span class="pos-num">14</span></td><td><span class="player-name-cell">Mikey Connell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
-      </tbody>
-    </table></div>
-    <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
-    <p id="lb-updated" class="lb-updated-ts"></p>
-  </div>
-</section>
-
 <!-- TEE TIMES -->
 <section id="teetimes">
   <div class="container">
@@ -396,19 +343,6 @@
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeNav(); });
   })();
 
-  // ── LEADERBOARD "UPDATED X AGO" ──
-  (function() {
-    var tsEl = document.getElementById('lb-updated');
-    function tick() {
-      if (!tsEl || !window._lbLastUpdated) return;
-      var diff = Math.floor((Date.now() - window._lbLastUpdated) / 1000);
-      if (diff < 5)        tsEl.textContent = 'Just updated';
-      else if (diff < 60)  tsEl.textContent = 'Updated ' + diff + 's ago';
-      else if (diff < 120) tsEl.textContent = 'Updated 1m ago';
-      else tsEl.textContent = 'Updated ' + Math.floor(diff / 60) + 'm ago';
-    }
-    tick(); setInterval(tick, 5000);
-  })();
 </script>
 <script>
   // ── COUNTDOWN TO BANFF 2027 ──
