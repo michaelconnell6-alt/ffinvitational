@@ -218,6 +218,36 @@
       </div>
     </div>
 
+    <!-- Countdown -->
+    <div class="y2027-countdown">
+      <div class="y2027-cd-label">Days Until Banff</div>
+      <div class="y2027-cd-units">
+        <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-days">—</span><span class="y2027-cd-unit-lbl">Days</span></div>
+        <div class="y2027-cd-sep">:</div>
+        <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-hours">—</span><span class="y2027-cd-unit-lbl">Hours</span></div>
+        <div class="y2027-cd-sep">:</div>
+        <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-mins">—</span><span class="y2027-cd-unit-lbl">Minutes</span></div>
+        <div class="y2027-cd-sep">:</div>
+        <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-secs">—</span><span class="y2027-cd-unit-lbl">Seconds</span></div>
+      </div>
+    </div>
+
+    <!-- Why Banff -->
+    <div class="y2027-why">
+      <div class="y2027-sub-header">Why Banff?</div>
+      <div class="y2027-why-copy">
+        Four championship golf courses. The Canadian Rockies.<br>
+        Glacier-fed rivers. Long summer evenings. Wildlife.<br>
+        <em>One of the most beautiful golf destinations in the world.</em>
+      </div>
+      <div class="y2027-photo-grid">
+        <img class="y2027-photo photo-a" src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg" alt="Banff Springs Golf Course" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-b" src="https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg" alt="Kananaskis Country" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-c" src="https://silvertipresort.com/wp-content/uploads/revslider/real-estate-slider-1/Silvertip-Golf-September-2011-12-1-scaled-1.webp" alt="Silvertip Resort" loading="lazy" onerror="this.style.display='none'">
+        <img class="y2027-photo photo-d" src="https://www.stewartcreekgolf.com/gallery/golf-course/stewart-creek-hole01.jpg" alt="Stewart Creek" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </div>
+
     <!-- Cost & Includes -->
     <div class="y2027-cost-block">
       <div class="y2027-cost-left">
@@ -1496,6 +1526,34 @@
     }
     tick();
     setInterval(tick, 5000);
+  })();
+</script>
+<script>
+  // ── COUNTDOWN TO BANFF 2027 ──────────────────────────────────
+  (function() {
+    var target = new Date('2027-07-08T12:00:00-06:00'); // noon MDT Jul 8
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      var now  = new Date();
+      var diff = target - now;
+      if (diff <= 0) {
+        document.getElementById('cd-days').textContent  = '00';
+        document.getElementById('cd-hours').textContent = '00';
+        document.getElementById('cd-mins').textContent  = '00';
+        document.getElementById('cd-secs').textContent  = '00';
+        return;
+      }
+      var days  = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins  = Math.floor((diff % 3600000)  / 60000);
+      var secs  = Math.floor((diff % 60000)    / 1000);
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+    tick();
+    setInterval(tick, 1000);
   })();
 </script>
 </body>

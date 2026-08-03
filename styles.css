@@ -1838,6 +1838,102 @@
     font-style: italic;
   }
 
+  /* ── Countdown ── */
+  .y2027-countdown {
+    text-align: center;
+    background: var(--green-dark);
+    border-radius: 8px;
+    padding: 28px 24px 24px;
+    margin-bottom: 40px;
+  }
+  .y2027-cd-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .y2027-cd-units {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  .y2027-cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 64px;
+  }
+  .y2027-cd-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .y2027-cd-unit-lbl {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(250,248,240,0.4);
+    margin-top: 6px;
+  }
+  .y2027-cd-sep {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.4;
+    margin-bottom: 16px;
+  }
+
+  /* ── Why Banff ── */
+  .y2027-why {
+    margin-bottom: 40px;
+  }
+  .y2027-why-copy {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--green-dark);
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 28px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .y2027-why-copy em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .y2027-photo-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: 280px 220px;
+    gap: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .y2027-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-c { grid-column: 2; grid-row: 2; }
+  .photo-d { grid-column: 1; grid-row: 2; }
+  @media (max-width: 600px) {
+    .y2027-photo-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 180px 180px;
+    }
+    .photo-c { grid-column: auto; grid-row: auto; }
+    .photo-d { grid-column: auto; grid-row: auto; }
+  }
+
   /* ── Tee Schedule ── */
   .y2027-schedule {
     margin-bottom: 40px;
