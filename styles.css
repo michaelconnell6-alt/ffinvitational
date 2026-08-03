@@ -2109,6 +2109,25 @@
   }
 }
 
+/* ── HOME TEASER (2027 next-stop section) ── */
+#next-year {
+  background: var(--green-dark);
+  padding: 72px 0;
+  text-align: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+#next-year::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg') center 35% / cover no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* ── 2027 Reveal Video ─────────────────────────────────────── */
 .y2027-reveal-video {
   margin-top: 3rem;
