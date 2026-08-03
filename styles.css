@@ -1858,10 +1858,10 @@
 .y2027-video-wrap {
   position: relative;
   width: 100%;
-  max-width: 340px;
+  max-width: 560px;
   margin: 0 auto;
-  /* 9:16 aspect ratio for Shorts */
-  padding-bottom: 177.78%;
+  /* 16:9 — matches YouTube's actual player aspect ratio */
+  padding-bottom: 56.25%;
   height: 0;
   border: 2px solid var(--gold, #c9a84c);
   border-radius: 8px;
