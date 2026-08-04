@@ -47,6 +47,16 @@
     height: 100vh;
     object-fit: cover;
   }
+  @media (orientation: portrait) {
+    #intro-video {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: auto;
+      transform: translateY(-50%);
+      object-fit: unset;
+    }
+  }
   #intro-gate {
     position: absolute;
     top: 0; left: 0;
