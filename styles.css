@@ -919,9 +919,7 @@
   .steins-img {
     width: 100%;
     max-width: 480px;
-    height: 420px;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
     display: inline-block;
     border: 3px solid var(--gold);
     box-shadow: 0 8px 32px rgba(0,0,0,0.15);
@@ -1693,7 +1691,7 @@
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 
     /* CHAMPIONS */
-    .steins-img { height: 240px; }
+    .steins-img { height: auto; }
     .champion-row { padding: 12px 14px; gap: 12px; }
   }
 
