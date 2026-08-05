@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ForeFathers Invitational</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -30,6 +32,24 @@
 <meta name="twitter:description" content="July 9–12, 2026 · Myrtle Beach, SC · 14 players, 4 rounds, one champion.">
 <meta name="twitter:image"       content="https://forefathersinvitational.com/og-image.png">
 <meta name="description"         content="The ForeFathers Invitational — an annual golf trip among friends. Est. 2021. Next stop: Banff, AB 2027.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "name": "ForeFathers Invitational 2027",
+  "description": "The 5th ForeFathers Invitational — an annual golf tournament among friends. Est. 2021.",
+  "startDate": "2027-07-08",
+  "endDate": "2027-07-12",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Banff, Alberta, Canada",
+    "address": { "@type": "PostalAddress", "addressLocality": "Banff", "addressRegion": "AB", "addressCountry": "CA" }
+  },
+  "url": "https://forefathersinvitational.com/banff-2027.html",
+  "organizer": { "@type": "Organization", "name": "ForeFathers Invitational", "url": "https://forefathersinvitational.com" }
+}
+</script>
 <style>
   #intro-overlay {
     position: fixed;
@@ -115,6 +135,7 @@
 </style>
 </head>
 <body>
+<a href="#main" class="skip-nav">Skip to main content</a>
 
 <!-- CINEMATIC INTRO -->
 <div id="intro-overlay">
@@ -150,6 +171,7 @@
 
 <div id="nav-backdrop"></div>
 
+<main id="main">
 <!-- HERO -->
 <header class="hero">
   <div class="hero-badge">Est. 2021</div>
@@ -182,6 +204,7 @@
   </div>
 </section>
 
+</main>
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -269,32 +292,46 @@
   })();
 </script>
 <script>
-  // ── COUNTDOWN TO BANFF 2027 ──────────────────────────────────
+  // ── COUNTDOWN TO BANFF 2027 (with flip animation) ────────────
   (function() {
     var target = new Date('2027-07-08T12:00:00-06:00');
     function pad(n) { return String(n).padStart(2, '0'); }
+
+    function flipTo(el, newVal) {
+      if (!el || el.textContent === newVal) return;
+      el.classList.remove('ff-flip-enter', 'ff-flip-exit');
+      el.classList.add('ff-flip-exit');
+      var onEnd = function() {
+        el.removeEventListener('animationend', onEnd);
+        el.textContent = newVal;
+        el.classList.remove('ff-flip-exit');
+        el.classList.add('ff-flip-enter');
+        el.addEventListener('animationend', function done() {
+          el.removeEventListener('animationend', done);
+          el.classList.remove('ff-flip-enter');
+        });
+      };
+      el.addEventListener('animationend', onEnd);
+    }
+
+    var elDays  = document.getElementById('cd-days');
+    var elHours = document.getElementById('cd-hours');
+    var elMins  = document.getElementById('cd-mins');
+    var elSecs  = document.getElementById('cd-secs');
+
     function tick() {
       var now  = new Date();
       var diff = target - now;
-      if (diff <= 0) {
-        document.getElementById('cd-days').textContent  = '00';
-        document.getElementById('cd-hours').textContent = '00';
-        document.getElementById('cd-mins').textContent  = '00';
-        document.getElementById('cd-secs').textContent  = '00';
-        return;
-      }
-      var days  = Math.floor(diff / 86400000);
-      var hours = Math.floor((diff % 86400000) / 3600000);
-      var mins  = Math.floor((diff % 3600000)  / 60000);
-      var secs  = Math.floor((diff % 60000)    / 1000);
-      document.getElementById('cd-days').textContent  = pad(days);
-      document.getElementById('cd-hours').textContent = pad(hours);
-      document.getElementById('cd-mins').textContent  = pad(mins);
-      document.getElementById('cd-secs').textContent  = pad(secs);
+      if (diff <= 0) { flipTo(elDays,'00'); flipTo(elHours,'00'); flipTo(elMins,'00'); flipTo(elSecs,'00'); return; }
+      flipTo(elDays,  pad(Math.floor(diff / 86400000)));
+      flipTo(elHours, pad(Math.floor((diff % 86400000) / 3600000)));
+      flipTo(elMins,  pad(Math.floor((diff % 3600000)  / 60000)));
+      flipTo(elSecs,  pad(Math.floor((diff % 60000)    / 1000)));
     }
     tick();
     setInterval(tick, 1000);
   })();
 </script>
+<script src="animations.js" defer></script>
 </body>
 </html>

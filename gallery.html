@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gallery – ForeFathers Invitational</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -18,6 +20,8 @@
 <meta name="apple-mobile-web-app-title" content="ForeFathers">
 </head>
 <body>
+<a href="#main" class="skip-nav">Skip to main content</a>
+
 
 <!-- NAV -->
 <nav>
@@ -39,6 +43,8 @@
 </nav>
 
 <div id="nav-backdrop"></div>
+
+<main id="main">
 
 <!-- GALLERY -->
 <section id="gallery" style="background:#eee8da;">
@@ -148,6 +154,7 @@
   <div class="lightbox-caption" id="lightbox-cap"></div>
 </div>
 
+</main>
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -191,5 +198,6 @@
     expanded.style.display = isOpen ? 'none' : 'block';
   }
 </script>
+<script src="animations.js" defer></script>
 </body>
 </html>

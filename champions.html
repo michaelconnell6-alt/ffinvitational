@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Champions – ForeFathers Invitational</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -18,6 +20,7 @@
 <meta name="apple-mobile-web-app-title" content="ForeFathers">
 </head>
 <body>
+<a href="#main" class="skip-nav">Skip to main content</a>
 
 <!-- NAV -->
 <nav>
@@ -40,6 +43,7 @@
 
 <div id="nav-backdrop"></div>
 
+<main id="main">
 <!-- PAST CHAMPIONS -->
 <section id="champions">
   <div class="container">
@@ -51,7 +55,7 @@
     <div class="champions-list">
       <div class="champion-row">
         <div class="champion-year">2021</div>
-        <div class="champion-trophy">🏆</div>
+        <div class="champion-trophy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);vertical-align:middle"><path d="M6 2h12v9a6 6 0 01-12 0V2z"/><path d="M6 6H2c0 4 1.5 6.5 4.5 7.5M18 6h4c0 4-1.5 6.5-4.5 7.5"/><line x1="12" y1="17" x2="12" y2="22"/><path d="M9 22h6"/></svg></div>
         <div class="champion-info">
           <div class="champion-name">Garrett Wardell</div>
           <div class="champion-score">Pinehurst Resort</div>
@@ -59,7 +63,7 @@
       </div>
       <div class="champion-row">
         <div class="champion-year">2022</div>
-        <div class="champion-trophy">🏆</div>
+        <div class="champion-trophy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);vertical-align:middle"><path d="M6 2h12v9a6 6 0 01-12 0V2z"/><path d="M6 6H2c0 4 1.5 6.5 4.5 7.5M18 6h4c0 4-1.5 6.5-4.5 7.5"/><line x1="12" y1="17" x2="12" y2="22"/><path d="M9 22h6"/></svg></div>
         <div class="champion-info">
           <div class="champion-name">Mikey Connell</div>
           <div class="champion-score">Pinehurst Resort</div>
@@ -67,7 +71,7 @@
       </div>
       <div class="champion-row">
         <div class="champion-year">2025</div>
-        <div class="champion-trophy">🏆</div>
+        <div class="champion-trophy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);vertical-align:middle"><path d="M6 2h12v9a6 6 0 01-12 0V2z"/><path d="M6 6H2c0 4 1.5 6.5 4.5 7.5M18 6h4c0 4-1.5 6.5-4.5 7.5"/><line x1="12" y1="17" x2="12" y2="22"/><path d="M9 22h6"/></svg></div>
         <div class="champion-info">
           <div class="champion-name">Mikey Connell</div>
           <div class="champion-score">Arcadia Bluffs / TreeTops</div>
@@ -75,7 +79,7 @@
       </div>
       <div class="champion-row">
         <div class="champion-year">2026</div>
-        <div class="champion-trophy">🏆</div>
+        <div class="champion-trophy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold);vertical-align:middle"><path d="M6 2h12v9a6 6 0 01-12 0V2z"/><path d="M6 6H2c0 4 1.5 6.5 4.5 7.5M18 6h4c0 4-1.5 6.5-4.5 7.5"/><line x1="12" y1="17" x2="12" y2="22"/><path d="M9 22h6"/></svg></div>
         <div class="champion-info">
           <div class="champion-name">Micah Smoak</div>
           <div class="champion-score">Myrtle Beach, SC</div>
@@ -91,6 +95,7 @@
   </div>
 </section>
 
+</main>
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -114,5 +119,6 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
   })();
 </script>
+<script src="animations.js" defer></script>
 </body>
 </html>

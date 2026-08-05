@@ -18,6 +18,10 @@
   ::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
   * { scrollbar-width: thin; scrollbar-color: var(--gold) var(--green-dark); }
 
+  /* ── TEXT SELECTION ── */
+  ::selection    { background: var(--gold); color: var(--green-dark); }
+  ::-moz-selection { background: var(--gold); color: var(--green-dark); }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
@@ -68,16 +72,22 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: color 0.2s, background 0.2s;
+    position: relative;
   }
-  nav ul li a:hover {
-    color: var(--gold);
-    background: rgba(201,168,76,0.08);
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
   }
-  nav ul li a.nav-active {
-    color: var(--gold);
-    background: rgba(201,168,76,0.12);
-    border-bottom: 2px solid var(--gold);
-  }
+  nav ul li a:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+  nav ul li a:hover::after { transform: scaleX(1); }
+  nav ul li a.nav-active { color: var(--gold); background: rgba(201,168,76,0.12); }
+  nav ul li a.nav-active::after { transform: scaleX(1); }
 
   /* ── HERO ── */
   .hero {
@@ -484,12 +494,16 @@
     overflow: hidden;
   }
   .course-card::after {
-    content: '⛳';
+    content: '';
     position: absolute;
     right: 16px;
     bottom: 12px;
-    font-size: 3rem;
-    opacity: 0.08;
+    width: 48px;
+    height: 48px;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a84c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 2h12v9a6 6 0 01-12 0V2z'/%3E%3Cpath d='M6 6H2c0 4 1.5 6.5 4.5 7.5M18 6h4c0 4-1.5 6.5-4.5 7.5'/%3E%3Cline x1='12' y1='17' x2='12' y2='22'/%3E%3Cpath d='M9 22h6'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   .course-number {
     font-family: 'Oswald', sans-serif;
@@ -558,12 +572,12 @@
     border-top: 3px solid var(--gold);
     padding: 24px 20px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.12);
     transition: transform 0.2s, box-shadow 0.2s;
   }
   .player-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 14px 32px rgba(0,0,0,0.18);
   }
   .player-avatar {
     width: 72px;
@@ -615,7 +629,7 @@
   /* ── LEADERBOARD ── */
   .leaderboard-wrapper {
     border: 2px solid var(--green-dark);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 12px 32px rgba(0,0,0,0.15);
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
@@ -922,7 +936,7 @@
     height: auto;
     display: inline-block;
     border: 3px solid var(--gold);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 16px 48px rgba(0,0,0,0.22);
   }
   .steins-caption {
     font-family: 'EB Garamond', serif;
@@ -1004,6 +1018,7 @@
     border-radius: 4px;
     padding: 20px 16px;
     text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 6px 20px rgba(0,0,0,0.12);
   }
   .recap-stat-label {
     font-family: 'Oswald', sans-serif;
@@ -1157,7 +1172,8 @@
     border-radius: 6px;
     padding: 28px 20px 22px;
     text-align: center;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 6px 20px rgba(0,0,0,0.12);
   }
   .recap-award:hover {
     background: rgba(201,168,76,0.06);
@@ -1266,7 +1282,7 @@
     background: var(--cream);
     padding: 20px 22px;
     border-left: 3px solid var(--gold);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 6px 20px rgba(0,0,0,0.08);
     align-items: flex-start;
   }
   .rule-num {
@@ -1567,7 +1583,7 @@
     transition: box-shadow 0.2s, transform 0.2s;
   }
   .rule-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 10px 28px rgba(0,0,0,0.14);
     transform: translateY(-2px);
   }
   .tt-group {
@@ -1889,6 +1905,8 @@
     color: var(--cream);
     line-height: 1;
     letter-spacing: -1px;
+    display: inline-block;
+    transform-origin: center;
   }
   .y2027-cd-unit-lbl {
     font-family: 'Oswald', sans-serif;
@@ -2156,4 +2174,151 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLL PROGRESS BAR (CSS scroll-driven, no JS)
+══════════════════════════════════════════════════════════════ */
+@supports (animation-timeline: scroll()) {
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), var(--gold-light));
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 99999;
+    animation: ff-scroll-progress linear both;
+    animation-timeline: scroll();
+  }
+  @keyframes ff-scroll-progress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   GRAIN TEXTURE OVERLAY
+══════════════════════════════════════════════════════════════ */
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99997;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FLIP COUNTDOWN ANIMATION
+══════════════════════════════════════════════════════════════ */
+@keyframes ff-cd-flip-out {
+  0%   { transform: scaleY(1) translateY(0); opacity: 1; }
+  100% { transform: scaleY(0.3) translateY(-30%); opacity: 0; }
+}
+@keyframes ff-cd-flip-in {
+  0%   { transform: scaleY(0.3) translateY(30%); opacity: 0; }
+  100% { transform: scaleY(1) translateY(0); opacity: 1; }
+}
+.y2027-cd-num.ff-flip-exit {
+  animation: ff-cd-flip-out 0.14s ease-in forwards;
+}
+.y2027-cd-num.ff-flip-enter {
+  animation: ff-cd-flip-in 0.18s ease-out forwards;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SKIP NAV LINK
+══════════════════════════════════════════════════════════════ */
+.skip-nav {
+  position: absolute;
+  top: -999px; left: -999px;
+  background: var(--gold);
+  color: var(--green-dark);
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  z-index: 999999;
+  text-decoration: none;
+}
+.skip-nav:focus { top: 8px; left: 8px; }
+
+/* ══════════════════════════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream: #1b2820;
+    --text-dark: #e0d8c8;
+  }
+
+  body { background: #1b2820; color: #e0d8c8; }
+  section:nth-child(even) { background: #152019; }
+
+  .section-eyebrow { color: var(--gold); }
+  .section-title   { color: #e8e0d0; }
+
+  /* Player cards */
+  .player-card {
+    background: #1e2e24;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .player-name  { color: #e8e0d0; }
+  .player-state { color: rgba(232,224,208,0.45); }
+
+  /* Rule cards */
+  .rule-card {
+    background: #1e2e24;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .rule-text         { color: #e0d8c8; }
+  .rule-text strong  { color: var(--gold-light); }
+
+  /* Champions */
+  .champion-row  { border-bottom-color: rgba(201,168,76,0.12); }
+  .champion-name { color: #e8e0d0; }
+  .champion-score{ color: rgba(232,224,208,0.45); }
+  .champion-year { color: rgba(232,224,208,0.55); }
+
+  /* Format intro */
+  .format-intro { color: rgba(232,224,208,0.65); }
+
+  /* Leaderboard */
+  .leaderboard-table tbody tr:nth-child(even) { background: #1a2920; }
+  .leaderboard-table tbody tr:nth-child(odd)  { background: #1e2e25; }
+  .leaderboard-table tbody tr:hover           { background: #223529; }
+  .leaderboard-table td   { color: #e0d8c8; border-right-color: rgba(201,168,76,0.08); }
+  .leaderboard-table tbody tr { border-bottom-color: rgba(201,168,76,0.08); }
+  .player-name-cell { color: var(--gold-light); }
+  .round-gross { color: #e0d8c8; }
+
+  /* Tee times */
+  .tt-group  { background: #1e2e24; border-color: rgba(201,168,76,0.12); }
+  .tt-player { color: #e0d8c8; border-bottom-color: rgba(201,168,76,0.08); }
+  .day-title { color: #e8e0d0; }
+  .event-name{ color: #e8e0d0; }
+  .event-note{ color: rgba(232,224,208,0.55); }
+
+  /* Gallery */
+  .gallery-placeholder { color: rgba(232,224,208,0.2); border-color: rgba(201,168,76,0.12); }
+
+  /* Banff status cards */
+  .y2027-status-card          { background: #1e2e24; border-color: rgba(201,168,76,0.18); }
+  .y2027-status-card.confirmed{ background: #1a2e24; }
+  .y2027-status-val           { color: #e8e0d0; }
+
+  /* Misc text */
+  .steins-caption  { color: rgba(232,224,208,0.45); }
+  .leaderboard-note{ color: rgba(232,224,208,0.45); }
+  .gallery-note    { color: rgba(232,224,208,0.45); }
+  .champions-placeholder { border-color: rgba(201,168,76,0.18); color: rgba(232,224,208,0.35); }
+  .recap-narrative { color: rgba(232,224,208,0.7); }
+
+  /* y2027 status label */
+  .y2027-status-label { color: rgba(232,224,208,0.5); }
 }
