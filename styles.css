@@ -2250,75 +2250,68 @@ html::after {
 
 /* ══════════════════════════════════════════════════════════════
    DARK MODE
+   Strategy: override explicit bg/text properties only.
+   Do NOT change CSS variables — they are dual-use (text AND bg).
 ══════════════════════════════════════════════════════════════ */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --cream: #1b2820;
-    --text-dark: #e0d8c8;
-  }
-
-  body { background: #1b2820; color: #e0d8c8; }
+  /* Page surfaces */
+  body { background: #1b2820; }
   section:nth-child(even) { background: #152019; }
 
+  /* Section headers — green text → cream */
   .section-eyebrow { color: var(--gold); }
   .section-title   { color: #e8e0d0; }
+  .format-intro    { color: rgba(232,224,208,0.65); }
 
   /* Player cards */
-  .player-card {
-    background: #1e2e24;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3);
-  }
+  .player-card  { background: #1e2e24; box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.3); }
   .player-name  { color: #e8e0d0; }
   .player-state { color: rgba(232,224,208,0.45); }
 
   /* Rule cards */
-  .rule-card {
-    background: #1e2e24;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.25);
-  }
-  .rule-text         { color: #e0d8c8; }
-  .rule-text strong  { color: var(--gold-light); }
+  .rule-card        { background: #1e2e24; box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 6px 20px rgba(0,0,0,0.25); }
+  .rule-text        { color: #e0d8c8; }
+  .rule-text strong { color: var(--gold-light); }
+
+  /* Schedule */
+  .day-title  { color: #e8e0d0; }
+  .event-name { color: #e8e0d0; }
+  .event-note { color: rgba(232,224,208,0.55); }
+  .event-time { color: rgba(201,168,76,0.8); }
 
   /* Champions */
-  .champion-row  { border-bottom-color: rgba(201,168,76,0.12); }
-  .champion-name { color: #e8e0d0; }
-  .champion-score{ color: rgba(232,224,208,0.45); }
-  .champion-year { color: rgba(232,224,208,0.55); }
-
-  /* Format intro */
-  .format-intro { color: rgba(232,224,208,0.65); }
+  .champion-row   { border-bottom-color: rgba(201,168,76,0.12); }
+  .champion-name  { color: #e8e0d0; }
+  .champion-score { color: rgba(232,224,208,0.45); }
+  .champion-year  { color: rgba(232,224,208,0.55); }
+  .steins-caption { color: rgba(232,224,208,0.45); }
 
   /* Leaderboard */
   .leaderboard-table tbody tr:nth-child(even) { background: #1a2920; }
   .leaderboard-table tbody tr:nth-child(odd)  { background: #1e2e25; }
   .leaderboard-table tbody tr:hover           { background: #223529; }
-  .leaderboard-table td   { color: #e0d8c8; border-right-color: rgba(201,168,76,0.08); }
   .leaderboard-table tbody tr { border-bottom-color: rgba(201,168,76,0.08); }
+  .leaderboard-table td { color: #e0d8c8; border-right-color: rgba(201,168,76,0.08); }
   .player-name-cell { color: var(--gold-light); }
-  .round-gross { color: #e0d8c8; }
+  .round-gross      { color: #e0d8c8; }
+  .leaderboard-note { color: rgba(232,224,208,0.45); }
 
   /* Tee times */
   .tt-group  { background: #1e2e24; border-color: rgba(201,168,76,0.12); }
   .tt-player { color: #e0d8c8; border-bottom-color: rgba(201,168,76,0.08); }
-  .day-title { color: #e8e0d0; }
-  .event-name{ color: #e8e0d0; }
-  .event-note{ color: rgba(232,224,208,0.55); }
 
   /* Gallery */
   .gallery-placeholder { color: rgba(232,224,208,0.2); border-color: rgba(201,168,76,0.12); }
+  .gallery-note        { color: rgba(232,224,208,0.45); }
 
-  /* Banff status cards */
-  .y2027-status-card          { background: #1e2e24; border-color: rgba(201,168,76,0.18); }
-  .y2027-status-card.confirmed{ background: #1a2e24; }
-  .y2027-status-val           { color: #e8e0d0; }
+  /* Banff 2027 */
+  .y2027-status-card           { background: #1e2e24; border-color: rgba(201,168,76,0.18); }
+  .y2027-status-card.confirmed { background: #1a2e24; }
+  .y2027-status-val            { color: #e8e0d0; }
+  .y2027-status-label          { color: rgba(232,224,208,0.5); }
+  .y2027-why-copy              { color: #e0d8c8; }
 
-  /* Misc text */
-  .steins-caption  { color: rgba(232,224,208,0.45); }
-  .leaderboard-note{ color: rgba(232,224,208,0.45); }
-  .gallery-note    { color: rgba(232,224,208,0.45); }
+  /* Misc */
   .champions-placeholder { border-color: rgba(201,168,76,0.18); color: rgba(232,224,208,0.35); }
-  .recap-narrative { color: rgba(232,224,208,0.7); }
-
-  /* y2027 status label */
-  .y2027-status-label { color: rgba(232,224,208,0.5); }
+  .recap-narrative       { color: rgba(232,224,208,0.7); }
 }
