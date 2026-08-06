@@ -32,10 +32,15 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="banff-2027.html">Banff '27</a></li>
     <li><a href="leaderboard.html">Leaderboard</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="champions.html" class="nav-active">Champions</a></li>
-    <li><a href="roster.html">Roster</a></li>
-    <li><a href="format.html">Format</a></li>
+    <li class="nav-dropdown">
+      <a href="#" class="nav-dropdown-toggle nav-active"> Tournament <span class="nav-chevron">&#9660;</span></a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="champions.html" class="nav-active">Champions</a></li>
+        <li><a href="roster.html">Roster</a></li>
+        <li><a href="format.html">Format</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </li>
     <li><a href="recap.html">2026 Recap</a></li>
     <li><a href="admin.html">Admin</a></li>
   </ul>
@@ -118,7 +123,20 @@
     if (backdrop) backdrop.addEventListener('click', closeNav);
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
   })();
-</script>
+
+  // Dropdown toggle
+  var dd = document.querySelector('.nav-dropdown');
+  var ddToggle = dd && dd.querySelector('.nav-dropdown-toggle');
+  if (ddToggle) {
+    ddToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      dd.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!dd.contains(e.target)) dd.classList.remove('open');
+    });
+  }
+  </script>
 <script src="animations.js" defer></script>
 </body>
 </html>
