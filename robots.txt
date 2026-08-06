@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Private pages — not for indexing
+Disallow: /admin.html
+Disallow: /_weather-widget-snippet.html
+
+# Assets are crawlable
+Allow: /images/
+Allow: /og-image.png
+
+Sitemap: https://forefathersinvitational.com/sitemap.xml
