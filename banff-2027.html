@@ -720,8 +720,8 @@
   border-top: 1px solid rgba(201,168,76,0.08);
 }
 .bf-video-wrap {
-  width: min(380px, 90vw);
-  aspect-ratio: 9 / 16;
+  width: min(560px, 90vw);
+  aspect-ratio: 1 / 1;
   margin: 0 auto;
   position: relative;
   border: 1px solid rgba(201,168,76,0.18);
@@ -873,6 +873,16 @@
   .bf-cta-cell:last-child { border-bottom: none; }
   .bf-hero-title { letter-spacing: -2px; }
 }
+/* ── SPECIFICITY FIX ──
+   styles.css has section:nth-child(even){background:#eee8da} with specificity (0,1,1)
+   which beats plain class selectors (0,1,0). !important overrides it cleanly. */
+.bf-quote         { background: #06100a !important; }
+.bf-itin          { background: #f5f0e8 !important; }
+.bf-stats         { background: #06100a !important; }
+.bf-map-section   { background: #0c1910 !important; }
+.bf-cost          { background: #06100a !important; }
+.bf-video-section { background: #06100a !important; }
+.bf-cta           { background: #0c1910 !important; }
 </style>
 </head>
 
