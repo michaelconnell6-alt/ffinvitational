@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -18,10 +19,865 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ForeFathers">
+
+<style>
+/* ═══════════════════════════════════════════════
+   BANFF 2027 — PAGE-SPECIFIC STYLES
+   Prefix: bf- (no conflicts with styles.css)
+═══════════════════════════════════════════════ */
+
+/* Shared scroll-reveal */
+.bf-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+              transform 0.85s cubic-bezier(0.16,1,0.3,1);
+}
+.bf-reveal.bf-in { opacity: 1; transform: none; }
+.bf-d1 { transition-delay: 0.10s; }
+.bf-d2 { transition-delay: 0.20s; }
+.bf-d3 { transition-delay: 0.32s; }
+.bf-d4 { transition-delay: 0.44s; }
+
+/* ── 1. HERO ── */
+.bf-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 56px;
+}
+.bf-hero-bg {
+  position: absolute;
+  inset: -18% 0 -10%;
+  background: url('https://www.banff-springs-hotel.com/content/uploads/2022/12/Wellness-Overview-Fairmont-Banff-Springs-Golf-Course-JacobSJoman2019.jpg') center 38% / cover no-repeat;
+  will-change: transform;
+}
+.bf-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    168deg,
+    rgba(6,16,9,0.15) 0%,
+    rgba(6,16,9,0.45) 35%,
+    rgba(6,16,9,0.82) 68%,
+    rgba(6,16,9,0.97) 100%
+  );
+}
+.bf-hero-top {
+  position: absolute;
+  top: 80px;
+  left: 0; right: 0;
+  text-align: center;
+  z-index: 2;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.55);
+}
+.bf-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.bf-hero-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.7);
+  margin-bottom: 14px;
+}
+.bf-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(4.2rem, 13vw, 9.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 0.87;
+  letter-spacing: -3px;
+  margin: 0 0 18px;
+  text-shadow: 0 10px 60px rgba(0,0,0,0.45);
+}
+.bf-hero-rule {
+  width: 1px;
+  height: 28px;
+  background: rgba(201,168,76,0.4);
+  margin: 0 auto 16px;
+}
+.bf-hero-date {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  font-style: italic;
+  color: rgba(245,240,232,0.5);
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+}
+/* Countdown in hero */
+.bf-countdown {
+  display: inline-flex;
+  border: 1px solid rgba(201,168,76,0.2);
+  margin-bottom: 36px;
+}
+.bf-cd-unit {
+  text-align: center;
+  padding: 12px 20px;
+  border-right: 1px solid rgba(201,168,76,0.15);
+}
+.bf-cd-unit:last-child { border-right: none; }
+.bf-cd-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  display: block;
+  letter-spacing: -1px;
+}
+.bf-cd-lbl {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.5);
+  margin-top: 5px;
+  display: block;
+}
+/* Scroll cue */
+.bf-scroll-cue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: rgba(245,240,232,0.28);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  animation: bf-bob 2.4s ease-in-out infinite;
+}
+@keyframes bf-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%       { transform: translateY(7px); opacity: 1; }
+}
+
+/* ── 2. PULL QUOTE ── */
+.bf-quote {
+  background: #06100a;
+  padding: 90px 24px;
+  text-align: center;
+  position: relative;
+}
+.bf-quote::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.45), transparent);
+}
+.bf-quote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.8vw, 2.8rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.32;
+  max-width: 720px;
+  margin: 0 auto 20px;
+}
+.bf-quote-rule {
+  width: 36px; height: 1px;
+  background: rgba(201,168,76,0.55);
+  margin: 20px auto;
+}
+.bf-quote-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  color: rgba(245,240,232,0.42);
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.85;
+}
+
+/* ── 3. DESTINATION SPLIT ── */
+.bf-dest {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 68vh;
+}
+.bf-dest-img {
+  position: relative;
+  overflow: hidden;
+  background: #0a1810;
+  min-height: 380px;
+}
+.bf-dest-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 9s ease;
+}
+.bf-dest-img:hover img { transform: scale(1.05); }
+.bf-dest-img-cap {
+  position: absolute;
+  bottom: 16px; left: 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.35);
+}
+.bf-dest-text {
+  background: #0c1910;
+  padding: clamp(40px,7vw,88px) clamp(28px,6vw,68px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.bf-dest-chapter {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.7);
+  margin-bottom: 18px;
+}
+.bf-dest-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.bf-dest-body {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: rgba(245,240,232,0.6);
+  margin-bottom: 32px;
+}
+.bf-dest-facts {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border-top: 1px solid rgba(201,168,76,0.13);
+  padding-top: 24px;
+  gap: 0;
+}
+.bf-fact { padding-right: 16px; }
+.bf-fact + .bf-fact {
+  padding-left: 16px;
+  border-left: 1px solid rgba(201,168,76,0.1);
+}
+.bf-fact-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #c9a84c;
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+.bf-fact-lbl {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+}
+
+/* ── 4. COURSES ── */
+.bf-courses-header {
+  background: #0c1910;
+  padding: 72px 24px 40px;
+  text-align: center;
+}
+.bf-section-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.65);
+  margin-bottom: 14px;
+}
+.bf-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3.3rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.bf-section-sub {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(245,240,232,0.38);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Full-bleed course feature */
+.bf-course {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.bf-course-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-color: #0a1810;
+  transition: transform 0.7s ease;
+  will-change: transform;
+}
+.bf-course:hover .bf-course-bg { transform: scale(1.03); }
+.bf-course-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(4,10,6,0.98) 0%,
+    rgba(4,10,6,0.72) 38%,
+    rgba(4,10,6,0.08) 100%
+  );
+}
+.bf-course-ghost {
+  position: absolute;
+  top: clamp(20px,4vw,44px);
+  right: clamp(20px,5vw,64px);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(7rem,14vw,12rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.035);
+  line-height: 1;
+  letter-spacing: -4px;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+.bf-course-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: clamp(28px,4vw,56px) clamp(20px,5vw,72px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px 24px;
+  align-items: end;
+}
+.bf-course-round {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+.bf-course-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.8vw, 3.8rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.04;
+  margin-bottom: 5px;
+}
+.bf-course-designer {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(245,240,232,0.42);
+  margin-bottom: 20px;
+}
+.bf-course-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.bf-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border: 1px solid rgba(201,168,76,0.28);
+  color: rgba(245,240,232,0.6);
+}
+.bf-course-cta {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  text-decoration: none;
+  border: 1px solid rgba(201,168,76,0.38);
+  padding: 10px 18px;
+  align-self: flex-end;
+  transition: background 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.bf-course-cta:hover { background: rgba(201,168,76,0.1); border-color: #c9a84c; }
+
+/* ── 5. ITINERARY ── */
+.bf-itin {
+  background: #f5f0e8;
+  padding: 72px 24px 80px;
+}
+.bf-itin-hdr { text-align: center; margin-bottom: 52px; }
+.bf-itin-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #2a5c3e;
+  margin-bottom: 10px;
+}
+.bf-itin-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  font-weight: 900;
+  color: #1a3a2a;
+}
+.bf-days {
+  max-width: 780px;
+  margin: 0 auto;
+}
+.bf-day {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(26,58,42,0.09);
+  position: relative;
+}
+.bf-day:last-child { border-bottom: none; }
+.bf-day::after {
+  content: '';
+  position: absolute;
+  left: 100px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(201,168,76,0.22);
+}
+.bf-day-lbl { text-align: right; padding-right: 28px; }
+.bf-day-dow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2a5c3e;
+  display: block;
+  margin-bottom: 3px;
+}
+.bf-day-d {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #1a3a2a;
+  line-height: 1;
+  display: block;
+}
+.bf-day-mo {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(26,58,42,0.38);
+  display: block;
+  margin-top: 2px;
+}
+.bf-day-content { padding-left: 28px; }
+.bf-day-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin-bottom: 10px;
+}
+.bf-events { display: flex; flex-direction: column; gap: 8px; }
+.bf-ev {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.bf-ev-time {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  color: #c9a84c;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+.bf-ev-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.98rem;
+  color: #444;
+  line-height: 1.45;
+}
+.bf-ev-badge {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.46rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: #1a3a2a;
+  color: #c9a84c;
+  padding: 2px 6px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* ── 6. HOTEL ── */
+.bf-hotel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 58vh;
+}
+.bf-hotel-img {
+  position: relative;
+  overflow: hidden;
+  background: #0a1810;
+  min-height: 360px;
+}
+.bf-hotel-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.88;
+}
+.bf-hotel-text {
+  background: #1a3a2a;
+  padding: clamp(36px,7vw,76px) clamp(28px,6vw,64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.bf-hotel-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.6);
+  margin-bottom: 14px;
+}
+.bf-hotel-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.bf-hotel-loc {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  color: rgba(245,240,232,0.42);
+  margin-bottom: 28px;
+}
+.bf-hotel-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.bf-hotel-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  color: rgba(245,240,232,0.72);
+}
+.bf-hotel-item::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: rgba(201,168,76,0.55);
+  flex-shrink: 0;
+}
+.bf-hotel-foot {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.28);
+  padding-top: 20px;
+  border-top: 1px solid rgba(201,168,76,0.1);
+}
+
+/* ── 7. STATS ── */
+.bf-stats {
+  background: #06100a;
+  padding: 76px 24px;
+  text-align: center;
+}
+.bf-stats-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+  margin-bottom: 52px;
+}
+.bf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  max-width: 860px;
+  margin: 0 auto;
+}
+.bf-stat {
+  padding: 16px;
+  border-right: 1px solid rgba(201,168,76,0.08);
+}
+.bf-stat:last-child { border-right: none; }
+.bf-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6.5vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.bf-stat-lbl {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+}
+
+/* ── 8. MAP ── */
+.bf-map-section {
+  background: #0c1910;
+  padding: 72px 24px;
+}
+.bf-map-hdr { text-align: center; margin-bottom: 36px; }
+
+/* ── 9. COST DETAILS ── */
+.bf-cost {
+  background: #06100a;
+  padding: 72px 24px;
+}
+.bf-cost-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 60px;
+  align-items: center;
+}
+.bf-cost-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+.bf-cost-lbl {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.5);
+  margin-top: 6px;
+}
+.bf-includes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+.bf-include {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  color: rgba(245,240,232,0.65);
+}
+.bf-include::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: rgba(201,168,76,0.5);
+  flex-shrink: 0;
+}
+
+/* ── 10. VIDEO ── */
+.bf-video-section {
+  background: #06100a;
+  padding: 72px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
+.bf-video-wrap {
+  width: min(380px, 90vw);
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid rgba(201,168,76,0.18);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.75);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.bf-video-wrap video {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.bf-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.bf-play-btn .bf-play-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(6,16,9,0.62);
+  border: 2px solid rgba(201,168,76,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s, background 0.25s;
+  backdrop-filter: blur(4px);
+}
+.bf-play-btn:hover .bf-play-circle {
+  transform: scale(1.1);
+  background: rgba(201,168,76,0.18);
+}
+.bf-play-btn svg { margin-left: 5px; }
+.bf-play-btn.bf-playing { opacity: 0; }
+.bf-video-wrap:hover .bf-play-btn.bf-playing { opacity: 1; }
+
+/* ── 11. CTA ── */
+.bf-cta {
+  position: relative;
+  background: #0c1910;
+  padding: 110px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+.bf-cta::before {
+  content: 'BANFF';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(8rem,22vw,18rem);
+  font-weight: 900;
+  color: rgba(255,255,255,0.018);
+  letter-spacing: -4px;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}
+.bf-cta-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.55);
+  margin-bottom: 14px;
+}
+.bf-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+.bf-cta-sub {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: rgba(245,240,232,0.38);
+  margin-bottom: 44px;
+}
+.bf-cta-bar {
+  display: inline-flex;
+  border: 1px solid rgba(201,168,76,0.18);
+  margin-bottom: 44px;
+}
+.bf-cta-cell {
+  padding: 14px 26px;
+  border-right: 1px solid rgba(201,168,76,0.15);
+  text-align: left;
+}
+.bf-cta-cell:last-child { border-right: none; }
+.bf-cta-cell-lbl {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.46rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+  display: block;
+  margin-bottom: 3px;
+}
+.bf-cta-cell-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 600;
+}
+.bf-faq-btn {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #1a3a2a;
+  background: #c9a84c;
+  padding: 16px 34px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.bf-faq-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+/* ── MOBILE ── */
+@media (max-width: 720px) {
+  .bf-dest { grid-template-columns: 1fr; }
+  .bf-dest-img { min-height: 260px; }
+  .bf-hotel { grid-template-columns: 1fr; }
+  .bf-hotel-img { min-height: 240px; }
+  .bf-stats-grid { grid-template-columns: 1fr !important; }
+  .bf-stat { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.08); padding: 24px 12px; }
+  .bf-stat:last-child { border-bottom: none; }
+  .bf-course-content { grid-template-columns: 1fr; }
+  .bf-course-cta { display: none; }
+  .bf-day { grid-template-columns: 84px 1fr; }
+  .bf-day::after { left: 84px; }
+  .bf-day-lbl { padding-right: 20px; }
+  .bf-day-content { padding-left: 20px; }
+  .bf-cost-inner { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .bf-includes { grid-template-columns: 1fr; }
+  .bf-cta-bar { flex-direction: column; border: none; }
+  .bf-cta-cell { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.12); padding: 10px 0; text-align: center; }
+  .bf-cta-cell:last-child { border-bottom: none; }
+  .bf-hero-title { letter-spacing: -2px; }
+}
+</style>
 </head>
+
 <body>
 <a href="#main" class="skip-nav">Skip to main content</a>
-
 
 <!-- NAV -->
 <nav>
@@ -41,289 +897,397 @@
     <li><a href="admin.html">Admin</a></li>
   </ul>
 </nav>
-
 <div id="nav-backdrop"></div>
 
 <main id="main">
 
-<!-- Countdown -->
-<div class="y2027-countdown">
-  <div class="y2027-cd-label">Days Until Banff</div>
-  <div class="y2027-cd-units">
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-days">—</span><span class="y2027-cd-unit-lbl">Days</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-hours">—</span><span class="y2027-cd-unit-lbl">Hours</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-mins">—</span><span class="y2027-cd-unit-lbl">Minutes</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-secs">—</span><span class="y2027-cd-unit-lbl">Seconds</span></div>
+<!-- ═══════════════════════════════════════
+     1. CINEMATIC HERO
+═══════════════════════════════════════ -->
+<section class="bf-hero" aria-label="Banff 2027 hero">
+  <div class="bf-hero-bg" id="bf-hero-bg"></div>
+  <div class="bf-hero-overlay"></div>
+  <div class="bf-hero-top">The Fifth Invitational · Est. 2021</div>
+  <div class="bf-hero-content">
+    <div class="bf-hero-eyebrow">ForeFathers Invitational · 2027</div>
+    <h1 class="bf-hero-title">Banff,<br>Alberta</h1>
+    <div class="bf-hero-rule"></div>
+    <div class="bf-hero-date">July 8 – 11, 2027 &nbsp;·&nbsp; Canmore &amp; Banff, Canada</div>
+    <div class="bf-countdown">
+      <div class="bf-cd-unit">
+        <span class="bf-cd-num" id="cd-days">—</span>
+        <span class="bf-cd-lbl">Days</span>
+      </div>
+      <div class="bf-cd-unit">
+        <span class="bf-cd-num" id="cd-hours">—</span>
+        <span class="bf-cd-lbl">Hours</span>
+      </div>
+      <div class="bf-cd-unit">
+        <span class="bf-cd-num" id="cd-mins">—</span>
+        <span class="bf-cd-lbl">Min</span>
+      </div>
+      <div class="bf-cd-unit">
+        <span class="bf-cd-num" id="cd-secs">—</span>
+        <span class="bf-cd-lbl">Sec</span>
+      </div>
+    </div>
+    <a href="#statement" class="bf-scroll-cue" aria-label="Scroll down">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Scroll
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     2. PULL QUOTE
+═══════════════════════════════════════ -->
+<section class="bf-quote" id="statement">
+  <blockquote class="bf-quote-text bf-reveal">"You've played golf. You haven't played golf here."</blockquote>
+  <div class="bf-quote-rule"></div>
+  <p class="bf-quote-sub bf-reveal bf-d2">Four championship courses. Fourteen competitors.<br>One week in the most dramatic golf landscape on Earth.</p>
+</section>
+
+<!-- ═══════════════════════════════════════
+     3. DESTINATION OVERVIEW
+═══════════════════════════════════════ -->
+<div class="bf-dest">
+  <div class="bf-dest-img">
+    <img
+      src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg"
+      alt="Banff Springs Golf Course, Canadian Rockies"
+      loading="lazy"
+      onerror="this.style.opacity='0'"
+    />
+    <div class="bf-dest-img-cap">Banff Springs Golf Course · Est. 1928</div>
+  </div>
+  <div class="bf-dest-text">
+    <div class="bf-dest-chapter bf-reveal">The Destination</div>
+    <h2 class="bf-dest-heading bf-reveal bf-d1">Where mountains<br>meet fairways</h2>
+    <p class="bf-dest-body bf-reveal bf-d2">Banff National Park is Canada's oldest national park — 6,641 square kilometres of glaciers, alpine meadows, and turquoise lakes. The golf courses here aren't set near mountains. They're carved directly into them.</p>
+    <div class="bf-dest-facts bf-reveal bf-d3">
+      <div class="bf-fact">
+        <span class="bf-fact-val">5,374</span>
+        <span class="bf-fact-lbl">ft elevation</span>
+      </div>
+      <div class="bf-fact">
+        <span class="bf-fact-val">4</span>
+        <span class="bf-fact-lbl">courses</span>
+      </div>
+      <div class="bf-fact">
+        <span class="bf-fact-val">~1hr</span>
+        <span class="bf-fact-lbl">from Calgary YYC</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- 2027 HUB -->
-<section id="y2027">
-  <div class="container">
+<!-- ═══════════════════════════════════════
+     4. COURSES
+═══════════════════════════════════════ -->
+<div class="bf-courses-header">
+  <div class="bf-section-label bf-reveal">The Field of Play</div>
+  <h2 class="bf-section-title bf-reveal bf-d1">Four Courses.<br>Four Days. One Champion.</h2>
+  <p class="bf-section-sub bf-reveal bf-d2">Each one more dramatic than the last.</p>
+</div>
 
-    <div class="section-header">
-      <div class="section-eyebrow">ForeFathers 2027</div>
-      <h2 class="section-title">Banff, Alberta</h2>
-      <div class="section-rule"></div>
-    </div>
-
-    <!-- Quick Stats -->
-    <div class="y2027-location-banner">
-      <div class="y2027-loc-item confirmed">
-        <div class="y2027-loc-label">Destination</div>
-        <div class="y2027-loc-value">Banff, Alberta, Canada 🇨🇦</div>
-      </div>
-      <div class="y2027-loc-item confirmed">
-        <div class="y2027-loc-label">Dates</div>
-        <div class="y2027-loc-value">July 8–11, 2027</div>
-      </div>
-      <div class="y2027-loc-item confirmed">
-        <div class="y2027-loc-label">Entry</div>
-        <div class="y2027-loc-value">~$1,850 / player</div>
-      </div>
-    </div>
-
-    <!-- Tee Schedule -->
-    <div class="y2027-schedule">
-      <div class="y2027-sub-header">Tee Schedule</div>
-      <div class="y2027-rounds-grid">
-        <div class="y2027-round">
-          <div class="y2027-round-meta">
-            <span class="y2027-round-date">Thu · Jul 8</span>
-            <span class="y2027-round-session pm">PM</span>
-          </div>
-          <div class="y2027-round-course">Kananaskis Country</div>
-          <div class="y2027-round-sub">Mt. Kidd Course</div>
-        </div>
-        <div class="y2027-round">
-          <div class="y2027-round-meta">
-            <span class="y2027-round-date">Fri · Jul 9</span>
-            <span class="y2027-round-session am">AM</span>
-          </div>
-          <div class="y2027-round-course">Stewart Creek</div>
-          <div class="y2027-round-sub">Canmore, AB</div>
-        </div>
-        <div class="y2027-round">
-          <div class="y2027-round-meta">
-            <span class="y2027-round-date">Fri · Jul 9</span>
-            <span class="y2027-round-session pm">PM</span>
-          </div>
-          <div class="y2027-round-course">Silvertip Resort</div>
-          <div class="y2027-round-sub">Canmore, AB</div>
-        </div>
-        <div class="y2027-round">
-          <div class="y2027-round-meta">
-            <span class="y2027-round-date">Sat · Jul 10</span>
-            <span class="y2027-round-session am">AM</span>
-          </div>
-          <div class="y2027-round-course">Banff Springs</div>
-          <div class="y2027-round-sub">Stanley Thompson Course</div>
-        </div>
+<!-- Course 1: Kananaskis -->
+<div class="bf-course" id="course-1">
+  <div class="bf-course-bg" style="background-image:url('images/kananaskis.avif')"></div>
+  <div class="bf-course-overlay"></div>
+  <div class="bf-course-ghost" aria-hidden="true">01</div>
+  <div class="bf-course-content">
+    <div>
+      <div class="bf-course-round bf-reveal">Round 1 · Thursday, July 8 · PM</div>
+      <div class="bf-course-name bf-reveal bf-d1">Kananaskis Country Golf</div>
+      <div class="bf-course-designer bf-reveal bf-d2">Mt. Kidd Course · Robert Trent Jones Sr., 1983</div>
+      <div class="bf-course-tags bf-reveal bf-d3">
+        <span class="bf-tag">Kananaskis, AB</span>
+        <span class="bf-tag">Par 72</span>
+        <span class="bf-tag">Mountain Course</span>
       </div>
     </div>
+    <a href="https://www.kananaskisgolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+  </div>
+</div>
 
-    <!-- Course Map -->
-    <div class="y2027-sub-header" style="margin-top:48px;">The Route</div>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <div id="course-map" style="height:420px;border-radius:8px;overflow:hidden;border:1px solid rgba(201,168,76,0.3);box-shadow:0 4px 24px rgba(0,0,0,0.4);margin-bottom:48px;"></div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-    (function() {
-      var map = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
+<!-- Course 2: Stewart Creek -->
+<div class="bf-course" id="course-2">
+  <div class="bf-course-bg" style="background-image:url('images/stewart-creek.jpg')"></div>
+  <div class="bf-course-overlay"></div>
+  <div class="bf-course-ghost" aria-hidden="true">02</div>
+  <div class="bf-course-content">
+    <div>
+      <div class="bf-course-round bf-reveal">Round 2 · Friday, July 9 · AM</div>
+      <div class="bf-course-name bf-reveal bf-d1">Stewart Creek Golf &amp; CC</div>
+      <div class="bf-course-designer bf-reveal bf-d2">Gary Browning · Canmore, Alberta</div>
+      <div class="bf-course-tags bf-reveal bf-d3">
+        <span class="bf-tag">Canmore, AB</span>
+        <span class="bf-tag">Par 72</span>
+        <span class="bf-tag">Rocky Mountain Views</span>
+      </div>
+    </div>
+    <a href="https://www.stewartcreekgolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+  </div>
+</div>
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        maxZoom: 15
-      }).addTo(map);
+<!-- Course 3: Silvertip -->
+<div class="bf-course" id="course-3">
+  <div class="bf-course-bg" style="background-image:url('images/silvertip.jpg')"></div>
+  <div class="bf-course-overlay"></div>
+  <div class="bf-course-ghost" aria-hidden="true">03</div>
+  <div class="bf-course-content">
+    <div>
+      <div class="bf-course-round bf-reveal">Round 3 · Friday, July 9 · PM</div>
+      <div class="bf-course-name bf-reveal bf-d1">Silvertip Golf Resort</div>
+      <div class="bf-course-designer bf-reveal bf-d2">Les Furber · Canmore, Alberta</div>
+      <div class="bf-course-tags bf-reveal bf-d3">
+        <span class="bf-tag">Canmore, AB</span>
+        <span class="bf-tag">Par 72</span>
+        <span class="bf-tag">Dramatic Elevation</span>
+      </div>
+    </div>
+    <a href="https://silvertipresort.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+  </div>
+</div>
 
-      function pin(label, color, border) {
-        return L.divIcon({
-          className: '',
-          html: '<div style="background:' + color + ';color:#fff;font-family:Oswald,sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 9px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,0.5);border:1px solid ' + border + ';pointer-events:none;">' + label + '</div>',
-          iconAnchor: [0, 10]
-        });
+<!-- Course 4: Banff Springs (The Finale) -->
+<div class="bf-course" id="course-4">
+  <div class="bf-course-bg" style="background-image:url('images/banff-springs-5th.webp')"></div>
+  <div class="bf-course-overlay" style="background:linear-gradient(to top,rgba(4,10,6,0.98) 0%,rgba(4,10,6,0.65) 42%,rgba(4,10,6,0.06) 100%)"></div>
+  <div class="bf-course-ghost" aria-hidden="true" style="color:rgba(255,255,255,0.028)">04</div>
+  <div class="bf-course-content">
+    <div>
+      <div class="bf-course-round bf-reveal" style="color:#e5c97a;font-size:0.65rem;letter-spacing:5px;">The Finale · Round 4 · Saturday, July 10 · AM</div>
+      <div class="bf-course-name bf-reveal bf-d1" style="font-size:clamp(2rem,5.5vw,4.5rem)">Banff Springs<br>Golf Course</div>
+      <div class="bf-course-designer bf-reveal bf-d2" style="color:rgba(245,240,232,0.5);font-size:1.05rem">Stanley Thompson, 1928 · The Jewel of the Rockies</div>
+      <div class="bf-course-tags bf-reveal bf-d3">
+        <span class="bf-tag" style="border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.9)">Banff, AB</span>
+        <span class="bf-tag" style="border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.9)">Par 71</span>
+        <span class="bf-tag" style="border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.9)">National Historic Site</span>
+        <span class="bf-tag" style="border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.9)">Top 10 in Canada</span>
+      </div>
+    </div>
+    <a href="https://www.banffmountaingolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal" style="border-color:rgba(201,168,76,0.6);color:#c9a84c">Visit →</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     5. ITINERARY
+═══════════════════════════════════════ -->
+<section class="bf-itin" id="schedule">
+  <div class="bf-itin-hdr">
+    <div class="bf-itin-label bf-reveal">The Schedule</div>
+    <h2 class="bf-itin-title bf-reveal bf-d1">Four Days in the Rockies</h2>
+  </div>
+  <div class="bf-days">
+
+    <div class="bf-day bf-reveal">
+      <div class="bf-day-lbl">
+        <span class="bf-day-dow">Thu</span>
+        <span class="bf-day-d">8</span>
+        <span class="bf-day-mo">July</span>
+      </div>
+      <div class="bf-day-content">
+        <div class="bf-day-title">Arrival · Round 1</div>
+        <div class="bf-events">
+          <div class="bf-ev"><span class="bf-ev-time">AM</span><span class="bf-ev-name">Fly into Calgary YYC · ~1hr drive to Canmore · Check in</span></div>
+          <div class="bf-ev"><span class="bf-ev-time">PM</span><span class="bf-ev-name">Kananaskis Country Golf · Mt. Kidd Course <span class="bf-ev-badge">Round 1</span></span></div>
+          <div class="bf-ev"><span class="bf-ev-time">Eve</span><span class="bf-ev-name">Welcome dinner · The Malcolm Hotel</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bf-day bf-reveal">
+      <div class="bf-day-lbl">
+        <span class="bf-day-dow">Fri</span>
+        <span class="bf-day-d">9</span>
+        <span class="bf-day-mo">July</span>
+      </div>
+      <div class="bf-day-content">
+        <div class="bf-day-title">Double Round Day</div>
+        <div class="bf-events">
+          <div class="bf-ev"><span class="bf-ev-time">AM</span><span class="bf-ev-name">Stewart Creek Golf &amp; CC <span class="bf-ev-badge">Round 2</span></span></div>
+          <div class="bf-ev"><span class="bf-ev-time">PM</span><span class="bf-ev-name">Silvertip Golf Resort <span class="bf-ev-badge">Round 3</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bf-day bf-reveal">
+      <div class="bf-day-lbl">
+        <span class="bf-day-dow">Sat</span>
+        <span class="bf-day-d">10</span>
+        <span class="bf-day-mo">July</span>
+      </div>
+      <div class="bf-day-content">
+        <div class="bf-day-title">The Finale · Banff Springs</div>
+        <div class="bf-events">
+          <div class="bf-ev"><span class="bf-ev-time">AM</span><span class="bf-ev-name">Banff Springs Golf Course · Stanley Thompson Course <span class="bf-ev-badge">Round 4</span></span></div>
+          <div class="bf-ev"><span class="bf-ev-time">Eve</span><span class="bf-ev-name">Championship ceremony · Awards dinner</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bf-day bf-reveal">
+      <div class="bf-day-lbl">
+        <span class="bf-day-dow">Sun</span>
+        <span class="bf-day-d">11</span>
+        <span class="bf-day-mo">July</span>
+      </div>
+      <div class="bf-day-content">
+        <div class="bf-day-title">Departure Day</div>
+        <div class="bf-events">
+          <div class="bf-ev"><span class="bf-ev-time">AM</span><span class="bf-ev-name">Check out · Return to Calgary YYC</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     6. THE STAY
+═══════════════════════════════════════ -->
+<div class="bf-hotel">
+  <div class="bf-hotel-img" style="background-image:url('images/malcolm-hotel.jpg');background-size:cover;background-position:center;"></div>
+  <div class="bf-hotel-text">
+    <div class="bf-hotel-eyebrow bf-reveal">Home Base</div>
+    <div class="bf-hotel-name bf-reveal bf-d1">The Malcolm Hotel</div>
+    <div class="bf-hotel-loc bf-reveal bf-d2">Canmore, Alberta · Gateway to the Rockies</div>
+    <div class="bf-hotel-items bf-reveal bf-d3">
+      <div class="bf-hotel-item">Mountain View Double Queens</div>
+      <div class="bf-hotel-item">Breakfast included each morning</div>
+      <div class="bf-hotel-item">Walking distance to downtown Canmore</div>
+      <div class="bf-hotel-item">Central to all four courses</div>
+    </div>
+    <div class="bf-hotel-foot bf-reveal">Calgary International (YYC) · 75 km · ~1 hour</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     7. BY THE NUMBERS
+═══════════════════════════════════════ -->
+<section class="bf-stats">
+  <div class="bf-stats-label bf-reveal">By The Numbers</div>
+  <div class="bf-stats-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="bf-stat bf-reveal">
+      <span class="bf-stat-num" data-countup>4</span>
+      <span class="bf-stat-lbl">Championship Courses</span>
+    </div>
+    <div class="bf-stat bf-reveal bf-d1">
+      <span class="bf-stat-num" data-countup>72</span>
+      <span class="bf-stat-lbl">Holes of Golf</span>
+    </div>
+    <div class="bf-stat bf-reveal bf-d2">
+      <span class="bf-stat-num" data-countup>1</span>
+      <span class="bf-stat-lbl">Champion</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     8. MAP
+═══════════════════════════════════════ -->
+<section class="bf-map-section" id="the-route">
+  <div class="bf-map-hdr">
+    <div class="bf-section-label bf-reveal">The Route</div>
+    <h2 class="bf-section-title bf-reveal bf-d1" style="font-size:clamp(1.7rem,4vw,2.7rem)">From Kananaskis to Banff</h2>
+  </div>
+  <div id="course-map" style="height:440px;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.22);box-shadow:0 8px 60px rgba(0,0,0,0.7);max-width:880px;margin:0 auto;"></div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     9. COST BREAKDOWN
+═══════════════════════════════════════ -->
+<section class="bf-cost">
+  <div class="bf-cost-inner">
+    <div class="bf-reveal">
+      <div class="bf-cost-amount">~$1,850</div>
+      <div class="bf-cost-lbl">per player · estimated</div>
+    </div>
+    <div class="bf-includes bf-reveal bf-d1">
+      <div class="bf-include">4 Rounds of Golf</div>
+      <div class="bf-include">Lodging · 4 Nights</div>
+      <div class="bf-include">Breakfast Each Day</div>
+      <div class="bf-include">Tee Gifts</div>
+      <div class="bf-include">Transportation</div>
+      <div class="bf-include">All Fees &amp; Taxes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     10. DESTINATION REVEAL VIDEO
+═══════════════════════════════════════ -->
+<section class="bf-video-section">
+  <div class="bf-section-label bf-reveal" style="margin-bottom:12px;">Destination Revealed</div>
+  <h2 class="bf-section-title bf-reveal bf-d1" style="font-size:clamp(1.7rem,4vw,2.7rem);margin-bottom:32px;">Watch the Reveal</h2>
+  <div class="bf-video-wrap bf-reveal bf-d2" id="bf-video-wrap">
+    <video id="bf-vid" playsinline preload="metadata">
+      <source src="banff-reveal.mp4" type="video/mp4">
+    </video>
+    <button class="bf-play-btn" id="bf-play-btn" aria-label="Play video">
+      <div class="bf-play-circle">
+        <svg id="bf-play-icon" width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <polygon points="10,6 22,14 10,22" fill="#c9a84c"/>
+        </svg>
+      </div>
+    </button>
+  </div>
+  <script>
+  (function(){
+    var vid = document.getElementById('bf-vid');
+    var btn = document.getElementById('bf-play-btn');
+    var icon = document.getElementById('bf-play-icon');
+    var pausePoly = '<rect x="8" y="6" width="4" height="16" fill="#c9a84c"/><rect x="16" y="6" width="4" height="16" fill="#c9a84c"/>';
+    var playPoly = '<polygon points="10,6 22,14 10,22" fill="#c9a84c"/>';
+    function toggle() {
+      if (vid.paused) {
+        vid.play();
+        btn.classList.add('bf-playing');
+        icon.innerHTML = pausePoly;
+      } else {
+        vid.pause();
+        btn.classList.remove('bf-playing');
+        icon.innerHTML = playPoly;
       }
-
-      var locations = [
-        { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB' },
-        { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM' },
-        { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM' },
-        { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM' },
-        { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM' }
-      ];
-
-      var bounds = [];
-      locations.forEach(function(loc) {
-        bounds.push(loc.latlng);
-        L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
-          .addTo(map)
-          .bindPopup(loc.popup, { className: 'map-popup' });
-      });
-
-      map.fitBounds(bounds, { padding: [40, 40] });
-    })();
-    </script>
-
-    <!-- Why Banff -->
-    <div class="y2027-why">
-      <div class="y2027-sub-header">Why Banff?</div>
-      <div class="y2027-why-copy">
-        Four championship golf courses. The Canadian Rockies.<br>
-        Glacier-fed rivers. Long summer evenings. Wildlife.<br>
-        <em>One of the most beautiful golf destinations in the world.</em>
-      </div>
-      <div class="y2027-photo-grid">
-        <img class="y2027-photo photo-a" src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg" alt="Banff Springs Golf Course" loading="lazy" onerror="this.style.display='none'">
-        <img class="y2027-photo photo-b" src="https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg" alt="Kananaskis Country" loading="lazy" onerror="this.style.display='none'">
-        <img class="y2027-photo photo-c" src="https://silvertipresort.com/wp-content/uploads/revslider/real-estate-slider-1/Silvertip-Golf-September-2011-12-1-scaled-1.webp" alt="Silvertip Resort" loading="lazy" onerror="this.style.display='none'">
-        <img class="y2027-photo photo-d" src="https://www.stewartcreekgolf.com/gallery/golf-course/stewart-creek-hole01.jpg" alt="Stewart Creek" loading="lazy" onerror="this.style.display='none'">
-      </div>
-    </div>
-
-    <!-- Cost & Includes -->
-    <div class="y2027-cost-block">
-      <div class="y2027-cost-left">
-        <div class="y2027-cost-amount">~$1,850</div>
-        <div class="y2027-cost-label">per player · estimated</div>
-      </div>
-      <div class="y2027-includes">
-        <div class="y2027-include-item">⛳ 4 Rounds of Golf</div>
-        <div class="y2027-include-item">🏨 Lodging</div>
-        <div class="y2027-include-item">🎁 Tee Gifts</div>
-        <div class="y2027-include-item">🍳 Breakfast Each Day</div>
-        <div class="y2027-include-item">🚌 Transportation</div>
-      </div>
-    </div>
-
-    <!-- Travel -->
-    <div class="y2027-travel">
-      <div class="y2027-travel-icon">✈️</div>
-      <div class="y2027-travel-text">
-        <div class="y2027-travel-label">Closest Airport</div>
-        <div class="y2027-travel-val">Calgary International (YYC) &nbsp;·&nbsp; ~1 hr to Banff / Canmore</div>
-      </div>
-    </div>
-
-    <!-- Lodging -->
-    <div class="y2027-travel">
-      <div class="y2027-travel-icon">🏨</div>
-      <div class="y2027-travel-text">
-        <div class="y2027-travel-label">Lodging</div>
-        <div class="y2027-travel-val">The Malcolm Hotel, Canmore &nbsp;·&nbsp; Mountain View Double Queens</div>
-      </div>
-    </div>
-
-    <!-- FAQ Link -->
-    <div style="text-align:center;margin:40px 0 8px;">
-      <a href="faq.html" style="display:inline-block;font-family:'Oswald',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,0.12);border:2px solid var(--gold);padding:16px 36px;text-decoration:none;transition:all 0.2s;box-shadow:0 0 18px rgba(201,168,76,0.15);" onmouseover="this.style.background='rgba(201,168,76,0.22)';this.style.boxShadow='0 0 28px rgba(201,168,76,0.3)'" onmouseout="this.style.background='rgba(201,168,76,0.12)';this.style.boxShadow='0 0 18px rgba(201,168,76,0.15)'">Have Questions? View the FAQ →</a>
-    </div>
-
-    <!-- Reveal Video -->
-    <div class="y2027-reveal-video">
-      <div class="y2027-reveal-label">Destination Revealed</div>
-      <div class="y2027-video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/_IvZ-ugw0_w"
-          title="ForeFathers 2027 — Banff Destination Reveal"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-
-  </div>
+    }
+    btn.addEventListener('click', toggle);
+    vid.addEventListener('click', toggle);
+    vid.addEventListener('ended', function() {
+      btn.classList.remove('bf-playing');
+      icon.innerHTML = playPoly;
+    });
+  })();
+  </script>
 </section>
 
-<!-- COURSES -->
-<section id="courses">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">Banff, Alberta · 2027</div>
-      <h2 class="section-title">Tournament Courses</h2>
-      <div class="section-rule"></div>
+<!-- ═══════════════════════════════════════
+     11. CTA
+═══════════════════════════════════════ -->
+<section class="bf-cta">
+  <div class="bf-cta-eyebrow bf-reveal">July 8 – 11, 2027</div>
+  <h2 class="bf-cta-title bf-reveal bf-d1">Be There.<br>It's Banff.</h2>
+  <p class="bf-cta-sub bf-reveal bf-d2">The fifth ForeFathers Invitational. The most ambitious yet.</p>
+  <div class="bf-cta-bar bf-reveal bf-d3">
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Entry</span>
+      <span class="bf-cta-cell-val">~$1,850 / player</span>
     </div>
-    <div class="courses-grid">
-      <div class="course-card">
-        <div class="course-img-wrap">
-          <img src="https://www.banff-springs-hotel.com/content/uploads/2022/12/004_Banff_Springs_GC_Jacob_Sjoman_16bits-copy.jpg" alt="Banff Springs Golf Course" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
-        </div>
-        <div class="course-number">Round 1 · TBD</div>
-        <div class="course-name">Banff Springs Golf Course</div>
-        <div class="course-location">Banff, Alberta</div>
-        <div class="course-details">
-          <div class="course-detail-row"><span>Designer</span><span>Stanley Thompson</span></div>
-          <div class="course-detail-row"><span>Par</span><span>71</span></div>
-          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
-        </div>
-        <a href="https://www.banffmountaingolf.com" target="_blank" class="course-link">Visit Website →</a>
-      </div>
-      <div class="course-card">
-        <div class="course-img-wrap">
-          <img src="https://irp.cdn-website.com/a65357ac/dms3rep/multi/opt/3-1920w.jpg" alt="Kananaskis Country Golf Course" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
-        </div>
-        <div class="course-number">Round 2 · TBD</div>
-        <div class="course-name">Kananaskis Country Golf</div>
-        <div class="course-location">Kananaskis, Alberta</div>
-        <div class="course-details">
-          <div class="course-detail-row"><span>Course</span><span>Mt. Kidd</span></div>
-          <div class="course-detail-row"><span>Designer</span><span>Robert Trent Jones Sr.</span></div>
-          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
-        </div>
-        <a href="https://www.kananaskisgolf.com" target="_blank" class="course-link">Visit Website →</a>
-      </div>
-      <div class="course-card">
-        <div class="course-img-wrap">
-          <img src="https://www.stewartcreekgolf.com/gallery/golf-course/stewart-creek-hole01.jpg" alt="Stewart Creek Golf & Country Club" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
-        </div>
-        <div class="course-number">Round 3 · TBD</div>
-        <div class="course-name">Stewart Creek Golf &amp; CC</div>
-        <div class="course-location">Canmore, Alberta</div>
-        <div class="course-details">
-          <div class="course-detail-row"><span>Designer</span><span>Gary Browning</span></div>
-          <div class="course-detail-row"><span>Par</span><span>72</span></div>
-          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
-        </div>
-        <a href="https://www.stewartcreekgolf.com" target="_blank" class="course-link">Visit Website →</a>
-      </div>
-      <div class="course-card">
-        <div class="course-img-wrap">
-          <img src="https://silvertipresort.com/wp-content/uploads/revslider/real-estate-slider-1/Silvertip-Golf-September-2011-12-1-scaled-1.webp" alt="Silvertip Golf Resort" class="course-img" loading="lazy" onerror="this.style.display='none'"/>
-        </div>
-        <div class="course-number">Round 4 · TBD</div>
-        <div class="course-name">Silvertip Golf Resort</div>
-        <div class="course-location">Canmore, Alberta</div>
-        <div class="course-details">
-          <div class="course-detail-row"><span>Designer</span><span>Les Furber</span></div>
-          <div class="course-detail-row"><span>Par</span><span>72</span></div>
-          <div class="course-detail-row"><span>Tee Time</span><span>TBD</span></div>
-        </div>
-        <a href="https://silvertipresort.com" target="_blank" class="course-link">Visit Website →</a>
-      </div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Hotel</span>
+      <span class="bf-cta-cell-val">The Malcolm · Canmore</span>
+    </div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Fly Into</span>
+      <span class="bf-cta-cell-val">Calgary YYC</span>
     </div>
   </div>
-</section>
-
-<!-- TEE TIMES -->
-<section id="teetimes">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">Coming Soon</div>
-      <h2 class="section-title">2027 Pairings</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="schedule-tbd">
-      <div class="schedule-tbd-icon">🏌️</div>
-      <div class="schedule-tbd-text">Tee times to be announced</div>
-      <div class="schedule-tbd-sub">Details coming soon.</div>
-    </div>
-  </div>
+  <br>
+  <a href="faq.html" class="bf-faq-btn bf-reveal">Have Questions? View the FAQ →</a>
 </section>
 
 </main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -334,57 +1298,131 @@
   </a>
 </footer>
 
-
 <script src="script.js"></script>
 <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js').catch(function() {});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+}
+
+// ── HAMBURGER MENU ──
+(function() {
+  var toggle = document.getElementById('nav-toggle');
+  var menu = document.getElementById('nav-menu');
+  var backdrop = document.getElementById('nav-backdrop');
+  if (!toggle || !menu) return;
+  function openNav() {
+    toggle.classList.add('open'); menu.classList.add('open');
+    if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function(){ backdrop.classList.add('open'); }); }
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    toggle.classList.remove('open'); menu.classList.remove('open');
+    if (backdrop) { backdrop.classList.remove('open'); setTimeout(function(){ backdrop.classList.remove('visible'); }, 260); }
+    document.body.style.overflow = '';
+  }
+  toggle.addEventListener('click', function(){ menu.classList.contains('open') ? closeNav() : openNav(); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeNav); });
+  if (backdrop) backdrop.addEventListener('click', closeNav);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeNav(); });
+})();
+</script>
+
+<script>
+// ── COUNTDOWN ──
+(function() {
+  var target = new Date('2027-07-08T12:00:00-06:00');
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = target - new Date();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) el.textContent = '00';
+      });
+      return;
+    }
+    var d = document.getElementById('cd-days');
+    var h = document.getElementById('cd-hours');
+    var m = document.getElementById('cd-mins');
+    var s = document.getElementById('cd-secs');
+    if (d) d.textContent = pad(Math.floor(diff / 86400000));
+    if (h) h.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    if (m) m.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    if (s) s.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+// ── HERO PARALLAX ──
+(function() {
+  var bg = document.getElementById('bf-hero-bg');
+  if (!bg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var vh = window.innerHeight;
+  function onScroll() {
+    var y = window.scrollY;
+    if (y < vh * 1.5) {
+      bg.style.transform = 'translateY(' + (y * 0.28) + 'px)';
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+
+// ── SCROLL REVEAL ──
+(function() {
+  var els = document.querySelectorAll('.bf-reveal');
+  if (!window.IntersectionObserver) {
+    els.forEach(function(el){ el.classList.add('bf-in'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('bf-in');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+  els.forEach(function(el){ obs.observe(el); });
+})();
+</script>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function() {
+  var map = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    maxZoom: 15
+  }).addTo(map);
+  function pin(label, color, border) {
+    return L.divIcon({
+      className: '',
+      html: '<div style="background:' + color + ';color:#fff;font-family:Oswald,sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 9px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,0.5);border:1px solid ' + border + ';pointer-events:none;">' + label + '</div>',
+      iconAnchor: [0, 10]
     });
   }
-
-  // ── HAMBURGER MENU ──
-  (function() {
-    var toggle   = document.getElementById('nav-toggle');
-    var menu     = document.getElementById('nav-menu');
-    var backdrop = document.getElementById('nav-backdrop');
-    if (!toggle || !menu) return;
-    function openNav() {
-      toggle.classList.add('open'); menu.classList.add('open');
-      if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function() { backdrop.classList.add('open'); }); }
-      document.body.style.overflow = 'hidden';
-    }
-    function closeNav() {
-      toggle.classList.remove('open'); menu.classList.remove('open');
-      if (backdrop) { backdrop.classList.remove('open'); setTimeout(function() { backdrop.classList.remove('visible'); }, 260); }
-      document.body.style.overflow = '';
-    }
-    toggle.addEventListener('click', function() { menu.classList.contains('open') ? closeNav() : openNav(); });
-    menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeNav); });
-    if (backdrop) backdrop.addEventListener('click', closeNav);
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeNav(); });
-  })();
-
+  var locations = [
+    { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB' },
+    { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM' },
+    { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM' },
+    { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM' },
+    { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM' }
+  ];
+  var bounds = [];
+  locations.forEach(function(loc) {
+    bounds.push(loc.latlng);
+    L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
+      .addTo(map)
+      .bindPopup(loc.popup, { className: 'map-popup' });
+  });
+  map.fitBounds(bounds, { padding: [40, 40] });
+})();
 </script>
-<script>
-  // ── COUNTDOWN TO BANFF 2027 ──
-  (function() {
-    var target = new Date('2027-07-08T12:00:00-06:00');
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function tick() {
-      var now = new Date(), diff = target - now;
-      if (diff <= 0) {
-        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) { document.getElementById(id).textContent = '00'; });
-        return;
-      }
-      document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
-      document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-      document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-      document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
-    }
-    tick(); setInterval(tick, 1000);
-  })();
-</script>
+
 <script src="animations.js" defer></script>
 </body>
 </html>
