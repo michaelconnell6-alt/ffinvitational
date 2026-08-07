@@ -1,178 +1,197 @@
-/* ── FFI Ticker ─────────────────────────────────────────────────────────────
-   Fixed bottom-of-viewport broadcast crawl.
-   Loaded only on public pages (not admin).
+/* ── FFI Ticker v2 ──────────────────────────────────────────────────────────
+   Segmented broadcast-style ticker. Shows one section at a time.
+   Shared across all public pages (not admin).
    ──────────────────────────────────────────────────────────────────────────── */
 
+/* ── Outer bar ────────────────────────────────────────────────────────────── */
 #ffi-ticker {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 900;
-  height: 32px;
+  height: 34px;
   display: flex;
   align-items: stretch;
   background: #0c1910;
-  border-top: 1px solid rgba(201, 168, 76, 0.28);
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.45);
+  border-top: 1px solid rgba(201, 168, 76, 0.22);
+  box-shadow: 0 -3px 14px rgba(0, 0, 0, 0.45);
   font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
   -webkit-user-select: none;
   user-select: none;
-  /* Safe area on notched phones */
+  /* Notched phones */
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: content-box;
 }
 
-/* ── "FFI" badge ──────────────────────────────────────────────────────────── */
+/* ── Badge: gold pill containing "FFI | SECTION LABEL" ───────────────────── */
 .ffi-t-badge {
   flex-shrink: 0;
   background: #c9a84c;
-  color: #06100a;
-  font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  padding: 0 14px;
   display: flex;
   align-items: center;
+  gap: 7px;
+  padding: 0 16px 0 14px;
+  /* Right accent: thin shadow to separate badge from stage */
+  border-right: 1px solid rgba(0, 0, 0, 0.18);
   position: relative;
   z-index: 2;
 }
 
-/* right-angle clip */
+/* Subtle right-pointing notch using a rotated border trick */
 .ffi-t-badge::after {
   content: '';
   position: absolute;
-  right: -6px;
-  top: 0;
-  bottom: 0;
-  width: 12px;
-  background: #c9a84c;
-  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 7px solid #c9a84c;
+  z-index: 3;
 }
 
-/* ── Scrolling track ──────────────────────────────────────────────────────── */
-.ffi-t-track {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
+.ffi-t-ffi {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #06100a;
+  flex-shrink: 0;
 }
 
-/* edge fades */
-.ffi-t-track::before,
-.ffi-t-track::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 28px;
-  z-index: 1;
-  pointer-events: none;
-}
-.ffi-t-track::before {
-  left: 0;
-  background: linear-gradient(to right, #0c1910 40%, transparent);
-}
-.ffi-t-track::after {
-  right: 0;
-  background: linear-gradient(to left, #0c1910 40%, transparent);
+.ffi-t-pipe {
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(6, 16, 10, 0.3);
+  flex-shrink: 0;
 }
 
-/* ── Inner scrolling strip ────────────────────────────────────────────────── */
-.ffi-t-inner {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
-  white-space: nowrap;
-  /* animation-duration set by JS; class added after measure */
-  will-change: transform;
-  padding-left: 12px;
-}
-
-.ffi-t-inner.ffi-t-animate {
-  animation: ffi-ticker-scroll linear infinite;
-}
-
-@keyframes ffi-ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* ── Individual items ─────────────────────────────────────────────────────── */
-.ffi-t-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 0 2px;
-  text-decoration: none;
-  color: inherit;
-  cursor: default;
-}
-
-a.ffi-t-item {
-  cursor: pointer;
-}
-
-a.ffi-t-item:hover .ffi-t-text {
-  color: #c9a84c;
-}
-
-.ffi-t-label {
+/* Section label — transitions handled by JS after init */
+.ffi-t-lbl {
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: #c9a84c;
-  flex-shrink: 0;
+  color: #06100a;
+  white-space: nowrap;
+  opacity: 1;
 }
 
-.ffi-t-text {
+/* ── Content stage ────────────────────────────────────────────────────────── */
+.ffi-t-stage {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  min-width: 0;
+}
+
+/* ── Content slot — the element that animates in/out ─────────────────────── */
+.ffi-t-slot {
+  /* opacity + transform transitions enabled after first render (no FOUC) */
+  opacity: 1;
+  transform: translateY(0) translateX(0);
+  will-change: opacity, transform;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Disabled transitions for instant position resets between exit and enter */
+.ffi-t-no-trans {
+  transition: none !important;
+}
+
+/* Invisible state (applied during exit; removed on enter) */
+.ffi-t-slot.ffi-gone {
+  opacity: 0;
+}
+
+/* Label invisible during section-change transition */
+.ffi-t-lbl.ffi-lbl-gone {
+  opacity: 0;
+}
+
+/* ── Item text and links inside slot ──────────────────────────────────────── */
+.ffi-t-slot a,
+.ffi-t-slot span {
   font-size: 11px;
   font-weight: 300;
-  letter-spacing: 0.4px;
-  color: rgba(245, 240, 232, 0.82);
-  transition: color 0.18s ease;
+  letter-spacing: 0.3px;
+  color: rgba(245, 240, 232, 0.84);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+  line-height: 1;
 }
 
-.ffi-t-sep {
-  color: rgba(201, 168, 76, 0.28);
-  font-size: 7px;
-  margin: 0 20px;
-  flex-shrink: 0;
-  line-height: 1;
+.ffi-t-slot a:hover {
+  color: #c9a84c;
+}
+
+.ffi-t-slot a:focus-visible {
+  outline: 1px solid rgba(201, 168, 76, 0.6);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
   #ffi-ticker {
-    height: 28px;
+    height: 30px;
   }
+
   .ffi-t-badge {
+    padding: 0 12px 0 10px;
+    gap: 5px;
+  }
+
+  .ffi-t-badge::after {
+    right: -6px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 6px;
+  }
+
+  .ffi-t-ffi {
     font-size: 9px;
-    padding: 0 10px;
     letter-spacing: 2px;
   }
-  .ffi-t-badge::after {
-    right: -5px;
-    width: 10px;
-  }
-  .ffi-t-label {
+
+  .ffi-t-lbl {
     font-size: 8px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.4px;
+    /* Truncate very long labels on small screens */
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .ffi-t-text {
+
+  .ffi-t-stage {
+    padding: 0 12px;
+  }
+
+  .ffi-t-slot a,
+  .ffi-t-slot span {
     font-size: 10px;
-  }
-  .ffi-t-sep {
-    margin: 0 14px;
   }
 }
 
-/* ── Reduced motion ───────────────────────────────────────────────────────── */
+/* ── Reduced motion: disable all transitions and transforms ───────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .ffi-t-inner.ffi-t-animate {
-    animation: none !important;
-    /* Show first item only, no scroll */
-    transform: none !important;
+  .ffi-t-slot,
+  .ffi-t-lbl {
+    transition: none !important;
+  }
+
+  .ffi-t-slot.ffi-gone {
+    /* Still hide during content swap — just no animation */
+    opacity: 0;
   }
 }
