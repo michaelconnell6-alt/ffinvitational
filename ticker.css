@@ -1,196 +1,216 @@
-/* ── FFI Ticker v2 ──────────────────────────────────────────────────────────
-   Segmented broadcast-style ticker. Shows one section at a time.
-   Shared across all public pages (not admin).
+/* ── FFI Ticker v4 ─────────────────────────────────────────────────────────
+   Single-row wipe/expand ticker.
+
+   Structure (one 44px row):
+     [FFI badge] | [stage: queue pills slide in → expand bar wipes over them]
+
+   Behavior:
+     • Category pills queue slides in from the right
+     • Leftmost pill is the active category — queue pauses
+     • Expand bar wipes left → right across the full stage, covering all pills
+     • Active category label + content text appear inside the bar
+     • Multi-item sections cross-fade content within the open bar
+     • Bar wipes right → left (collapses toward the label), revealing dark stage
+     • Queue rotates: active moves to end, next category becomes first
+     • Repeat — feels like an ESPN BottomLine lower-third graphic
    ──────────────────────────────────────────────────────────────────────────── */
 
-/* ── Outer bar ────────────────────────────────────────────────────────────── */
+/* ══ Outer container ════════════════════════════════════════════════════════ */
 #ffi-ticker {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 900;
-  height: 48px;
+  height: 44px;
   display: flex;
   align-items: stretch;
   background: #0c1910;
-  border-top: 1px solid rgba(201, 168, 76, 0.22);
-  box-shadow: 0 -3px 14px rgba(0, 0, 0, 0.45);
+  border-top: 2px solid rgba(201, 168, 76, 0.5);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.65);
   font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
   -webkit-user-select: none;
   user-select: none;
-  /* Notched phones */
   padding-bottom: env(safe-area-inset-bottom, 0px);
   box-sizing: content-box;
 }
 
-/* ── Badge: gold pill containing "FFI | SECTION LABEL" ───────────────────── */
-.ffi-t-badge {
+/* ══ Gold "FFI" badge — left anchor ════════════════════════════════════════ */
+#ffi-badge {
   flex-shrink: 0;
   background: #c9a84c;
+  color: #06100a;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 0 14px;
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 0 20px 0 16px;
-  /* Right accent: thin shadow to separate badge from stage */
-  border-right: 1px solid rgba(0, 0, 0, 0.18);
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
-/* Subtle right-pointing notch using a rotated border trick */
-.ffi-t-badge::after {
+/* Right-pointing chevron on badge */
+#ffi-badge::after {
   content: '';
   position: absolute;
-  right: -9px;
+  right: -10px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 9px solid #c9a84c;
-  z-index: 3;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #c9a84c;
+  z-index: 4;
 }
 
-.ffi-t-ffi {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #06100a;
-  flex-shrink: 0;
-}
-
-.ffi-t-pipe {
-  font-size: 12px;
-  font-weight: 300;
-  color: rgba(6, 16, 10, 0.3);
-  flex-shrink: 0;
-}
-
-/* Section label — transitions handled by JS after init */
-.ffi-t-lbl {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: #06100a;
-  white-space: nowrap;
-  opacity: 1;
-}
-
-/* ── Content stage ────────────────────────────────────────────────────────── */
-.ffi-t-stage {
+/* ══ Stage — clips both the queue and the expand overlay ═══════════════════ */
+#ffi-stage {
   flex: 1;
   overflow: hidden;
+  position: relative;
+}
+
+/* ══ Category-label pill queue ══════════════════════════════════════════════ */
+/* All pills in a horizontal flex row; JS drives translateX to slide them in. */
+#ffi-queue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 24px 0 24px;
+  white-space: nowrap;
+  /* transform and transition set entirely by JS */
+}
+
+.ffi-pill {
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(201, 168, 76, 0.15);
+  white-space: nowrap;
+  cursor: default;
+  /* color set per-position by JS: first pill brighter, rest dimmer */
+  color: rgba(245, 240, 232, 0.30);
+}
+
+/* ══ Expand overlay bar ═════════════════════════════════════════════════════ */
+/* Sits on top of the queue via z-index + clip-path.
+   clip-path is driven entirely by JS (wipe-in / wipe-out).
+   Default: fully clipped so it's invisible until JS expands it.        */
+#ffi-expand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0c1910;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
+  clip-path: inset(0 100% 0 0); /* hidden by default; JS overrides */
+  /* transition set by JS on each wipe */
+}
+
+/* Category label inside the expand bar (e.g. "NEXT STOP") */
+#ffi-expand-label {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(201, 168, 76, 0.3);
+  white-space: nowrap;
+}
+
+/* Main content text */
+#ffi-expand-content {
+  flex: 1;
   min-width: 0;
-}
-
-/* ── Content slot — the element that animates in/out ─────────────────────── */
-.ffi-t-slot {
-  /* opacity + transform transitions enabled after first render (no FOUC) */
-  opacity: 1;
-  transform: translateY(0) translateX(0);
-  will-change: opacity, transform;
-  min-width: 0;
-  max-width: 100%;
-}
-
-/* Disabled transitions for instant position resets between exit and enter */
-.ffi-t-no-trans {
-  transition: none !important;
-}
-
-/* Invisible state (applied during exit; removed on enter) */
-.ffi-t-slot.ffi-gone {
-  opacity: 0;
-}
-
-/* Label invisible during section-change transition */
-.ffi-t-lbl.ffi-lbl-gone {
-  opacity: 0;
-}
-
-/* ── Item text and links inside slot ──────────────────────────────────────── */
-.ffi-t-slot a,
-.ffi-t-slot span {
-  font-size: 15px;
+  padding: 0 18px;
+  font-size: 19px;
   font-weight: 300;
   letter-spacing: 0.3px;
-  color: rgba(245, 240, 232, 0.84);
-  text-decoration: none;
+  color: rgba(245, 240, 232, 0.92);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
-  max-width: 100%;
-  line-height: 1;
+  /* opacity and transition set entirely by JS */
+  opacity: 0;
 }
 
-.ffi-t-slot a:hover {
+#ffi-expand-content a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#ffi-expand-content a:hover {
   color: #c9a84c;
 }
 
-.ffi-t-slot a:focus-visible {
-  outline: 1px solid rgba(201, 168, 76, 0.6);
+#ffi-expand-content a:focus-visible {
+  outline: 1px solid rgba(201, 168, 76, 0.5);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* ── Mobile ───────────────────────────────────────────────────────────────── */
+/* ══ Mobile ════════════════════════════════════════════════════════════════ */
 @media (max-width: 600px) {
   #ffi-ticker {
-    height: 44px;
+    height: 40px;
   }
 
-  .ffi-t-badge {
-    padding: 0 14px 0 12px;
-    gap: 7px;
-  }
-
-  .ffi-t-badge::after {
-    right: -7px;
-    border-top-width: 7px;
-    border-bottom-width: 7px;
-    border-left-width: 8px;
-  }
-
-  .ffi-t-ffi {
-    font-size: 11px;
+  #ffi-badge {
+    font-size: 10px;
+    padding: 0 10px;
     letter-spacing: 2px;
   }
 
-  .ffi-t-lbl {
-    font-size: 10px;
-    letter-spacing: 1.4px;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  #ffi-badge::after {
+    right: -8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
   }
 
-  .ffi-t-stage {
-    padding: 0 14px;
+  .ffi-pill {
+    font-size: 9.5px;
+    padding: 0 12px;
+    letter-spacing: 1.6px;
   }
 
-  .ffi-t-slot a,
-  .ffi-t-slot span {
-    font-size: 13px;
+  #ffi-expand-label {
+    font-size: 9.5px;
+    padding: 0 10px;
+    letter-spacing: 1.6px;
+  }
+
+  #ffi-expand-content {
+    font-size: 15px;
+    padding: 0 10px;
   }
 }
 
-/* ── Reduced motion: disable all transitions and transforms ───────────────── */
+/* ══ Reduced motion — JS also checks this; belt-and-suspenders here ════════ */
 @media (prefers-reduced-motion: reduce) {
-  .ffi-t-slot,
-  .ffi-t-lbl {
+  #ffi-queue,
+  #ffi-expand,
+  #ffi-expand-content {
     transition: none !important;
-  }
-
-  .ffi-t-slot.ffi-gone {
-    /* Still hide during content swap — just no animation */
-    opacity: 0;
   }
 }
