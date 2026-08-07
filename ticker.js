@@ -61,7 +61,7 @@
         label: 'NEXT STOP',
         items: [
           {
-            text: 'Banff, Alberta  ·  July 8–11, 2027',
+            text: 'Committee announces the 2027 FFI will be in Canada. Local felons shocked and dissapointed',
             href: 'banff-2027.html'
           }
         ]
@@ -77,9 +77,15 @@
       {
         label: 'THE FIELD',
         items: [
+<<<<<<< HEAD
           { text: 'The 2027 field is taking shape.' }
           /* Add confirmed players here when announced:
              { text: 'FirstName LastName' }            */
+=======
+          { text: 'The 2027 field will be announced in November.' }
+          /* Add confirmed players below when announced:
+             { text: 'FirstName LastName' }   */
+>>>>>>> 95fd1dd7277bdf1a7ef8b27b6ea729eec21e5ca3
         ]
       },
 
@@ -117,7 +123,7 @@
         label: 'HISTORY',
         items: [
           {
-            text: 'In 2026, Steve Williams recorded the first ace in ForeFathers history.'
+            text: 'In 2026, Steve Williams recorded the first ace in ForeFathers history, on the 13th hole at TPC Myrtle Beach'
           }
         ]
       },
