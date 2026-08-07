@@ -10,7 +10,7 @@
   left: 0;
   right: 0;
   z-index: 900;
-  height: 34px;
+  height: 48px;
   display: flex;
   align-items: stretch;
   background: #0c1910;
@@ -30,8 +30,8 @@
   background: #c9a84c;
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 0 16px 0 14px;
+  gap: 9px;
+  padding: 0 20px 0 16px;
   /* Right accent: thin shadow to separate badge from stage */
   border-right: 1px solid rgba(0, 0, 0, 0.18);
   position: relative;
@@ -42,19 +42,19 @@
 .ffi-t-badge::after {
   content: '';
   position: absolute;
-  right: -7px;
+  right: -9px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-left: 7px solid #c9a84c;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 9px solid #c9a84c;
   z-index: 3;
 }
 
 .ffi-t-ffi {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -63,7 +63,7 @@
 }
 
 .ffi-t-pipe {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 300;
   color: rgba(6, 16, 10, 0.3);
   flex-shrink: 0;
@@ -71,7 +71,7 @@
 
 /* Section label — transitions handled by JS after init */
 .ffi-t-lbl {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 1.8px;
   text-transform: uppercase;
@@ -86,7 +86,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 0 20px 0 20px;
+  padding: 0 24px 0 24px;
   min-width: 0;
 }
 
@@ -118,7 +118,7 @@
 /* ── Item text and links inside slot ──────────────────────────────────────── */
 .ffi-t-slot a,
 .ffi-t-slot span {
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 300;
   letter-spacing: 0.3px;
   color: rgba(245, 240, 232, 0.84);
@@ -144,42 +144,41 @@
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
 @media (max-width: 600px) {
   #ffi-ticker {
-    height: 30px;
+    height: 44px;
   }
 
   .ffi-t-badge {
-    padding: 0 12px 0 10px;
-    gap: 5px;
+    padding: 0 14px 0 12px;
+    gap: 7px;
   }
 
   .ffi-t-badge::after {
-    right: -6px;
-    border-top-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 6px;
+    right: -7px;
+    border-top-width: 7px;
+    border-bottom-width: 7px;
+    border-left-width: 8px;
   }
 
   .ffi-t-ffi {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 2px;
   }
 
   .ffi-t-lbl {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.4px;
-    /* Truncate very long labels on small screens */
-    max-width: 90px;
+    max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .ffi-t-stage {
-    padding: 0 12px;
+    padding: 0 14px;
   }
 
   .ffi-t-slot a,
   .ffi-t-slot span {
-    font-size: 10px;
+    font-size: 13px;
   }
 }
 

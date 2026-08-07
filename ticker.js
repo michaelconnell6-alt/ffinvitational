@@ -354,7 +354,7 @@
 
     /* Push body content up so nothing hides under the ticker */
     document.body.style.paddingBottom =
-      'calc(34px + env(safe-area-inset-bottom, 0px))';
+      'calc(48px + env(safe-area-inset-bottom, 0px))';
 
     /* ── Hover / focus pause ── */
     if (cfg.pauseOnHover) {
