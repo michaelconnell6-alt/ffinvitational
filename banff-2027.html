@@ -876,6 +876,19 @@
 /* ── SPECIFICITY FIX ──
    styles.css has section:nth-child(even){background:#eee8da} with specificity (0,1,1)
    which beats plain class selectors (0,1,0). !important overrides it cleanly. */
+/* ── MAP BUTTON ── */
+.bf-course-cta-row { display: flex; align-items: center; gap: 12px; }
+.bf-map-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Oswald', sans-serif; font-size: 0.55rem; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(201,168,76,0.6);
+  background: none; border: 1px solid rgba(201,168,76,0.2);
+  padding: 8px 14px; cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.bf-map-btn:hover { color: #c9a84c; border-color: rgba(201,168,76,0.6); }
+.bf-map-btn svg { flex-shrink: 0; }
+
 .bf-quote         { background: #06100a !important; }
 .bf-itin          { background: #f5f0e8 !important; }
 .bf-stats         { background: #06100a !important; }
@@ -1054,7 +1067,10 @@
         <span class="bf-tag">Mountain Course</span>
       </div>
     </div>
-    <a href="https://www.kananaskisgolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+    <div class="bf-course-cta-row bf-reveal">
+      <a href="https://www.kananaskisgolf.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
+      <button class="bf-map-btn" onclick="bfFlyTo(1)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
+    </div>
   </div>
 </div>
 
@@ -1074,7 +1090,10 @@
         <span class="bf-tag">Rocky Mountain Views</span>
       </div>
     </div>
-    <a href="https://www.stewartcreekgolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+    <div class="bf-course-cta-row bf-reveal">
+      <a href="https://www.stewartcreekgolf.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
+      <button class="bf-map-btn" onclick="bfFlyTo(2)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
+    </div>
   </div>
 </div>
 
@@ -1094,7 +1113,10 @@
         <span class="bf-tag">Dramatic Elevation</span>
       </div>
     </div>
-    <a href="https://silvertipresort.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal">Visit →</a>
+    <div class="bf-course-cta-row bf-reveal">
+      <a href="https://silvertipresort.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
+      <button class="bf-map-btn" onclick="bfFlyTo(3)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
+    </div>
   </div>
 </div>
 
@@ -1115,7 +1137,10 @@
         <span class="bf-tag" style="border-color:rgba(201,168,76,0.5);color:rgba(201,168,76,0.9)">Top 10 in Canada</span>
       </div>
     </div>
-    <a href="https://www.banffmountaingolf.com" target="_blank" rel="noopener" class="bf-course-cta bf-reveal" style="border-color:rgba(201,168,76,0.6);color:#c9a84c">Visit →</a>
+    <div class="bf-course-cta-row bf-reveal">
+      <a href="https://www.banffmountaingolf.com" target="_blank" rel="noopener" class="bf-course-cta" style="border-color:rgba(201,168,76,0.6);color:#c9a84c">Visit →</a>
+      <button class="bf-map-btn" onclick="bfFlyTo(4)" style="color:#c9a84c;border-color:rgba(201,168,76,0.4);"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
+    </div>
   </div>
 </div>
 
@@ -1208,6 +1233,7 @@
       <div class="bf-hotel-item">Central to all four courses</div>
     </div>
     <div class="bf-hotel-foot bf-reveal">Calgary International (YYC) · 75 km · ~1 hour</div>
+    <button class="bf-map-btn bf-reveal" onclick="bfFlyTo(0)" style="margin-top:16px;"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>View on Map</button>
   </div>
 </div>
 
@@ -1453,12 +1479,13 @@ if ('serviceWorker' in navigator) {
 <!-- Leaflet -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+var bfMap, bfMarkers = [];
 (function() {
-  var map = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
+  bfMap = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
     maxZoom: 15
-  }).addTo(map);
+  }).addTo(bfMap);
   function pin(label, color, border) {
     return L.divIcon({
       className: '',
@@ -1467,21 +1494,34 @@ if ('serviceWorker' in navigator) {
     });
   }
   var locations = [
-    { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB' },
-    { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM' },
-    { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM' },
-    { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM' },
-    { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM' }
+    { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB', zoom: 14 },
+    { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM', zoom: 13 },
+    { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM', zoom: 14 },
+    { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM', zoom: 14 },
+    { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM', zoom: 13 },
+    { latlng: [51.1215, -114.0076], label: '✈ Calgary YYC', color: '#3a3a3a', border: 'rgba(255,255,255,0.2)', popup: '<b>Calgary International Airport</b><br>YYC · ~1 hour to Canmore', zoom: 13 }
   ];
   var bounds = [];
-  locations.forEach(function(loc) {
+  locations.forEach(function(loc, i) {
     bounds.push(loc.latlng);
-    L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
-      .addTo(map)
+    var m = L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
+      .addTo(bfMap)
       .bindPopup(loc.popup, { className: 'map-popup' });
+    bfMarkers.push({ marker: m, zoom: loc.zoom, latlng: loc.latlng });
   });
-  map.fitBounds(bounds, { padding: [40, 40] });
+  bfMap.fitBounds(bounds, { padding: [40, 40] });
 })();
+
+window.bfFlyTo = function(i) {
+  var section = document.getElementById('the-route');
+  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(function() {
+    if (!bfMap || !bfMarkers[i]) return;
+    var loc = bfMarkers[i];
+    bfMap.flyTo(loc.latlng, loc.zoom, { duration: 1.4, easeLinearity: 0.25 });
+    setTimeout(function() { loc.marker.openPopup(); }, 1500);
+  }, 500);
+};
 </script>
 
 <script src="animations.js" defer></script>
