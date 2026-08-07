@@ -77,15 +77,9 @@
       {
         label: 'THE FIELD',
         items: [
-<<<<<<< HEAD
-          { text: 'The 2027 field is taking shape.' }
-          /* Add confirmed players here when announced:
-             { text: 'FirstName LastName' }            */
-=======
           { text: 'The 2027 field will be announced in November.' }
           /* Add confirmed players below when announced:
              { text: 'FirstName LastName' }   */
->>>>>>> 95fd1dd7277bdf1a7ef8b27b6ea729eec21e5ca3
         ]
       },
 
