@@ -1,0 +1,178 @@
+/* ── FFI Ticker ─────────────────────────────────────────────────────────────
+   Fixed bottom-of-viewport broadcast crawl.
+   Loaded only on public pages (not admin).
+   ──────────────────────────────────────────────────────────────────────────── */
+
+#ffi-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  height: 32px;
+  display: flex;
+  align-items: stretch;
+  background: #0c1910;
+  border-top: 1px solid rgba(201, 168, 76, 0.28);
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.45);
+  font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Safe area on notched phones */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── "FFI" badge ──────────────────────────────────────────────────────────── */
+.ffi-t-badge {
+  flex-shrink: 0;
+  background: #c9a84c;
+  color: #06100a;
+  font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* right-angle clip */
+.ffi-t-badge::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  background: #c9a84c;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+/* ── Scrolling track ──────────────────────────────────────────────────────── */
+.ffi-t-track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* edge fades */
+.ffi-t-track::before,
+.ffi-t-track::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  z-index: 1;
+  pointer-events: none;
+}
+.ffi-t-track::before {
+  left: 0;
+  background: linear-gradient(to right, #0c1910 40%, transparent);
+}
+.ffi-t-track::after {
+  right: 0;
+  background: linear-gradient(to left, #0c1910 40%, transparent);
+}
+
+/* ── Inner scrolling strip ────────────────────────────────────────────────── */
+.ffi-t-inner {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  /* animation-duration set by JS; class added after measure */
+  will-change: transform;
+  padding-left: 12px;
+}
+
+.ffi-t-inner.ffi-t-animate {
+  animation: ffi-ticker-scroll linear infinite;
+}
+
+@keyframes ffi-ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Individual items ─────────────────────────────────────────────────────── */
+.ffi-t-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 2px;
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
+
+a.ffi-t-item {
+  cursor: pointer;
+}
+
+a.ffi-t-item:hover .ffi-t-text {
+  color: #c9a84c;
+}
+
+.ffi-t-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  flex-shrink: 0;
+}
+
+.ffi-t-text {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.4px;
+  color: rgba(245, 240, 232, 0.82);
+  transition: color 0.18s ease;
+}
+
+.ffi-t-sep {
+  color: rgba(201, 168, 76, 0.28);
+  font-size: 7px;
+  margin: 0 20px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  #ffi-ticker {
+    height: 28px;
+  }
+  .ffi-t-badge {
+    font-size: 9px;
+    padding: 0 10px;
+    letter-spacing: 2px;
+  }
+  .ffi-t-badge::after {
+    right: -5px;
+    width: 10px;
+  }
+  .ffi-t-label {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+  .ffi-t-text {
+    font-size: 10px;
+  }
+  .ffi-t-sep {
+    margin: 0 14px;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ffi-t-inner.ffi-t-animate {
+    animation: none !important;
+    /* Show first item only, no scroll */
+    transform: none !important;
+  }
+}
