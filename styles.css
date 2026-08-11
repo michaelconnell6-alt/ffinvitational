@@ -40,7 +40,7 @@
   }
   .nav-logo {
     position: absolute;
-    right: 20px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -61,6 +61,7 @@
     justify-content: center;
     list-style: none;
     gap: 0;
+    padding-left: 80px;
   }
   nav ul li a {
     display: block;

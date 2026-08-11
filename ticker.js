@@ -130,6 +130,16 @@
           { text: 'Mikey Connell  ·  2022  ·  Pinehurst Resort',          href: 'champions.html' },
           { text: 'Garrett Wardell  ·  2021  ·  Pinehurst Resort',        href: 'champions.html' }
         ]
+      },
+
+      {
+        label: 'FOLLOW US',
+        items: [
+          {
+            text: 'Follow us on Instagram @forefathersinvitational',
+            href: 'https://www.instagram.com/forefathersinvitational'
+          }
+        ]
       }
 
     ]
