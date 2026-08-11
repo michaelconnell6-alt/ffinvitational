@@ -2383,3 +2383,405 @@ html::after {
   .champions-placeholder { border-color: rgba(201,168,76,0.18); color: rgba(232,224,208,0.35); }
   .recap-narrative       { color: rgba(232,224,208,0.7); }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HOMEPAGE — all 10 UX improvements
+══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Full-screen hero ── */
+.page-home .hero {
+  height: 100svh;
+  min-height: 560px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* Kill the radial-gradient ::before and the mobile group photo ::after */
+.page-home .hero::before,
+.page-home .hero::after { display: none; content: none; }
+
+/* CSS-only cinematic background — vignette + gold bloom + deep base */
+.page-home .hero {
+  background:
+    radial-gradient(ellipse 140% 110% at 50% 50%, transparent 36%, rgba(0,0,0,0.48) 100%),
+    radial-gradient(ellipse 62% 48% at 50% 36%, rgba(201,168,76,0.10) 0%, transparent 56%),
+    radial-gradient(ellipse 100% 70% at 50% 100%, rgba(3,8,4,0.82) 0%, transparent 55%),
+    linear-gradient(175deg, #0e2219 0%, #071209 45%, #03080a 100%);
+}
+
+/* Hide the photo + overlay layers — not needed for CSS-only hero */
+.page-home .hero-bg    { display: none; }
+.page-home .hero-overlay { display: none; }
+
+/* Content wrapper (sits above overlay) */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 24px;
+  width: 100%;
+}
+
+/* ── 2. Countdown inside hero ── */
+.page-home .hero .y2027-countdown {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.page-home .hero .y2027-cd-num {
+  font-size: 3.4rem;  /* heavier weight, only 3 units now */
+  font-weight: 700;
+}
+.page-home .hero .y2027-cd-units {
+  gap: 16px;  /* more breathing room without seconds */
+}
+.page-home .hero .y2027-cd-unit {
+  min-width: 76px;
+}
+.hero-cd-wrap {
+  margin-top: 28px;
+}
+
+/* ── 3. Hero entrance animation — premium expo-out easing ── */
+.hero-enter {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-enter.hero-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Badge drifts DOWN from above */
+.hero-badge.hero-enter            { transform: translateY(-8px); }
+.hero-badge.hero-enter.hero-visible { transform: translateY(0); }
+/* Logo scales softly into place */
+.hero-logo.hero-enter {
+  transform: scale(0.93);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-logo.hero-enter.hero-visible { transform: scale(1); }
+
+/* Wordmark text — Oswald light, very wide tracking */
+.hero-wordmark {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 1.8vw, 1.05rem);
+  letter-spacing: clamp(5px, 2vw, 13px);
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.55);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+/* ── 5. Transparent nav over hero ── */
+.page-home nav {
+  position: fixed;
+  background: transparent;
+  border-bottom-color: transparent;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+.page-home nav.nav-scrolled {
+  background: var(--green-dark);
+  border-bottom-color: var(--gold);
+}
+
+/* ── 6. Elevated tagline ── */
+.page-home .hero-tagline {
+  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+  color: rgba(245,240,232,0.82);
+  margin-top: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* ── 9. Scroll cue ── */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+  display: block;
+  line-height: 0;
+}
+/* Override the entry-animation translate so it doesn't fight translateX(-50%) */
+.hero-scroll-cue.hero-enter {
+  transform: translateX(-50%) translateY(16px);
+}
+.hero-scroll-cue.hero-enter.hero-visible {
+  transform: translateX(-50%) translateY(0);
+}
+.hero-scroll-cue svg {
+  animation: hero-bob 2.2s ease-in-out infinite;
+}
+@keyframes hero-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(9px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-cue svg { animation: none; }
+}
+
+/* ── 4. Banff teaser redesign ── */
+.banff-teaser {
+  position: relative;
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 96px 24px;
+  overflow: hidden;
+  background: var(--green-dark);
+}
+.banff-teaser-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 35%;
+  opacity: 0.5;
+  transition: transform 0.1s linear;
+}
+.banff-teaser-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(6,16,10,0.52) 0%,
+    rgba(6,16,10,0.38) 40%,
+    rgba(6,16,10,0.68) 100%
+  );
+}
+.banff-teaser-content {
+  position: relative;
+  z-index: 1;
+}
+.banff-teaser-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.8);
+  margin-bottom: 22px;
+}
+.banff-teaser-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 9vw, 7rem);
+  color: var(--gold);
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.65);
+  margin-bottom: 22px;
+  letter-spacing: -1px;
+}
+.banff-teaser-sub {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(245,240,232,0.72);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+.banff-teaser-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin: 32px auto;
+  opacity: 0.45;
+}
+.banff-teaser-cta {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 14px 34px;
+  text-decoration: none;
+  transition: border-color 0.22s, background 0.22s;
+}
+.banff-teaser-cta:hover {
+  border-color: rgba(201,168,76,0.85);
+  background: rgba(201,168,76,0.07);
+}
+
+/* ── 10. Footer champion credit ── */
+.footer-champion {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: rgba(245,240,232,0.3);
+  letter-spacing: 0.5px;
+  margin-top: 6px;
+}
+.footer-champion em {
+  color: rgba(201,168,76,0.52);
+  font-style: italic;
+}
+
+/* ══ HOMEPAGE MOBILE — Art-directed for phone ══════════════════════════════
+   All rules scoped to .page-home or homepage-only elements.
+   Desktop CSS is untouched — every change lives inside a max-width query.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 720px) {
+
+  /* ── Hero container ─────────────────────────────────────────────────── */
+  .page-home .hero {
+    padding: 0;
+    /* height: 100svh is already set by desktop rule — keep it */
+    min-height: 560px;
+  }
+
+  /* Kill mobile group-photo ::after (applies globally on mobile hero) */
+  .page-home .hero::after { display: none; content: none; }
+
+  /* CRITICAL FIX: the previous override set position:static on every
+     hero child, which broke the absolutely-positioned scroll cue
+     (it fell inline after the countdown instead of pinning to the bottom).
+     Explicitly restore the correct positions for each layer. */
+  .page-home .hero > *              { position: unset; }
+  .page-home .hero .hero-content    { position: relative; }
+  .page-home .hero .hero-scroll-cue { position: absolute; }
+
+  /* Hero content: tighter padding, bottom clears scroll cue + ticker */
+  .page-home .hero .hero-content {
+    padding: 12px 20px 68px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── Logo: impressive but not screen-filling ─────────────────────── */
+  /* 96vw = 360px on a 375px phone; caps at 220px keeps it commanding */
+  .page-home .hero .hero-logo {
+    max-width: min(220px, 56vw);
+    width:     min(220px, 56vw);
+    margin-bottom: 4px;
+  }
+
+  /* ── Est. badge ──────────────────────────────────────────────────── */
+  .page-home .hero .hero-badge {
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* ── Wordmark: compressed tracking for narrow viewport ──────────── */
+  .page-home .hero .hero-wordmark {
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    margin-top: 8px;
+  }
+
+  /* ── Tagline ─────────────────────────────────────────────────────── */
+  .page-home .hero-tagline {
+    font-size: 1rem;
+    margin-top: 14px;
+  }
+
+  /* ── Countdown ───────────────────────────────────────────────────── */
+  /* Override desktop 3.4rem — large enough to read, not oversized */
+  .page-home .hero .hero-cd-wrap {
+    margin-top: 20px;
+  }
+  .page-home .hero .y2027-cd-num {
+    font-size: 2.8rem;
+    font-weight: 700;
+  }
+  .page-home .hero .y2027-cd-units {
+    gap: 10px;
+  }
+  .page-home .hero .y2027-cd-unit {
+    min-width: 62px;
+  }
+
+  /* ── Scroll cue: comfortably above 40px ticker ───────────────────── */
+  .hero-scroll-cue {
+    bottom: 58px;
+  }
+  /* Preserve combined translateX + translateY for the entry animation */
+  .hero-scroll-cue.hero-enter {
+    transform: translateX(-50%) translateY(12px);
+  }
+  .hero-scroll-cue.hero-enter.hero-visible {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── Navigation: 44px+ tap targets, clear hierarchy ─────────────── */
+  nav ul li a {
+    padding: 15px 20px;
+    font-size: 12.5px;
+    letter-spacing: 2px;
+  }
+  nav ul li a.nav-active {
+    padding-left: 17px; /* preserve the 3px gold left-border offset */
+  }
+
+  /* Banff '27 highlighted — most important destination link */
+  #nav-menu > li:nth-child(2) > a {
+    color: var(--gold);
+  }
+
+  /* Tournament submenu: indented, slightly dimmer, still readable */
+  .nav-dropdown-menu {
+    background: rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(201, 168, 76, 0.07);
+  }
+  .nav-dropdown-menu li a {
+    padding: 12px 16px 12px 30px;
+    font-size: 11.5px;
+    color: rgba(245, 240, 232, 0.6);
+    letter-spacing: 1.5px;
+  }
+  .nav-dropdown-menu li a:hover,
+  .nav-dropdown-menu li a:active {
+    color: var(--cream);
+  }
+
+  /* ── Banff Teaser: portrait-first photography ────────────────────── */
+  .banff-teaser {
+    min-height: 68vh;
+    padding: 80px 20px 72px;
+  }
+  /* Portrait-optimized crop — pull up to show more mountain/fairway */
+  .banff-teaser-bg {
+    background-position: center 20%;
+  }
+  /* CTA: thumb-friendly width */
+  .banff-teaser-cta {
+    padding: 16px 44px;
+    letter-spacing: 2.5px;
+  }
+}
+
+/* ── Narrow phones (≤ 375px width) ──────────────────────────────────────── */
+@media (max-width: 375px) {
+  .page-home .hero .hero-logo {
+    max-width: min(185px, 50vw);
+    width:     min(185px, 50vw);
+  }
+  .page-home .hero .hero-wordmark {
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+  }
+  .page-home .hero-tagline {
+    font-size: 0.95rem;
+  }
+  .page-home .hero .y2027-cd-num {
+    font-size: 2.4rem;
+  }
+  .page-home .hero .y2027-cd-unit {
+    min-width: 54px;
+  }
+  .page-home .hero .y2027-cd-units {
+    gap: 6px;
+  }
+}

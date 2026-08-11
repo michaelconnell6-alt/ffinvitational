@@ -94,6 +94,10 @@
     box-sizing: border-box;
     z-index: 2;
   }
+  @keyframes gate-breathe {
+    0%, 100% { opacity: 0.92; }
+    50% { opacity: 0.6; }
+  }
   #intro-gate img {
     display: block;
     max-width: min(340px, 72vw);
@@ -103,6 +107,7 @@
     filter: brightness(0) invert(1);
     opacity: 0.92;
     margin-bottom: clamp(20px, 4vh, 40px);
+    animation: gate-breathe 3.5s ease-in-out infinite;
   }
   #intro-skip {
     position: absolute;
@@ -146,7 +151,7 @@
   gtag('config', 'G-DTX58MS7P4');
 </script>
 </head>
-<body>
+<body class="page-home">
 <a href="#main" class="skip-nav">Skip to main content</a>
 
 <!-- CINEMATIC INTRO -->
@@ -191,34 +196,41 @@
 <main id="main">
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-badge">Est. 2021</div>
-  <img class="hero-logo" src="images/logo.png" alt="ForeFathers Invitational Logo"/>
-  <p class="hero-tagline">The Trip That Became a Tradition.</p>
+  <div class="hero-bg" id="hero-bg" style="background-image:url('images/banff-bg.jpg')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge hero-enter hero-reveal-1">Est. 2021</div>
+    <img class="hero-logo hero-enter hero-reveal-2" src="images/logo.png" alt="ForeFathers Invitational Logo"/>
+    <p class="hero-wordmark hero-enter hero-reveal-3">ForeFathers Invitational</p>
+    <p class="hero-tagline hero-enter hero-reveal-4">The Trip That Became a Tradition.</p>
+    <div class="hero-enter hero-cd-wrap hero-reveal-5">
+      <div class="y2027-countdown">
+        <div class="y2027-cd-label">Days Until Banff 2027</div>
+        <div class="y2027-cd-units">
+          <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-days">—</span><span class="y2027-cd-unit-lbl">Days</span></div>
+          <div class="y2027-cd-sep">:</div>
+          <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-hours">—</span><span class="y2027-cd-unit-lbl">Hours</span></div>
+          <div class="y2027-cd-sep">:</div>
+          <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-mins">—</span><span class="y2027-cd-unit-lbl">Minutes</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="hero-scroll-cue hero-enter hero-reveal-6" href="#next-year" aria-label="Scroll to next section">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
 </header>
 
-<!-- Countdown -->
-<div class="y2027-countdown">
-  <div class="y2027-cd-label">Days Until 2027</div>
-  <div class="y2027-cd-units">
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-days">—</span><span class="y2027-cd-unit-lbl">Days</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-hours">—</span><span class="y2027-cd-unit-lbl">Hours</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-mins">—</span><span class="y2027-cd-unit-lbl">Minutes</span></div>
-    <div class="y2027-cd-sep">:</div>
-    <div class="y2027-cd-unit"><span class="y2027-cd-num" id="cd-secs">—</span><span class="y2027-cd-unit-lbl">Seconds</span></div>
-  </div>
-</div>
-
 <!-- 2027 TEASER -->
-<section id="next-year" style="background:var(--green-dark);padding:72px 0;text-align:center;position:relative;overflow:hidden;">
-  <img src="images/banff-bg.jpg" alt="" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:0.2;pointer-events:none;">
-  <div class="container" style="position:relative;">
-    <div style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,76,0.7);margin-bottom:16px;">Next Stop</div>
-    <div style="font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);color:var(--gold);font-weight:700;line-height:1.1;text-shadow:0 2px 24px rgba(0,0,0,0.5);">Banff, AB</div>
-    <div style="font-family:'EB Garamond',serif;font-size:1.15rem;color:rgba(201,168,76,0.65);margin-top:16px;font-style:italic;letter-spacing:0.5px;">The 5th Forefathers Invitational</div>
-    <div style="width:48px;height:1px;background:var(--gold);margin:32px auto;opacity:0.4;"></div>
-    <a href="banff-2027.html" style="display:inline-block;font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.4);padding:12px 28px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(201,168,76,0.8)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.4)'">View Trip Details →</a>
+<section id="next-year" class="banff-teaser">
+  <div class="banff-teaser-bg" style="background-image:url('images/banff-springs-5th.webp')"></div>
+  <div class="banff-teaser-overlay"></div>
+  <div class="container banff-teaser-content">
+    <div class="banff-teaser-eyebrow">Next Stop</div>
+    <div class="banff-teaser-headline">Banff, Alberta</div>
+    <div class="banff-teaser-sub">The 5th ForeFathers Invitational &nbsp;·&nbsp; July 8–11, 2027</div>
+    <div class="banff-teaser-rule"></div>
+    <a href="banff-2027.html" class="banff-teaser-cta">View Trip Details →</a>
   </div>
 </section>
 
@@ -227,6 +239,7 @@
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
   <p>Est. 2021 &nbsp;·&nbsp; 5 Seasons Strong</p>
+  <p class="footer-champion">2026 Champion &nbsp;·&nbsp; <em>Micah Smoak</em></p>
   <a class="footer-instagram" href="https://www.instagram.com/forefathersinvitational" target="_blank" rel="noopener">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
     Follow us on Instagram
@@ -254,6 +267,21 @@
       dismissed = true;
       overlay.style.opacity = '0';
       setTimeout(function() { overlay.style.display = 'none'; }, 950);
+
+      // Sequenced title card reveal — total under ~2s
+      var seq = [
+        ['.hero-reveal-1', 120],   // Est. badge — drifts down
+        ['.hero-reveal-2', 310],   // Golfer logo — scales in
+        ['.hero-reveal-3', 540],   // ForeFathers Invitational wordmark
+        ['.hero-reveal-4', 720],   // Tagline
+        ['.hero-reveal-5', 920],   // Countdown
+        ['.hero-reveal-6', 1080],  // Scroll cue
+      ];
+      seq.forEach(function(pair) {
+        var el = document.querySelector(pair[0]);
+        if (!el) return;
+        setTimeout(function() { el.classList.add('hero-visible'); }, pair[1]);
+      });
     };
 
     var video = document.getElementById('intro-video');
@@ -348,20 +376,32 @@
     var elDays  = document.getElementById('cd-days');
     var elHours = document.getElementById('cd-hours');
     var elMins  = document.getElementById('cd-mins');
-    var elSecs  = document.getElementById('cd-secs');
 
     function tick() {
       var now  = new Date();
       var diff = target - now;
-      if (diff <= 0) { flipTo(elDays,'00'); flipTo(elHours,'00'); flipTo(elMins,'00'); flipTo(elSecs,'00'); return; }
+      if (diff <= 0) { flipTo(elDays,'00'); flipTo(elHours,'00'); flipTo(elMins,'00'); return; }
       flipTo(elDays,  pad(Math.floor(diff / 86400000)));
       flipTo(elHours, pad(Math.floor((diff % 86400000) / 3600000)));
       flipTo(elMins,  pad(Math.floor((diff % 3600000)  / 60000)));
-      flipTo(elSecs,  pad(Math.floor((diff % 60000)    / 1000)));
     }
     tick();
-    setInterval(tick, 1000);
+    setInterval(tick, 60000); // minutes-only — update every 60s
   })();
+</script>
+<script>
+  // ── NAV SCROLL TRANSPARENCY (homepage only) ──────────────────
+  (function() {
+    var nav = document.querySelector('nav');
+    if (!nav || !document.body.classList.contains('page-home')) return;
+    function onNavScroll() {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 60);
+    }
+    window.addEventListener('scroll', onNavScroll, { passive: true });
+    onNavScroll();
+  })();
+
+  // ── HERO PARALLAX — disabled (CSS-only hero, no photo layer) ──
 </script>
 <script src="ticker.js" defer></script>
 <script src="animations.js" defer></script>
