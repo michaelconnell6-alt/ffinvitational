@@ -900,7 +900,6 @@
 .bf-itin          { background: #f5f0e8 !important; }
 .bf-stats         { background: #06100a !important; }
 .bf-map-section   { background: #0c1910 !important; }
-.bf-cost          { background: #06100a !important; }
 .bf-video-section { background: #06100a !important; }
 .bf-cta           { background: #0c1910 !important; }
 </style>
@@ -1252,26 +1251,6 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     7. BY THE NUMBERS
-═══════════════════════════════════════ -->
-<section class="bf-stats">
-  <div class="bf-stats-label bf-reveal">By The Numbers</div>
-  <div class="bf-stats-grid" style="grid-template-columns:repeat(3,1fr);">
-    <div class="bf-stat bf-reveal">
-      <span class="bf-stat-num" data-countup>4</span>
-      <span class="bf-stat-lbl">Championship Courses</span>
-    </div>
-    <div class="bf-stat bf-reveal bf-d1">
-      <span class="bf-stat-num" data-countup>72</span>
-      <span class="bf-stat-lbl">Holes of Golf</span>
-    </div>
-    <div class="bf-stat bf-reveal bf-d2">
-      <span class="bf-stat-num" data-countup>1</span>
-      <span class="bf-stat-lbl">Champion</span>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════════════════════════════════
      8. MAP
@@ -1285,30 +1264,46 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     9. COST BREAKDOWN
+     9. CTA + COST (COMBINED)
 ═══════════════════════════════════════ -->
-<section class="bf-cost">
-  <div class="bf-cost-inner">
-    <div class="bf-reveal">
-      <div class="bf-cost-amount">~$1,850</div>
-      <div class="bf-cost-lbl">per player · estimated</div>
+<section class="bf-cta">
+  <div class="bf-cta-eyebrow bf-reveal">July 8 – 11, 2027</div>
+  <h2 class="bf-cta-title bf-reveal bf-d1">Be There.<br>It's Banff.</h2>
+  <p class="bf-cta-sub bf-reveal bf-d2">The fifth ForeFathers Invitational. The most ambitious yet.</p>
+  <div class="bf-cta-bar bf-reveal bf-d3">
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Entry</span>
+      <span class="bf-cta-cell-val">~$1,850 / player</span>
     </div>
-    <div class="bf-includes bf-reveal bf-d1">
-      <div class="bf-include">4 Rounds of Golf</div>
-      <div class="bf-include">Lodging · 4 Nights</div>
-      <div class="bf-include">Breakfast Each Day</div>
-      <div class="bf-include">Tee Gifts</div>
-      <div class="bf-include">Transportation</div>
-      <div class="bf-include">All Fees &amp; Taxes</div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Deposit</span>
+      <span class="bf-cta-cell-val">$500 due with RSVP</span>
+    </div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">RSVP Deadline</span>
+      <span class="bf-cta-cell-val">November 1, 2026</span>
+    </div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Hotel</span>
+      <span class="bf-cta-cell-val">The Malcolm · Canmore</span>
+    </div>
+    <div class="bf-cta-cell">
+      <span class="bf-cta-cell-lbl">Fly Into</span>
+      <span class="bf-cta-cell-val">Calgary YYC</span>
     </div>
   </div>
-  <div style="text-align:center;margin-top:36px;font-family:'Oswald',sans-serif;font-size:0.54rem;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.55);">
-    $500 deposit due with RSVP &nbsp;·&nbsp; November 1, 2026
+  <p class="bf-reveal" style="font-family:'EB Garamond',serif;font-size:0.95rem;font-style:italic;color:rgba(245,240,232,0.38);letter-spacing:0.3px;margin:22px 0 0;line-height:2;">
+    4 Rounds of Golf &nbsp;·&nbsp; Lodging (4 Nights) &nbsp;·&nbsp; Breakfast Each Day &nbsp;·&nbsp; Transportation &nbsp;·&nbsp; Tee Gifts &nbsp;·&nbsp; All Fees &amp; Taxes
+  </p>
+  <div class="bf-cta-actions bf-reveal" style="display:flex;flex-direction:column;align-items:center;gap:14px;margin:36px 0 8px;">
+    <a href="https://venmo.com/u/michaelconnell9" target="_blank" rel="noopener" style="display:inline-block;font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#3d95ce;padding:16px 34px;text-decoration:none;transition:opacity 0.2s,transform 0.2s;" onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-2px)'" onmouseout="this.style.opacity='1';this.style.transform=''">Pay $500 Deposit · @michaelconnell9</a>
+    <span style="font-family:'Oswald',sans-serif;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.28);">RSVP via Paperless Post · Invitation to follow</span>
   </div>
+  <a href="faq.html" class="bf-faq-btn bf-reveal">Have Questions? View the FAQ →</a>
 </section>
 
 <!-- ═══════════════════════════════════════
-     10. DESTINATION REVEAL VIDEO
+     10. DESTINATION REVEAL VIDEO (last)
 ═══════════════════════════════════════ -->
 <section class="bf-video-section">
   <div class="bf-section-label bf-reveal" style="margin-bottom:12px;">Destination Revealed</div>
@@ -1351,42 +1346,6 @@
     });
   })();
   </script>
-</section>
-
-<!-- ═══════════════════════════════════════
-     11. CTA
-═══════════════════════════════════════ -->
-<section class="bf-cta">
-  <div class="bf-cta-eyebrow bf-reveal">July 8 – 11, 2027</div>
-  <h2 class="bf-cta-title bf-reveal bf-d1">Be There.<br>It's Banff.</h2>
-  <p class="bf-cta-sub bf-reveal bf-d2">The fifth ForeFathers Invitational. The most ambitious yet.</p>
-  <div class="bf-cta-bar bf-reveal bf-d3">
-    <div class="bf-cta-cell">
-      <span class="bf-cta-cell-lbl">Entry</span>
-      <span class="bf-cta-cell-val">~$1,850 / player</span>
-    </div>
-    <div class="bf-cta-cell">
-      <span class="bf-cta-cell-lbl">Deposit</span>
-      <span class="bf-cta-cell-val">$500 due with RSVP</span>
-    </div>
-    <div class="bf-cta-cell">
-      <span class="bf-cta-cell-lbl">RSVP Deadline</span>
-      <span class="bf-cta-cell-val">November 1, 2026</span>
-    </div>
-    <div class="bf-cta-cell">
-      <span class="bf-cta-cell-lbl">Hotel</span>
-      <span class="bf-cta-cell-val">The Malcolm · Canmore</span>
-    </div>
-    <div class="bf-cta-cell">
-      <span class="bf-cta-cell-lbl">Fly Into</span>
-      <span class="bf-cta-cell-val">Calgary YYC</span>
-    </div>
-  </div>
-  <div class="bf-cta-actions bf-reveal" style="display:flex;flex-direction:column;align-items:center;gap:14px;margin:36px 0 8px;">
-    <a href="https://venmo.com/u/michaelconnell9" target="_blank" rel="noopener" style="display:inline-block;font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#3d95ce;padding:16px 34px;text-decoration:none;transition:opacity 0.2s,transform 0.2s;" onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-2px)'" onmouseout="this.style.opacity='1';this.style.transform=''">Pay $500 Deposit · @michaelconnell9</a>
-    <span style="font-family:'Oswald',sans-serif;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.28);">RSVP via Paperless Post · Invitation to follow</span>
-  </div>
-  <a href="faq.html" class="bf-faq-btn bf-reveal">Have Questions? View the FAQ →</a>
 </section>
 
 </main>
