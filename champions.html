@@ -91,6 +91,8 @@
 
   <!-- ── 2021 — GARRETT WARDELL ── -->
   <section class="cv-year cv-y2021" aria-label="2021 Champion: Garrett Wardell">
+    <img class="cv-year-photo" src="photos/pinehurst-clubhouse.jpg" alt="Pinehurst Resort">
+    <div class="cv-year-photo-overlay" aria-hidden="true"></div>
     <div class="cv-year-bg" aria-hidden="true">2021</div>
     <div class="cv-year-inner">
       <p class="cv-eyebrow cv-reveal">The Inaugural Champion</p>
@@ -102,6 +104,8 @@
 
   <!-- ── 2022 — MIKEY CONNELL ── -->
   <section class="cv-year cv-y2022" aria-label="2022 Champion: Mikey Connell">
+    <img class="cv-year-photo cv-year-photo--left" src="photos/pinehurst-no2.webp" alt="Pinehurst No. 2">
+    <div class="cv-year-photo-overlay" aria-hidden="true"></div>
     <div class="cv-year-bg" aria-hidden="true">2022</div>
     <div class="cv-year-inner">
       <p class="cv-eyebrow cv-reveal">Champion</p>
@@ -113,6 +117,8 @@
 
   <!-- ── 2025 — MIKEY CONNELL RETURNS ── -->
   <section class="cv-year cv-y2025" aria-label="2025 Champion: Mikey Connell">
+    <img class="cv-year-photo" src="photos/arcadia-bluffs.jpg" alt="Arcadia Bluffs">
+    <div class="cv-year-photo-overlay" aria-hidden="true"></div>
     <div class="cv-year-bg" aria-hidden="true">2025</div>
     <div class="cv-year-inner">
       <p class="cv-eyebrow cv-reveal">Two-Time Champion</p>
@@ -219,6 +225,22 @@
     }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
 
     targets.forEach(function(el) { obs.observe(el); });
+  })();
+
+  /* ── Course photo settle (scale 1.03 → 1 on entry) ── */
+  (function() {
+    if (!('IntersectionObserver' in window)) return;
+    var sections = document.querySelectorAll('.cv-y2021, .cv-y2022, .cv-y2025');
+    if (!sections.length) return;
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('cv-settled');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.06 });
+    sections.forEach(function(el) { obs.observe(el); });
   })();
 </script>
 <script src="ticker.js" defer></script>

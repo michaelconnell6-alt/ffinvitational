@@ -3999,9 +3999,57 @@ html::after {
 .cv-y2022 .cv-year-bg { top: 50%; right: -2%; left: auto; transform: translateY(-50%); }
 .cv-y2025 .cv-year-bg { top: 50%; left: -2%; transform: translateY(-50%); }
 
+/* ── Year section photos ── */
+.cv-year-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  filter: grayscale(12%) brightness(0.72);
+  transform: scale(1.03);
+  transform-origin: center center;
+  transition: transform 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+/* Photo settles when section enters viewport */
+.cv-year.cv-settled .cv-year-photo {
+  transform: scale(1);
+}
+.cv-year-photo--left {
+  right: auto;
+  left: 0;
+}
+.cv-year-photo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+/* 2021 / 2025: text on left, photo on right → gradient covers right-to-left */
+.cv-y2021 .cv-year-photo-overlay,
+.cv-y2025 .cv-year-photo-overlay {
+  background:
+    linear-gradient(to right, #0a1a0d 36%, rgba(10,26,13,0.82) 55%, rgba(10,26,13,0.2) 78%, transparent 100%),
+    linear-gradient(to top, rgba(10,26,13,0.5) 0%, transparent 30%);
+}
+/* 2022: text on right, photo on left → gradient covers left-to-right */
+.cv-y2022 .cv-year-photo-overlay {
+  background:
+    linear-gradient(to left, #020e05 36%, rgba(2,14,5,0.82) 55%, rgba(2,14,5,0.2) 78%, transparent 100%),
+    linear-gradient(to top, rgba(2,14,5,0.5) 0%, transparent 30%);
+}
+/* Reduced motion — instant settle, no transition */
+@media (prefers-reduced-motion: reduce) {
+  .cv-year-photo { transform: scale(1); transition: none; }
+}
+
 .cv-year-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 0 10vw;
   max-width: 1100px;
   width: 100%;
@@ -4395,6 +4443,13 @@ html::after {
   .cv-y2022 .cv-rule-reveal { transform-origin: left center; margin-left: 0; }
   .cv-name { font-size: clamp(2.8rem, 13vw, 4.5rem); }
   .cv-year-bg { display: none; }
+  .cv-year-photo { width: 100%; filter: grayscale(20%) brightness(0.45); }
+  .cv-year-photo--left { left: 0; right: 0; }
+  .cv-y2021 .cv-year-photo-overlay,
+  .cv-y2025 .cv-year-photo-overlay,
+  .cv-y2022 .cv-year-photo-overlay {
+    background: linear-gradient(to top, #030c06 30%, rgba(3,12,6,0.7) 60%, rgba(3,12,6,0.15) 100%);
+  }
   .cv-twox { height: auto; padding: 80px 0; }
   .cv-twox-num { font-size: clamp(7rem, 34vw, 12rem); }
   .cv-2026 { min-height: 100vh; align-items: flex-end; }
