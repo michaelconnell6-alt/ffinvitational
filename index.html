@@ -111,7 +111,7 @@
   }
   #intro-skip {
     position: absolute;
-    bottom: 24px;
+    bottom: max(72px, env(safe-area-inset-bottom, 24px) + 48px);
     right: 24px;
     background: none;
     border: 1px solid rgba(201,168,76,0.25);
