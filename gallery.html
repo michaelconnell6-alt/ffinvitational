@@ -6,7 +6,7 @@
 <title>Photo Gallery — ForeFathers Invitational</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="ticker.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -43,9 +43,8 @@
   gtag('config', 'G-DTX58MS7P4');
 </script>
 </head>
-<body>
+<body class="page-gallery">
 <a href="#main" class="skip-nav">Skip to main content</a>
-
 
 <!-- NAV -->
 <nav>
@@ -75,115 +74,168 @@
 
 <main id="main">
 
-<!-- GALLERY -->
-<section id="gallery" style="background:#eee8da;">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">The Archives</div>
-      <h2 class="section-title">Photo Gallery</h2>
-      <div class="section-rule"></div>
+  <!-- ── HERO ── -->
+  <section class="ga-hero" aria-label="Photo Gallery">
+    <div class="ga-hero-content">
+      <p class="ga-hero-eyebrow">The Archives</p>
+      <h1 class="ga-hero-title">Photo Gallery</h1>
+      <div class="ga-hero-rule" aria-hidden="true"></div>
+      <p class="ga-hero-sub">On the course. Off the course. Everything in between.</p>
     </div>
+  </section>
 
-    <!-- Year folder cards -->
-    <div class="gallery-grid" id="gallery-grid">
-      <div class="gallery-item gallery-folder" onclick="toggleGallery2026(this)">
-        <img loading="lazy" src="photos/IMG_1068.jpg" alt="ForeFathers Invitational 2026 — Myrtle Beach"/>
-        <div class="gallery-caption"><span class="gcap-year">2026</span><span class="gcap-loc">Myrtle Beach, SC</span></div>
-        <div class="gallery-folder-hint">Tap to expand · 53 photos</div>
-      </div>
-      <div class="gallery-item">
-        <img loading="lazy" src="images/gallery-3.jpg" alt="ForeFathers Invitational 2025 — Arcadia Bluffs / TreeTops" onclick="openLightbox(this)"/>
-        <div class="gallery-caption"><span class="gcap-year">2025</span><span class="gcap-loc">Arcadia Bluffs / TreeTops</span></div>
-      </div>
-      <div class="gallery-item">
-        <img loading="lazy" src="images/gallery-2.jpg" alt="ForeFathers Invitational 2022 — Pinehurst Resort" onclick="openLightbox(this)"/>
-        <div class="gallery-caption"><span class="gcap-year">2022</span><span class="gcap-loc">Pinehurst Resort</span></div>
-      </div>
-      <div class="gallery-item">
-        <img loading="lazy" src="images/gallery-1.jpg" alt="ForeFathers Invitational 2021 — Pinehurst Resort" onclick="openLightbox(this)"/>
-        <div class="gallery-caption"><span class="gcap-year">2021</span><span class="gcap-loc">Pinehurst Resort</span></div>
-      </div>
-    </div>
+  <!-- ── YEAR ARCHIVE INDEX ── -->
+  <section class="ga-years" aria-label="Year Archives">
 
-    <!-- 2026 expanded photo grid -->
-    <div id="gallery-2026-expanded" style="display:none;margin-top:16px;">
-      <div class="gallery-grid" id="gallery-grid-2026">
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1004.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1005.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1006.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1007.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1008.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1009.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1010.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1011.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1012.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1017.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1018.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1019.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1020.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1021.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1022.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1023.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1024.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1025.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1029.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1030.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1031.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1037.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1038.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1040.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1041.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1042.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1043.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1044.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1045.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1046.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1047.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1048.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1051.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1052.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1053.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1054.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1056.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1057.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1060.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1061.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1062.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1063.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1065.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1066.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1067.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_1068.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4583.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4618.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4815.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4816.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4817.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/IMG_4818.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-        <div class="gallery-item"><img loading="lazy" src="photos/PXL_20260710_211844884.jpg" alt="ForeFathers 2026" onclick="openLightbox(this)"/></div>
-      </div>
-      <div style="text-align:center;margin-top:16px;">
-        <button onclick="toggleGallery2026()" style="font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;background:none;border:1px solid var(--green);color:var(--green);padding:8px 20px;cursor:pointer;">Collapse ▲</button>
+    <!-- 2026 -->
+    <div class="ga-year-strip ga-year-2026" id="ga-strip-2026"
+         onclick="toggleArchive2026()"
+         onkeydown="if(event.key==='Enter'||event.key===' ')toggleArchive2026()"
+         role="button" tabindex="0"
+         aria-expanded="false" aria-controls="ga-archive-2026"
+         aria-label="2026 Myrtle Beach — view 53 photos">
+      <img class="ga-year-bg" src="photos/IMG_1068.jpg" alt="" aria-hidden="true" loading="lazy">
+      <div class="ga-year-overlay" aria-hidden="true"></div>
+      <div class="ga-year-info">
+        <div class="ga-year-num">2026</div>
+        <div class="ga-year-loc">Myrtle Beach, SC</div>
+        <div class="ga-year-action" id="ga-strip-2026-action">View 53 Photos &darr;</div>
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:28px;">
-      <a href="https://photos.app.goo.gl/w7Q6MSgVccJubYmRA" target="_blank" class="gallery-submit-btn">
-        📷 Submit 2026 Photos
-      </a>
-      <p style="font-family:'EB Garamond',serif;font-size:0.85rem;color:#888;margin-top:10px;font-style:italic;">Add your photos to the shared 2026 album</p>
-    </div>
-  </div>
-</section>
+    <!-- 2026 ARCHIVE -->
+    <div class="ga-archive" id="ga-archive-2026" aria-hidden="true" style="display:none">
+      <div class="ga-grid-2026" role="list" aria-label="2026 photos">
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</button>
-  <img id="lightbox-img" src="" alt="">
-  <div class="lightbox-caption" id="lightbox-cap"></div>
-</div>
+        <div class="ga-cell ga-featured" role="listitem" onclick="lbOpen(photos2026,0)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,0)" aria-label="Photo 1 of 53"><img src="photos/IMG_1004.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,1)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,1)" aria-label="Photo 2 of 53"><img src="photos/IMG_1005.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,2)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,2)" aria-label="Photo 3 of 53"><img src="photos/IMG_1006.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,3)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,3)" aria-label="Photo 4 of 53"><img src="photos/IMG_1007.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,4)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,4)" aria-label="Photo 5 of 53"><img src="photos/IMG_1008.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,5)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,5)" aria-label="Photo 6 of 53"><img src="photos/IMG_1009.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,6)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,6)" aria-label="Photo 7 of 53"><img src="photos/IMG_1010.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,7)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,7)" aria-label="Photo 8 of 53"><img src="photos/IMG_1011.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,8)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,8)" aria-label="Photo 9 of 53"><img src="photos/IMG_1012.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,9)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,9)" aria-label="Photo 10 of 53"><img src="photos/IMG_1017.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,10)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,10)" aria-label="Photo 11 of 53"><img src="photos/IMG_1018.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,11)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,11)" aria-label="Photo 12 of 53"><img src="photos/IMG_1019.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,12)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,12)" aria-label="Photo 13 of 53"><img src="photos/IMG_1020.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,13)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,13)" aria-label="Photo 14 of 53"><img src="photos/IMG_1021.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,14)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,14)" aria-label="Photo 15 of 53"><img src="photos/IMG_1022.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,15)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,15)" aria-label="Photo 16 of 53"><img src="photos/IMG_1023.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,16)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,16)" aria-label="Photo 17 of 53"><img src="photos/IMG_1024.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,17)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,17)" aria-label="Photo 18 of 53"><img src="photos/IMG_1025.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,18)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,18)" aria-label="Photo 19 of 53"><img src="photos/IMG_1029.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,19)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,19)" aria-label="Photo 20 of 53"><img src="photos/IMG_1030.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,20)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,20)" aria-label="Photo 21 of 53"><img src="photos/IMG_1031.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-featured" role="listitem" onclick="lbOpen(photos2026,21)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,21)" aria-label="Photo 22 of 53"><img src="photos/IMG_1037.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,22)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,22)" aria-label="Photo 23 of 53"><img src="photos/IMG_1038.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,23)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,23)" aria-label="Photo 24 of 53"><img src="photos/IMG_1040.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,24)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,24)" aria-label="Photo 25 of 53"><img src="photos/IMG_1041.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,25)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,25)" aria-label="Photo 26 of 53"><img src="photos/IMG_1042.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,26)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,26)" aria-label="Photo 27 of 53"><img src="photos/IMG_1043.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,27)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,27)" aria-label="Photo 28 of 53"><img src="photos/IMG_1044.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,28)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,28)" aria-label="Photo 29 of 53"><img src="photos/IMG_1045.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,29)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,29)" aria-label="Photo 30 of 53"><img src="photos/IMG_1046.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,30)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,30)" aria-label="Photo 31 of 53"><img src="photos/IMG_1047.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,31)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,31)" aria-label="Photo 32 of 53"><img src="photos/IMG_1048.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,32)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,32)" aria-label="Photo 33 of 53"><img src="photos/IMG_1051.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,33)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,33)" aria-label="Photo 34 of 53"><img src="photos/IMG_1052.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-featured" role="listitem" onclick="lbOpen(photos2026,34)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,34)" aria-label="Photo 35 of 53"><img src="photos/IMG_1053.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,35)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,35)" aria-label="Photo 36 of 53"><img src="photos/IMG_1054.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,36)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,36)" aria-label="Photo 37 of 53"><img src="photos/IMG_1056.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,37)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,37)" aria-label="Photo 38 of 53"><img src="photos/IMG_1057.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,38)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,38)" aria-label="Photo 39 of 53"><img src="photos/IMG_1060.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,39)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,39)" aria-label="Photo 40 of 53"><img src="photos/IMG_1061.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,40)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,40)" aria-label="Photo 41 of 53"><img src="photos/IMG_1062.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,41)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,41)" aria-label="Photo 42 of 53"><img src="photos/IMG_1063.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,42)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,42)" aria-label="Photo 43 of 53"><img src="photos/IMG_1065.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,43)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,43)" aria-label="Photo 44 of 53"><img src="photos/IMG_1066.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,44)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,44)" aria-label="Photo 45 of 53"><img src="photos/IMG_1067.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-featured" role="listitem" onclick="lbOpen(photos2026,45)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,45)" aria-label="Photo 46 of 53"><img src="photos/IMG_1068.jpg" alt="ForeFathers 2026 — Group" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,46)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,46)" aria-label="Photo 47 of 53"><img src="photos/IMG_4583.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,47)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,47)" aria-label="Photo 48 of 53"><img src="photos/IMG_4618.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,48)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,48)" aria-label="Photo 49 of 53"><img src="photos/IMG_4815.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,49)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,49)" aria-label="Photo 50 of 53"><img src="photos/IMG_4816.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,50)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,50)" aria-label="Photo 51 of 53"><img src="photos/IMG_4817.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell" role="listitem" onclick="lbOpen(photos2026,51)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,51)" aria-label="Photo 52 of 53"><img src="photos/IMG_4818.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+        <div class="ga-cell ga-wide" role="listitem" onclick="lbOpen(photos2026,52)" tabindex="0" onkeydown="if(event.key==='Enter')lbOpen(photos2026,52)" aria-label="Photo 53 of 53"><img src="photos/PXL_20260710_211844884.jpg" alt="ForeFathers 2026" loading="lazy"></div>
+
+      </div><!-- /.ga-grid-2026 -->
+    </div><!-- /#ga-archive-2026 -->
+
+    <!-- 2025 · 2022 · 2021 — side by side row -->
+    <div class="ga-year-row">
+
+      <div class="ga-year-strip ga-year-other"
+           onclick="lbOpen(photos2025,0)"
+           onkeydown="if(event.key==='Enter'||event.key===' ')lbOpen(photos2025,0)"
+           role="button" tabindex="0"
+           aria-label="2025 — Arcadia Bluffs / TreeTops">
+        <img class="ga-year-bg" src="images/gallery-3.jpg" alt="" aria-hidden="true" loading="lazy">
+        <div class="ga-year-overlay" aria-hidden="true"></div>
+        <div class="ga-year-info">
+          <div class="ga-year-num">2025</div>
+          <div class="ga-year-loc">Arcadia Bluffs / TreeTops</div>
+          <div class="ga-year-action">View Photo &rarr;</div>
+        </div>
+      </div>
+
+      <div class="ga-year-strip ga-year-other"
+           onclick="lbOpen(photos2022,0)"
+           onkeydown="if(event.key==='Enter'||event.key===' ')lbOpen(photos2022,0)"
+           role="button" tabindex="0"
+           aria-label="2022 — Pinehurst Resort">
+        <img class="ga-year-bg" src="images/gallery-2.jpg" alt="" aria-hidden="true" loading="lazy">
+        <div class="ga-year-overlay" aria-hidden="true"></div>
+        <div class="ga-year-info">
+          <div class="ga-year-num">2022</div>
+          <div class="ga-year-loc">Pinehurst Resort</div>
+          <div class="ga-year-action">View Photo &rarr;</div>
+        </div>
+      </div>
+
+      <div class="ga-year-strip ga-year-other"
+           onclick="lbOpen(photos2021,0)"
+           onkeydown="if(event.key==='Enter'||event.key===' ')lbOpen(photos2021,0)"
+           role="button" tabindex="0"
+           aria-label="2021 — Pinehurst Resort">
+        <img class="ga-year-bg" src="images/gallery-1.jpg" alt="" aria-hidden="true" loading="lazy">
+        <div class="ga-year-overlay" aria-hidden="true"></div>
+        <div class="ga-year-info">
+          <div class="ga-year-num">2021</div>
+          <div class="ga-year-loc">Pinehurst Resort</div>
+          <div class="ga-year-action">View Photo &rarr;</div>
+        </div>
+      </div>
+
+    </div><!-- /.ga-year-row -->
+
+  </section><!-- /.ga-years -->
+
+  <!-- ── SUBMIT CTA ── -->
+  <section class="ga-submit" aria-label="Submit photos">
+    <div class="ga-submit-inner">
+      <p class="ga-submit-hed">Have something we missed?</p>
+      <a href="https://photos.app.goo.gl/w7Q6MSgVccJubYmRA" target="_blank" rel="noopener" class="ga-submit-link">Add Your 2026 Photos &nbsp;&rarr;</a>
+      <p class="ga-submit-sub">Contribute to the shared archive.</p>
+    </div>
+  </section>
 
 </main>
+
+<!-- ── LIGHTBOX ── -->
+<div class="ga-lightbox" id="ga-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="ga-lb-backdrop" onclick="lbClose()"></div>
+  <button class="ga-lb-close" onclick="lbClose()" aria-label="Close photo viewer">&#10005;</button>
+  <button class="ga-lb-nav ga-lb-prev" id="ga-lb-prev" onclick="lbPrev()" aria-label="Previous photo">&#8592;</button>
+  <div class="ga-lb-stage">
+    <img id="ga-lb-img" src="" alt="">
+  </div>
+  <button class="ga-lb-nav ga-lb-next" id="ga-lb-next" onclick="lbNext()" aria-label="Next photo">&#8594;</button>
+  <div class="ga-lb-counter" id="ga-lb-counter" aria-live="polite"></div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -197,50 +249,179 @@
 <script>
   if ('serviceWorker' in navigator) { window.addEventListener('load', function() { navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
 
-  // Hamburger
+  /* ── Nav ── */
   (function() {
     var toggle = document.getElementById('nav-toggle'), menu = document.getElementById('nav-menu'), backdrop = document.getElementById('nav-backdrop');
     if (!toggle || !menu) return;
-    function openNav() { toggle.classList.add('open'); menu.classList.add('open'); if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function(){ backdrop.classList.add('open'); }); } document.body.style.overflow='hidden'; }
+    function openNav()  { toggle.classList.add('open'); menu.classList.add('open'); if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function(){ backdrop.classList.add('open'); }); } document.body.style.overflow='hidden'; }
     function closeNav() { toggle.classList.remove('open'); menu.classList.remove('open'); if (backdrop) { backdrop.classList.remove('open'); setTimeout(function(){ backdrop.classList.remove('visible'); },260); } document.body.style.overflow=''; }
     toggle.addEventListener('click', function(){ menu.classList.contains('open')?closeNav():openNav(); });
     menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeNav); });
     if (backdrop) backdrop.addEventListener('click', closeNav);
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape'&&menu.classList.contains('open')) closeNav(); });
   })();
 
-  // Lightbox
-  function openLightbox(img) {
-    var lb = document.getElementById('lightbox');
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox-cap').textContent = img.alt || '';
+  /* ── Dropdown ── */
+  (function() {
+    var dd = document.querySelector('.nav-dropdown');
+    var ddToggle = dd && dd.querySelector('.nav-dropdown-toggle');
+    if (!ddToggle) return;
+    ddToggle.addEventListener('click', function(e) { e.preventDefault(); dd.classList.toggle('open'); });
+    document.addEventListener('click', function(e) { if (!dd.contains(e.target)) dd.classList.remove('open'); });
+  })();
+
+  /* ── Photo sets ── */
+  var photos2026 = [
+    {src:'photos/IMG_1004.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1005.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1006.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1007.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1008.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1009.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1010.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1011.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1012.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1017.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1018.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1019.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1020.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1021.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1022.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1023.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1024.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1025.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1029.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1030.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1031.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1037.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1038.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1040.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1041.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1042.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1043.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1044.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1045.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1046.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1047.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1048.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1051.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1052.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1053.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1054.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1056.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1057.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1060.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1061.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1062.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1063.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1065.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1066.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1067.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_1068.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4583.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4618.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4815.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4816.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4817.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/IMG_4818.jpg',alt:'ForeFathers 2026'},
+    {src:'photos/PXL_20260710_211844884.jpg',alt:'ForeFathers 2026'}
+  ];
+  var photos2025 = [{src:'images/gallery-3.jpg',alt:'ForeFathers 2025 — Arcadia Bluffs / TreeTops'}];
+  var photos2022 = [{src:'images/gallery-2.jpg',alt:'ForeFathers 2022 — Pinehurst Resort'}];
+  var photos2021 = [{src:'images/gallery-1.jpg',alt:'ForeFathers 2021 — Pinehurst Resort'}];
+
+  /* ── Lightbox ── */
+  var lbSet = [], lbIdx = 0;
+
+  function lbOpen(set, idx) {
+    lbSet = set;
+    lbIdx = idx;
+    var lb = document.getElementById('ga-lightbox');
+    var img = document.getElementById('ga-lb-img');
+    var counter = document.getElementById('ga-lb-counter');
+    var prev = document.getElementById('ga-lb-prev');
+    var next = document.getElementById('ga-lb-next');
+
+    img.style.opacity = '0';
+    img.src = set[idx].src;
+    img.alt = set[idx].alt;
+    img.onload = function() { img.style.opacity = '1'; };
+
+    counter.textContent = set.length > 1 ? (idx + 1) + ' / ' + set.length : '';
+    prev.style.visibility = set.length > 1 ? 'visible' : 'hidden';
+    next.style.visibility = set.length > 1 ? 'visible' : 'hidden';
+
     lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  document.getElementById('lightbox').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
+
+  function lbClose() {
+    document.getElementById('ga-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function lbPrev() {
+    lbIdx = (lbIdx - 1 + lbSet.length) % lbSet.length;
+    lbUpdate();
+  }
+  function lbNext() {
+    lbIdx = (lbIdx + 1) % lbSet.length;
+    lbUpdate();
+  }
+  function lbUpdate() {
+    var img = document.getElementById('ga-lb-img');
+    var counter = document.getElementById('ga-lb-counter');
+    img.style.opacity = '0';
+    img.src = lbSet[lbIdx].src;
+    img.alt = lbSet[lbIdx].alt;
+    img.onload = function() { img.style.opacity = '1'; };
+    counter.textContent = lbSet.length > 1 ? (lbIdx + 1) + ' / ' + lbSet.length : '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    var lb = document.getElementById('ga-lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft')  lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
   });
 
-  // Gallery expand/collapse
-  function toggleGallery2026(el) {
-    var expanded = document.getElementById('gallery-2026-expanded');
-    var isOpen = expanded.style.display !== 'none';
-    expanded.style.display = isOpen ? 'none' : 'block';
-  }
+  /* ── 2026 archive toggle ── */
+  function toggleArchive2026() {
+    var archive  = document.getElementById('ga-archive-2026');
+    var strip    = document.getElementById('ga-strip-2026');
+    var action   = document.getElementById('ga-strip-2026-action');
+    var isOpen   = archive.dataset.open === '1';
 
-  // Dropdown toggle
-  var dd = document.querySelector('.nav-dropdown');
-  var ddToggle = dd && dd.querySelector('.nav-dropdown-toggle');
-  if (ddToggle) {
-    ddToggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      dd.classList.toggle('open');
-    });
-    document.addEventListener('click', function(e) {
-      if (!dd.contains(e.target)) dd.classList.remove('open');
-    });
+    if (isOpen) {
+      archive.style.opacity = '0';
+      archive.style.transform = 'translateY(-6px)';
+      setTimeout(function() { archive.style.display = 'none'; }, 280);
+      archive.dataset.open = '0';
+      strip.classList.remove('active');
+      strip.setAttribute('aria-expanded', 'false');
+      if (action) action.innerHTML = 'View 53 Photos &darr;';
+    } else {
+      archive.style.display = 'block';
+      archive.style.opacity = '0';
+      archive.style.transform = 'translateY(10px)';
+      archive.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          archive.style.opacity = '1';
+          archive.style.transform = 'translateY(0)';
+        });
+      });
+      archive.dataset.open = '1';
+      strip.classList.add('active');
+      strip.setAttribute('aria-expanded', 'true');
+      if (action) action.innerHTML = 'Collapse &uarr;';
+      setTimeout(function() {
+        archive.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 180);
+    }
   }
-  </script>
+</script>
 <script src="ticker.js" defer></script>
-<script src="animations.js" defer></script>
 </body>
 </html>

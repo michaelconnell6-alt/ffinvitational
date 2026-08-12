@@ -6,7 +6,7 @@
 <title>Tournament Format — ForeFathers Invitational</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="ticker.css">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -43,9 +43,8 @@
   gtag('config', 'G-DTX58MS7P4');
 </script>
 </head>
-<body>
+<body class="page-format">
 <a href="#main" class="skip-nav">Skip to main content</a>
-
 
 <!-- NAV -->
 <nav>
@@ -75,87 +74,153 @@
 
 <main id="main">
 
-<!-- FORMAT -->
-<section id="format">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-eyebrow">The Rulebook</div>
-      <h2 class="section-title">Tournament Format</h2>
-      <div class="section-rule"></div>
+  <!-- ── HERO ── -->
+  <section class="rb-hero" aria-label="Tournament Format">
+    <div class="rb-hero-content">
+      <p class="rb-hero-eyebrow">The Rulebook</p>
+      <h1 class="rb-hero-title">Tournament<br>Format</h1>
+      <div class="rb-hero-rule" aria-hidden="true"></div>
+      <p class="rb-hero-sub">Official rules of the ForeFathers Invitational.<br>Ignorance is not a defense.</p>
     </div>
-    <p class="format-intro">These are the official rules of the ForeFathers Invitational. Ignorance is not a defense.</p>
-    <div class="rules-grid">
+  </section>
 
-      <div class="rule-card">
-        <div class="rule-num">1</div>
-        <div class="rule-text"><strong>Net Stroke Play</strong>Score minus course handicap. Best net total wins.</div>
+  <!-- ── RULEBOOK ── -->
+  <section class="rb-book" aria-label="Tournament Rules">
+    <div class="rb-book-inner">
+
+      <!-- ── SECTION: SCORING & PLAY ── -->
+      <div class="rb-section-hd rb-reveal">
+        <span class="rb-section-label">Scoring &amp; Play</span>
+        <span class="rb-section-rule" aria-hidden="true"></span>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">2</div>
-        <div class="rule-text"><strong>$150 Buy-In</strong>All players must pay to play.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 01: Net Stroke Play">
+        <div class="rb-num" aria-hidden="true">01</div>
+        <div class="rb-rule">
+          <div class="rb-title">Net Stroke Play</div>
+          <p class="rb-desc">Score minus course handicap. Best net total wins.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">3</div>
-        <div class="rule-text"><strong>Breakfast Balls</strong>Allowed on the first tee only. However, if you take one, you must play your second ball.</div>
+      <div class="rb-row rb-row--sig rb-reveal" role="article" aria-label="Rule 02: Breakfast Balls">
+        <div class="rb-num rb-num--sig" aria-hidden="true">02</div>
+        <div class="rb-rule">
+          <div class="rb-title rb-title--sig">Breakfast Balls</div>
+          <p class="rb-desc">Allowed on the first tee only. However, if you take one, you must play your second ball.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">4</div>
-        <div class="rule-text"><strong>Payout Structure</strong>TBD</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 03: OB Stakes Option">
+        <div class="rb-num" aria-hidden="true">03</div>
+        <div class="rb-rule">
+          <div class="rb-title">OB Stakes Option</div>
+          <p class="rb-desc">Play 4 in the fairway at point of entry, or replay 3 from the tee.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">5</div>
-        <div class="rule-text"><strong>OB Stakes Option</strong>Play 4 in the fairway at point of entry, or replay 3 from the tee.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 04: Unmarked Woods">
+        <div class="rb-num" aria-hidden="true">04</div>
+        <div class="rb-rule">
+          <div class="rb-title">Unmarked Woods</div>
+          <p class="rb-desc">All unmarked wooded areas are played as hazards.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">6</div>
-        <div class="rule-text"><strong>Unmarked Woods</strong>All unmarked wooded areas are played as hazards.</div>
+      <div class="rb-row rb-row--sig rb-reveal" role="article" aria-label="Rule 05: Ball in the Hole">
+        <div class="rb-num rb-num--sig" aria-hidden="true">05</div>
+        <div class="rb-rule">
+          <div class="rb-title rb-title--sig">Ball in the Hole</div>
+          <p class="rb-desc">Always. No gimmes, no exceptions.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">7</div>
-        <div class="rule-text"><strong>Ball in the Hole</strong>Always. No gimmes, no exceptions.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 06: Quad Bogey Max">
+        <div class="rb-num" aria-hidden="true">06</div>
+        <div class="rb-rule">
+          <div class="rb-title">Quad Bogey Max</div>
+          <p class="rb-desc">Applies for the first three days. Pick up and move on.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">8</div>
-        <div class="rule-text"><strong>Pink Iron Covers</strong>Last place net each day must wear pink iron covers the following round — on after every single shot.</div>
+      <!-- ── CREED INTERSTITIAL ── -->
+      <div class="rb-creed rb-reveal" aria-label="Tournament creed: No Gimmies. No Exceptions.">
+        <div class="rb-creed-main">No Gimmies.</div>
+        <div class="rb-creed-sub">No Exceptions.</div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">9</div>
-        <div class="rule-text"><strong>Rounds 1 &amp; 2 Pairings</strong>Randomly generated so everyone gets to know each other.</div>
+      <!-- ── SECTION: TOURNAMENT OPERATIONS ── -->
+      <div class="rb-section-hd rb-reveal">
+        <span class="rb-section-label">Tournament Operations</span>
+        <span class="rb-section-rule" aria-hidden="true"></span>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">10</div>
-        <div class="rule-text"><strong>Rounds 3 &amp; 4 Pairings</strong>Split by standings. Contenders together, the rest sort themselves out.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 07: $150 Buy-In">
+        <div class="rb-num" aria-hidden="true">07</div>
+        <div class="rb-rule">
+          <div class="rb-title">$150 Buy-In</div>
+          <p class="rb-desc">All players must pay to play.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">11</div>
-        <div class="rule-text"><strong>Relegation Speech</strong>Last place after the final round must deliver a speech on why they should not be relegated from the trip.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 08: Payout Structure">
+        <div class="rb-num" aria-hidden="true">08</div>
+        <div class="rb-rule">
+          <div class="rb-title">Payout Structure</div>
+          <p class="rb-desc">TBD</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">12</div>
-        <div class="rule-text"><strong>Gambling Within Groups</strong>Not only allowed — encouraged.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 09: Rounds 1 and 2 Pairings">
+        <div class="rb-num" aria-hidden="true">09</div>
+        <div class="rb-rule">
+          <div class="rb-title">Rounds 1 &amp; 2 Pairings</div>
+          <p class="rb-desc">Randomly generated so everyone gets to know each other.</p>
+        </div>
       </div>
 
-      <div class="rule-card">
-        <div class="rule-num">13</div>
-        <div class="rule-text"><strong>Quad Bogey Max</strong>Applies for the first three days. Pick up and move on.</div>
+      <div class="rb-row rb-reveal" role="article" aria-label="Rule 10: Rounds 3 and 4 Pairings">
+        <div class="rb-num" aria-hidden="true">10</div>
+        <div class="rb-rule">
+          <div class="rb-title">Rounds 3 &amp; 4 Pairings</div>
+          <p class="rb-desc">Split by standings. Contenders together, the rest sort themselves out.</p>
+        </div>
       </div>
 
-    </div>
-  </div>
-</section>
+      <!-- ── SECTION: FOREFATHERS LAW ── -->
+      <div class="rb-section-hd rb-reveal">
+        <span class="rb-section-label">ForeFathers Law</span>
+        <span class="rb-section-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="rb-row rb-row--sig rb-reveal" role="article" aria-label="Rule 11: Pink Iron Covers">
+        <div class="rb-num rb-num--sig" aria-hidden="true">11</div>
+        <div class="rb-rule">
+          <div class="rb-title rb-title--sig">Pink Iron Covers</div>
+          <p class="rb-desc">Last place net each day must wear pink iron covers the following round — on after every single shot.</p>
+        </div>
+      </div>
+
+      <div class="rb-row rb-row--sig rb-reveal" role="article" aria-label="Rule 12: Relegation Speech">
+        <div class="rb-num rb-num--sig" aria-hidden="true">12</div>
+        <div class="rb-rule">
+          <div class="rb-title rb-title--sig">Relegation Speech</div>
+          <p class="rb-desc">Last place after the final round must deliver a speech on why they should not be relegated from the trip.</p>
+        </div>
+      </div>
+
+      <div class="rb-row rb-row--sig rb-reveal" role="article" aria-label="Rule 13: Gambling Within Groups">
+        <div class="rb-num rb-num--sig" aria-hidden="true">13</div>
+        <div class="rb-rule">
+          <div class="rb-title rb-title--sig">Gambling Within Groups</div>
+          <p class="rb-desc">Not only allowed — encouraged.</p>
+        </div>
+      </div>
+
+    </div><!-- /.rb-book-inner -->
+  </section>
 
 </main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">ForeFathers Invitational</div>
@@ -168,10 +233,12 @@
 
 <script>
   if ('serviceWorker' in navigator) { window.addEventListener('load', function() { navigator.serviceWorker.register('/sw.js').catch(function(){}); }); }
+
+  /* ── Nav ── */
   (function() {
     var toggle = document.getElementById('nav-toggle'), menu = document.getElementById('nav-menu'), backdrop = document.getElementById('nav-backdrop');
     if (!toggle || !menu) return;
-    function openNav() { toggle.classList.add('open'); menu.classList.add('open'); if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function(){ backdrop.classList.add('open'); }); } document.body.style.overflow='hidden'; }
+    function openNav()  { toggle.classList.add('open'); menu.classList.add('open'); if (backdrop) { backdrop.classList.add('visible'); requestAnimationFrame(function(){ backdrop.classList.add('open'); }); } document.body.style.overflow='hidden'; }
     function closeNav() { toggle.classList.remove('open'); menu.classList.remove('open'); if (backdrop) { backdrop.classList.remove('open'); setTimeout(function(){ backdrop.classList.remove('visible'); },260); } document.body.style.overflow=''; }
     toggle.addEventListener('click', function(){ menu.classList.contains('open')?closeNav():openNav(); });
     menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeNav); });
@@ -179,20 +246,35 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeNav(); });
   })();
 
-  // Dropdown toggle
-  var dd = document.querySelector('.nav-dropdown');
-  var ddToggle = dd && dd.querySelector('.nav-dropdown-toggle');
-  if (ddToggle) {
-    ddToggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      dd.classList.toggle('open');
-    });
-    document.addEventListener('click', function(e) {
-      if (!dd.contains(e.target)) dd.classList.remove('open');
-    });
-  }
-  </script>
+  /* ── Dropdown ── */
+  (function() {
+    var dd = document.querySelector('.nav-dropdown');
+    var ddToggle = dd && dd.querySelector('.nav-dropdown-toggle');
+    if (!ddToggle) return;
+    ddToggle.addEventListener('click', function(e) { e.preventDefault(); dd.classList.toggle('open'); });
+    document.addEventListener('click', function(e) { if (!dd.contains(e.target)) dd.classList.remove('open'); });
+  })();
+
+  /* ── Scroll reveal ── */
+  (function() {
+    var targets = document.querySelectorAll('.rb-reveal');
+    if (!targets.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach(function(el) { el.classList.add('is-visible'); });
+      return;
+    }
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(function(el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    targets.forEach(function(el) { obs.observe(el); });
+  })();
+</script>
 <script src="ticker.js" defer></script>
-<script src="animations.js" defer></script>
 </body>
 </html>
