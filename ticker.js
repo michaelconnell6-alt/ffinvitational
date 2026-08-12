@@ -48,7 +48,7 @@
     /* Pause between sections — blank moment after collapse before next slide-in */
     interSectionGap:        440,
 
-    pauseOnHover:           true,
+    pauseOnHover:           false,
     showOnMobile:           true,
 
     /* ── Sections ────────────────────────────────────────────────────────────
@@ -514,27 +514,7 @@
     document.body.style.paddingBottom =
       'calc(' + padH + 'px + env(safe-area-inset-bottom, 0px))';
 
-    /* ── Pause on hover / focus ── */
-    if (cfg.pauseOnHover) {
-      tickerEl.addEventListener('mouseenter', function () {
-        isPaused = true;
-        clearTimeout(timer);
-      });
-      tickerEl.addEventListener('mouseleave', function () {
-        isPaused = false;
-        ++epoch;               /* invalidate any stale callbacks */
-        startCycle();          /* fresh cycle; no inheritEpoch   */
-      });
-      tickerEl.addEventListener('focusin', function () {
-        isPaused = true;
-        clearTimeout(timer);
-      });
-      tickerEl.addEventListener('focusout', function () {
-        isPaused = false;
-        ++epoch;
-        startCycle();
-      });
-    }
+    /* Pause on hover / focus — disabled; ticker runs continuously */
 
     /* Wait two animation frames so the DOM has painted before starting */
     requestAnimationFrame(function () {
