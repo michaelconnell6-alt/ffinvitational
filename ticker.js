@@ -64,7 +64,7 @@
         label: 'NEXT STOP',
         items: [
           {
-            text: 'Committee announces the 2027 FFI will be in Canada. Local felons shocked and dissapointed',
+            text: 'Committee announces the 2027 FFI will be in Canada. Local felons shocked and disappointed',
             href: 'banff-2027.html'
           }
         ]
