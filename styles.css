@@ -4074,6 +4074,14 @@ html::after {
   margin: 0;
   font-style: italic;
 }
+.cv-year-stats {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  color: rgba(201,168,76,0.75);
+  margin: 8px 0 0;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
 
 /* ── 2× MOMENT ── */
 .cv-twox {
