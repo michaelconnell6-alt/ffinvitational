@@ -43,9 +43,8 @@
   gtag('config', 'G-DTX58MS7P4');
 </script>
 </head>
-<body>
+<body class="page-leaderboard">
 <a href="#main" class="skip-nav">Skip to main content</a>
-
 
 <!-- NAV -->
 <nav>
@@ -75,21 +74,25 @@
 
 <main id="main">
 
+  <!-- HERO -->
+  <section class="lb-hero" aria-label="Leaderboard">
+    <div class="lb-hero-content">
+      <p class="lb-eyebrow">2027 Season</p>
+      <h1 class="lb-title">Leaderboard</h1>
+      <div class="lb-rule" aria-hidden="true"></div>
+      <p class="lb-sub">Banff, Alberta &nbsp;&middot;&nbsp; July 2027</p>
+    </div>
+  </section>
+
 <!-- LEADERBOARD -->
 <section id="leaderboard">
   <div class="container">
-    <div class="section-header">
-      <div class="lb-header-top">
-        <div>
-          <div class="section-eyebrow">2027 Season</div>
-          <h2 class="section-title" style="margin-bottom:0">Leaderboard</h2>
-        </div>
-        <button id="lb-share-btn" class="lb-share-btn" onclick="shareLeaderboard()">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-          Share
-        </button>
-      </div>
-      <div class="section-rule" style="margin-top:16px"></div>
+    <div class="lb-toolbar">
+      <span class="lb-toolbar-note">Scores updated as rounds are completed</span>
+      <button id="lb-share-btn" class="lb-share-btn" onclick="shareLeaderboard()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share
+      </button>
     </div>
     <div class="leaderboard-wrapper"><table class="leaderboard-table">
       <thead>
@@ -124,7 +127,6 @@
         <tr><td><span class="pos-num">14</span></td><td><span class="player-name-cell">Mikey Connell</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td><td class="score-cell"><span class="score-dash">—</span></td></tr>
       </tbody>
     </table></div>
-    <p class="leaderboard-note">Scores will be updated as rounds are completed.</p>
     <p id="lb-updated" class="lb-updated-ts"></p>
   </div>
 </section>

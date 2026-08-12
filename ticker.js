@@ -26,24 +26,27 @@
     tickerEnabled:          true,
 
     /* Slide-in animation duration (ms) */
-    slideInDuration:        620,
+    slideInDuration:        750,
 
     /* How long the queue labels are visible before expand begins (ms) */
-    queuePause:             480,
+    queuePause:             600,
 
     /* Expand (wipe-in) duration (ms) */
-    expandDuration:         460,
+    expandDuration:         540,
 
     /* Content opacity fade durations (ms) */
-    contentFadeInDuration:  280,
-    contentFadeOutDuration: 200,
+    contentFadeInDuration:  300,
+    contentFadeOutDuration: 220,
 
     /* How long each piece of content stays fully visible (ms) */
     sectionDisplayDuration: 6000,   /* single-item sections                  */
     itemDisplayDuration:    4200,   /* each item within multi-item sections   */
 
     /* Collapse (wipe-out) duration (ms) */
-    collapseDuration:       420,
+    collapseDuration:       520,
+
+    /* Pause between sections — blank moment after collapse before next slide-in */
+    interSectionGap:        440,
 
     pauseOnHover:           true,
     showOnMobile:           true,
@@ -138,6 +141,16 @@
           {
             text: 'Follow us on Instagram @forefathersinvitational',
             href: 'https://www.instagram.com/forefathersinvitational'
+          }
+        ]
+      },
+
+      {
+        label: '19TH HOLE',
+        items: [
+          {
+            text: 'Closest to the Pin is open → PLAY',
+            href: '19th-hole.html'
           }
         ]
       }
@@ -315,7 +328,7 @@
     /* Bar is currently at inset(0 0% 0 0) — shrink it right → left */
     if (dur) {
       expandEl.style.transition =
-        'clip-path ' + dur + 'ms cubic-bezier(0.6, 0, 0.8, 1)';
+        'clip-path ' + dur + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
     } else {
       expandEl.style.transition = 'none';
     }
@@ -411,9 +424,12 @@
 
           wipeOut(function () {
             if (epoch !== myEpoch) return;
-            /* Bar is gone; stage is momentarily dark.
-               startCycle will immediately begin sliding the queue in.        */
-            startCycle(myEpoch);
+            /* Brief inter-section pause before the next slide-in begins */
+            var gap = prefRed ? 0 : cfg.interSectionGap;
+            setTimeout(function () {
+              if (epoch !== myEpoch) return;
+              startCycle(myEpoch);
+            }, gap);
           });
         });
       }
