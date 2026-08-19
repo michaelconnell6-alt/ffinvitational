@@ -1560,7 +1560,7 @@
     .ed-wire-score-label { margin: 0; }
     /* Championship portrait mobile */
     .ed-champ { min-height: auto; flex-direction: column; align-items: stretch; }
-    .ed-champ-photo { position: relative; width: 100%; height: 56vw; min-height: 260px; max-height: 400px; }
+    .ed-champ-photo { position: relative; width: 100%; height: 72vw; min-height: 300px; max-height: 460px; object-position: top center; }
     .ed-champ-overlay {
       background:
         linear-gradient(to top, #030c06 0%, rgba(3,12,6,0.65) 38%, transparent 62%),
@@ -1590,7 +1590,7 @@
 
     .ed-awards-inner { padding: 56px 20px 48px; }
     .ed-standings-inner { padding: 64px 20px; }
-    .ed-finale { height: 70vh; }
+    .ed-finale { height: auto; min-height: unset; background-size: contain; background-position: center top; background-color: #071209; padding-top: 56vw; }
     .ed-finale-title { font-size: clamp(3rem, 18vw, 5.5rem); letter-spacing: -2px; }
   }
   /* Awards carousel wrapper */

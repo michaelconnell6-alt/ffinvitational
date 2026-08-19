@@ -352,6 +352,8 @@
     expandContentEl.style.opacity    = '0';
     expandContentEl.innerHTML        = '';
 
+    var inner = document.createElement('span');
+    inner.className = 'ffi-content-inner';
     var node;
     if (item.href) {
       node      = document.createElement('a');
@@ -360,7 +362,23 @@
       node = document.createElement('span');
     }
     node.textContent = text;
-    expandContentEl.appendChild(node);
+    inner.appendChild(node);
+    expandContentEl.appendChild(inner);
+  }
+
+  function applyMobileScroll() {
+    expandContentEl.classList.remove('ffi-scroll');
+    expandContentEl.style.removeProperty('--ffi-scroll');
+    if (prefRed) return;
+    var inner = expandContentEl.querySelector('.ffi-content-inner');
+    if (!inner) return;
+    if (window.innerWidth <= 640) {
+      var overflow = inner.offsetWidth - expandContentEl.clientWidth;
+      if (overflow > 8) {
+        expandContentEl.style.setProperty('--ffi-scroll', '-' + (overflow + 12) + 'px');
+        expandContentEl.classList.add('ffi-scroll');
+      }
+    }
   }
 
   function fadeContentIn(onDone) {
@@ -370,7 +388,7 @@
       expandContentEl.style.transition = 'opacity ' + dur + 'ms ease';
     }
     expandContentEl.style.opacity = '1';
-    setTimeout(onDone, dur + 10);
+    setTimeout(function() { applyMobileScroll(); onDone(); }, dur + 10);
   }
 
   function fadeContentOut(onDone) {

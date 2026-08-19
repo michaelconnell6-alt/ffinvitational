@@ -206,6 +206,28 @@
   }
 }
 
+/* ══ Mobile marquee scroll for long content ════════════════════════════════ */
+.ffi-content-inner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@keyframes ffi-marquee {
+  0%   { transform: translateX(0); }
+  12%  { transform: translateX(0); }
+  88%  { transform: translateX(var(--ffi-scroll, 0px)); }
+  100% { transform: translateX(var(--ffi-scroll, 0px)); }
+}
+
+@media (max-width: 640px) {
+  #ffi-expand-content.ffi-scroll {
+    text-overflow: clip;
+  }
+  #ffi-expand-content.ffi-scroll .ffi-content-inner {
+    animation: ffi-marquee 5.5s ease-in-out forwards;
+  }
+}
+
 /* ══ Reduced motion — JS also checks this; belt-and-suspenders here ════════ */
 @media (prefers-reduced-motion: reduce) {
   #ffi-queue,
