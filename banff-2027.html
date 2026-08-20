@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="ticker.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -1188,7 +1187,6 @@
     </div>
     <div class="bf-course-cta-row bf-reveal">
       <a href="https://www.kananaskisgolf.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
-      <button class="bf-map-btn" onclick="bfFlyTo(1)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
     </div>
   </div>
 </div>
@@ -1211,7 +1209,6 @@
     </div>
     <div class="bf-course-cta-row bf-reveal">
       <a href="https://www.stewartcreekgolf.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
-      <button class="bf-map-btn" onclick="bfFlyTo(2)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
     </div>
   </div>
 </div>
@@ -1234,7 +1231,6 @@
     </div>
     <div class="bf-course-cta-row bf-reveal">
       <a href="https://silvertipresort.com" target="_blank" rel="noopener" class="bf-course-cta">Visit →</a>
-      <button class="bf-map-btn" onclick="bfFlyTo(3)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
     </div>
   </div>
 </div>
@@ -1258,7 +1254,6 @@
     </div>
     <div class="bf-course-cta-row bf-reveal">
       <a href="https://www.banffmountaingolf.com" target="_blank" rel="noopener" class="bf-course-cta" style="border-color:rgba(201,168,76,0.6);color:#c9a84c">Visit →</a>
-      <button class="bf-map-btn" onclick="bfFlyTo(4)" style="color:#c9a84c;border-color:rgba(201,168,76,0.4);"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>Map</button>
     </div>
   </div>
 </div>
@@ -1365,21 +1360,9 @@
       <div class="bf-hotel-item">Central to all four courses</div>
     </div>
     <div class="bf-hotel-foot bf-reveal">Calgary International (YYC) · 75 km · ~1 hour</div>
-    <button class="bf-map-btn bf-reveal" onclick="bfFlyTo(0)" style="margin-top:16px;"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3H11l-2.75 2 1 3.5L6 7.5 2.75 9.5l1-3.5L1 4h3.5z" fill="currentColor"/></svg>View on Map</button>
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
-     8. MAP
-═══════════════════════════════════════ -->
-<section class="bf-map-section" id="the-route">
-  <div class="bf-map-hdr">
-    <div class="bf-section-label bf-reveal">The Route</div>
-    <h2 class="bf-section-title bf-reveal bf-d1" style="font-size:clamp(1.7rem,4vw,2.7rem)">From Kananaskis to Banff</h2>
-  </div>
-  <div id="course-map" style="height:440px;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,0.22);box-shadow:0 8px 60px rgba(0,0,0,0.7);max-width:880px;margin:0 auto;"></div>
-</section>
 
 <!-- ═══════════════════════════════════════
      9. CTA + COST (COMBINED)
@@ -1582,54 +1565,6 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 
-<!-- Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-var bfMap, bfMarkers = [];
-(function() {
-  bfMap = L.map('course-map', { zoomControl: true, scrollWheelZoom: false });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    maxZoom: 15
-  }).addTo(bfMap);
-  function pin(label, color, border) {
-    return L.divIcon({
-      className: '',
-      html: '<div style="background:' + color + ';color:#fff;font-family:Oswald,sans-serif;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:5px 9px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,0.5);border:1px solid ' + border + ';pointer-events:none;">' + label + '</div>',
-      iconAnchor: [0, 10]
-    });
-  }
-  var locations = [
-    { latlng: [51.0757, -115.3632], label: '🏨 Malcolm Hotel', color: '#c9a84c', border: 'rgba(255,255,255,0.3)', popup: '<b>The Malcolm Hotel</b><br>Home Base · Canmore, AB', zoom: 14 },
-    { latlng: [50.9795, -115.1527], label: 'R1 · Kananaskis', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Kananaskis Country Golf</b><br>Mt. Kidd Course<br>Thu Jul 8 · PM', zoom: 13 },
-    { latlng: [51.0852, -115.3714], label: 'R2 · Stewart Creek', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Stewart Creek Golf &amp; CC</b><br>Canmore, AB<br>Fri Jul 9 · AM', zoom: 14 },
-    { latlng: [51.0946, -115.3364], label: 'R3 · Silvertip', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Silvertip Resort</b><br>Canmore, AB<br>Fri Jul 9 · PM', zoom: 14 },
-    { latlng: [51.1634, -115.5616], label: 'R4 · Banff Springs', color: '#1a3a2a', border: 'rgba(201,168,76,0.6)', popup: '<b>Banff Springs Golf Course</b><br>Stanley Thompson Course<br>Sat Jul 10 · AM', zoom: 13 },
-    { latlng: [51.1215, -114.0076], label: '✈ Calgary YYC', color: '#3a3a3a', border: 'rgba(255,255,255,0.2)', popup: '<b>Calgary International Airport</b><br>YYC · ~1 hour to Canmore', zoom: 13 }
-  ];
-  var bounds = [];
-  locations.forEach(function(loc, i) {
-    bounds.push(loc.latlng);
-    var m = L.marker(loc.latlng, { icon: pin(loc.label, loc.color, loc.border) })
-      .addTo(bfMap)
-      .bindPopup(loc.popup, { className: 'map-popup' });
-    bfMarkers.push({ marker: m, zoom: loc.zoom, latlng: loc.latlng });
-  });
-  bfMap.fitBounds(bounds, { padding: [40, 40] });
-})();
-
-
-window.bfFlyTo = function(i) {
-  var section = document.getElementById('the-route');
-  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(function() {
-    if (!bfMap || !bfMarkers[i]) return;
-    var loc = bfMarkers[i];
-    bfMap.flyTo(loc.latlng, loc.zoom, { duration: 1.4, easeLinearity: 0.25 });
-    setTimeout(function() { loc.marker.openPopup(); }, 1500);
-  }, 500);
-};
-</script>
 
 <script src="ticker.js" defer></script>
 <script src="animations.js" defer></script>
