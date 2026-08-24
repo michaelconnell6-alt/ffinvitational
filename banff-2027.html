@@ -950,6 +950,83 @@
 }
 .bf-bryson-cta:hover { color: rgba(201,168,76,0.88); }
 
+/* ── LIVE PLAYERS TRACKER ── */
+.bf-live-tracker {
+  background: #0c1910;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  height: 42px;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  font-family: 'Oswald', sans-serif;
+}
+.bf-live-badge {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 18px;
+  border-right: 1px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.04);
+}
+.bf-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5dbf6a;
+  flex-shrink: 0;
+  animation: bf-pulse 2.2s ease-in-out infinite;
+}
+@keyframes bf-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.bf-live-count {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #c9a84c;
+  white-space: nowrap;
+}
+.bf-live-lbl {
+  font-size: 0.5rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  white-space: nowrap;
+}
+.bf-live-stage {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+.bf-live-scroll {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0.64rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.62);
+  animation: bf-scroll-names 28s linear infinite;
+}
+.bf-live-scroll .bf-live-sep {
+  color: rgba(201,168,76,0.45);
+  margin: 0 14px;
+}
+@keyframes bf-scroll-names {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 480px) {
+  .bf-live-badge { padding: 0 12px; gap: 7px; }
+  .bf-live-lbl { display: none; }
+  .bf-live-scroll { font-size: 0.58rem; animation-duration: 22s; }
+}
+
 /* ── VIDEO MODAL ── */
 .bf-modal {
   position: fixed;
@@ -1116,6 +1193,20 @@
     </a>
   </div>
 </section>
+
+<!-- LIVE PLAYER TRACKER — update names + count here -->
+<div class="bf-live-tracker" id="roster">
+  <div class="bf-live-badge">
+    <span class="bf-live-dot"></span>
+    <span class="bf-live-count">6</span>
+    <span class="bf-live-lbl">Confirmed</span>
+  </div>
+  <div class="bf-live-stage">
+    <div class="bf-live-scroll">
+      Mikey Connell<span class="bf-live-sep">·</span>Rob Leverone<span class="bf-live-sep">·</span>Garrett Wardell<span class="bf-live-sep">·</span>Joseph Lowry<span class="bf-live-sep">·</span>Steve Williams<span class="bf-live-sep">·</span>Luke McCarthy<span class="bf-live-sep">·&nbsp;&nbsp;&nbsp;</span>Mikey Connell<span class="bf-live-sep">·</span>Rob Leverone<span class="bf-live-sep">·</span>Garrett Wardell<span class="bf-live-sep">·</span>Joseph Lowry<span class="bf-live-sep">·</span>Steve Williams<span class="bf-live-sep">·</span>Luke McCarthy<span class="bf-live-sep">·&nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════
      2. PULL QUOTE
