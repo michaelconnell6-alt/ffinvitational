@@ -948,6 +948,168 @@
   padding: 0;
   transition: color 0.25s;
 }
+/* ── SECURE YOUR SPOT — inline strips ── */
+.bf-spot-strip {
+  background: #030c06;
+  border-top: 1px solid rgba(201,168,76,0.14);
+  border-bottom: 1px solid rgba(201,168,76,0.14);
+  padding: 36px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.bf-spot-strip-line {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-style: italic;
+  color: rgba(245,240,232,0.5);
+  letter-spacing: 0.02em;
+  max-width: 560px;
+}
+.bf-spot-btn {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #06100a;
+  background: #c9a84c;
+  padding: 14px 32px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.bf-spot-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+/* ── PAYMENT SECTION ── */
+.bf-payment {
+  background: #06100a;
+  padding: 84px 24px 76px;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.12);
+}
+.bf-pay-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.54rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.6);
+  margin-bottom: 10px;
+}
+.bf-pay-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+  color: rgba(245,240,232,0.92);
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+.bf-pay-deadline {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(245,240,232,0.38);
+  margin: 0 0 48px;
+}
+.bf-pay-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 780px;
+  margin: 0 auto 36px;
+}
+.bf-pay-card {
+  border: 1px solid rgba(201,168,76,0.16);
+  padding: 30px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.bf-pay-card-method {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.32);
+}
+.bf-pay-card-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  color: rgba(245,240,232,0.92);
+  line-height: 1;
+  margin: 6px 0;
+}
+.bf-pay-card-desc {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: rgba(245,240,232,0.32);
+  margin-bottom: 18px;
+}
+.bf-pay-card-btn {
+  display: block;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 13px 0;
+  transition: opacity 0.2s, transform 0.2s;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+.bf-pay-card-btn:hover { opacity: 0.82; transform: translateY(-1px); }
+.bf-pay-btn-venmo  { background: #3d95ce; color: #fff; }
+.bf-pay-btn-deposit { background: #c9a84c; color: #06100a; }
+.bf-pay-btn-full   { background: transparent; border: 1px solid rgba(201,168,76,0.38); color: rgba(245,240,232,0.78); }
+.bf-pay-note {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.46rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.25);
+  line-height: 2.2;
+}
+@media (max-width: 620px) {
+  .bf-pay-cards { grid-template-columns: 1fr; max-width: 360px; }
+}
+@media (min-width: 621px) {
+  .bf-pay-cards { grid-template-columns: repeat(2, 1fr); max-width: 560px; }
+}
+@media (min-width: 900px) {
+  .bf-pay-cards { grid-template-columns: repeat(4, 1fr); max-width: 900px; }
+}
+
+/* ── FLOATING SECURE YOUR SPOT ── */
+.bf-float-spot {
+  position: fixed;
+  bottom: calc(52px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 800;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #c9a84c;
+  color: #06100a;
+  border: none;
+  padding: 11px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s, transform 0.35s;
+  pointer-events: none;
+}
+.bf-float-spot.bf-float-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.bf-float-spot:hover { opacity: 0.85; }
+
 .bf-bryson-cta:hover { color: rgba(201,168,76,0.88); }
 
 /* ── LIVE PLAYERS TRACKER ── */
@@ -1349,6 +1511,12 @@
   </div>
 </div>
 
+<!-- SPOT STRIP 1 — after courses -->
+<div class="bf-spot-strip">
+  <p class="bf-spot-strip-line bf-reveal">Four championship courses. One invitation. Your name isn't on this list yet.</p>
+  <a href="#payment" class="bf-spot-btn bf-reveal bf-d1">Secure Your Spot</a>
+</div>
+
 <!-- ── BRYSON VALIDATION ── -->
 <div class="bf-bryson">
   <blockquote class="bf-bryson-text bf-reveal">"Literally, you couldn't put a golf course in a better place."</blockquote>
@@ -1488,14 +1656,63 @@
     4 Rounds of Golf &nbsp;·&nbsp; Lodging (4 Nights) &nbsp;·&nbsp; Breakfast Each Day &nbsp;·&nbsp; Transportation &nbsp;·&nbsp; Tee Gifts &nbsp;·&nbsp; All Fees &amp; Taxes
   </p>
   <div class="bf-cta-actions bf-reveal" style="display:flex;flex-direction:column;align-items:center;gap:14px;margin:36px 0 8px;">
-    <a href="https://venmo.com/u/michaelconnell9" target="_blank" rel="noopener" style="display:inline-block;font-family:'Oswald',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:#fff;background:#3d95ce;padding:16px 34px;text-decoration:none;transition:opacity 0.2s,transform 0.2s;" onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-2px)'" onmouseout="this.style.opacity='1';this.style.transform=''">Pay $500 Deposit · @michaelconnell9</a>
-    <span style="font-family:'Oswald',sans-serif;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.28);">RSVP via Paperless Post · Invitation to follow</span>
+    <a href="#payment" class="bf-spot-btn">Secure Your Spot</a>
+    <span style="font-family:'Oswald',sans-serif;font-size:0.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.28);">RSVP Deadline — November 1, 2026</span>
   </div>
   <a href="faq.html" class="bf-faq-btn bf-reveal">Have Questions? View the FAQ →</a>
 </section>
 
 <!-- ═══════════════════════════════════════
-     10. DESTINATION REVEAL VIDEO (last)
+     10. PAYMENT — SECURE YOUR SPOT
+═══════════════════════════════════════ -->
+<section class="bf-payment" id="payment">
+  <div class="bf-pay-eyebrow bf-reveal">Secure Your Spot</div>
+  <h2 class="bf-pay-title bf-reveal bf-d1">You're One Step Away.</h2>
+  <p class="bf-pay-deadline bf-reveal bf-d2">RSVP Deadline — November 1, 2026</p>
+  <div class="bf-pay-cards bf-reveal bf-d3">
+
+    <!-- Venmo -->
+    <div class="bf-pay-card">
+      <div class="bf-pay-card-method">Venmo · No fees</div>
+      <div class="bf-pay-card-amount">$500</div>
+      <div class="bf-pay-card-desc">Deposit · $1,850 total</div>
+      <a href="https://venmo.com/u/michaelconnell9" target="_blank" rel="noopener"
+         class="bf-pay-card-btn bf-pay-btn-venmo">Pay via Venmo</a>
+    </div>
+
+    <!-- Stripe deposit -->
+    <div class="bf-pay-card">
+      <div class="bf-pay-card-method">Card · Deposit only</div>
+      <div class="bf-pay-card-amount">$516</div>
+      <div class="bf-pay-card-desc">Includes card processing fee</div>
+      <a href="https://buy.stripe.com/3cI14o5lC5TGfdL0WO3Nm03" target="_blank" rel="noopener"
+         class="bf-pay-card-btn bf-pay-btn-deposit">Pay by Card</a>
+    </div>
+
+    <!-- Venmo full -->
+    <div class="bf-pay-card">
+      <div class="bf-pay-card-method">Venmo · No fees</div>
+      <div class="bf-pay-card-amount">$1,850</div>
+      <div class="bf-pay-card-desc">Full entry · Pay in one shot</div>
+      <a href="https://venmo.com/u/michaelconnell9" target="_blank" rel="noopener"
+         class="bf-pay-card-btn bf-pay-btn-venmo">Pay via Venmo</a>
+    </div>
+
+    <!-- Stripe full -->
+    <div class="bf-pay-card">
+      <div class="bf-pay-card-method">Card · Full entry</div>
+      <div class="bf-pay-card-amount">$1,906</div>
+      <div class="bf-pay-card-desc">Includes card processing fee</div>
+      <a href="https://buy.stripe.com/7sYfZiaFW1Dqe9H6h83Nm02" target="_blank" rel="noopener"
+         class="bf-pay-card-btn bf-pay-btn-full">Pay by Card</a>
+    </div>
+
+  </div>
+  <p class="bf-pay-note bf-reveal">Venmo @michaelconnell9 · No processing fees<br>Card amounts reflect Stripe processing fees · RSVP via Paperless Post · Invitation to follow</p>
+</section>
+
+<!-- ═══════════════════════════════════════
+     11. DESTINATION REVEAL VIDEO (last)
 ═══════════════════════════════════════ -->
 <section class="bf-video-section">
   <div class="bf-section-label bf-reveal" style="margin-bottom:12px;">Destination Revealed</div>
@@ -1659,5 +1876,24 @@ if ('serviceWorker' in navigator) {
 
 <script src="ticker.js" defer></script>
 <script src="animations.js" defer></script>
+
+<!-- FLOATING SECURE YOUR SPOT -->
+<a href="#payment" class="bf-float-spot" id="bf-float-spot">Secure Your Spot ↑</a>
+
+<script>
+(function() {
+  var btn     = document.getElementById('bf-float-spot');
+  var hero    = document.querySelector('.bf-hero');
+  var payment = document.getElementById('payment');
+  if (!btn || !hero) return;
+  function onScroll() {
+    var pastHero   = window.scrollY > hero.offsetHeight * 0.75;
+    var atPayment  = payment && (window.scrollY + window.innerHeight) > payment.offsetTop + 80;
+    btn.classList.toggle('bf-float-visible', pastHero && !atPayment);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>
