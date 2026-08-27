@@ -141,6 +141,54 @@
   }
   #intro-enter:hover, #intro-enter:active { color: rgba(201,168,76,1); border-color: rgba(201,168,76,0.75); }
   @keyframes introFade { to { opacity: 1; } }
+
+  /* ── PWA INSTALL PROMPT ── */
+  #ffi-install-prompt {
+    position: fixed;
+    bottom: calc(44px + env(safe-area-inset-bottom, 0px));
+    left: 0; right: 0;
+    background: #0c1910;
+    border-top: 1px solid rgba(201,168,76,0.35);
+    display: none;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 12px;
+    z-index: 850;
+    transform: translateY(110%);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    font-family: 'Oswald', sans-serif;
+  }
+  #ffi-install-prompt.ffi-ip-ready { display: flex; }
+  #ffi-install-prompt.ffi-ip-visible { transform: translateY(0); }
+  #ffi-install-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: #c9a84c;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px; color: #06100a;
+  }
+  #ffi-install-text { flex: 1; min-width: 0; }
+  #ffi-install-title {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(245,240,232,0.9);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #ffi-install-sub {
+    font-size: 0.48rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(245,240,232,0.35); margin-top: 3px;
+  }
+  #ffi-install-add {
+    background: #c9a84c; color: #06100a;
+    font-family: 'Oswald', sans-serif; font-size: 0.58rem;
+    font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    border: none; padding: 9px 14px; cursor: pointer; flex-shrink: 0;
+  }
+  #ffi-install-dismiss {
+    background: none; border: none;
+    color: rgba(245,240,232,0.3); font-size: 20px;
+    cursor: pointer; padding: 4px 2px; flex-shrink: 0; line-height: 1;
+  }
+  @media (min-width: 769px) { #ffi-install-prompt { display: none !important; } }
 </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DTX58MS7P4"></script>
@@ -419,5 +467,93 @@
 </script>
 <script src="ticker.js" defer></script>
 <script src="animations.js" defer></script>
+
+<!-- PWA INSTALL PROMPT -->
+<div id="ffi-install-prompt" role="banner" aria-label="Add to Home Screen">
+  <div id="ffi-install-icon">⛳</div>
+  <div id="ffi-install-text">
+    <div id="ffi-install-title">ForeFathers Invitational</div>
+    <div id="ffi-install-sub">Add to Home Screen</div>
+  </div>
+  <button id="ffi-install-add">Add</button>
+  <button id="ffi-install-dismiss" aria-label="Dismiss">×</button>
+</div>
+
+<script>
+(function() {
+  var INSTALLED_KEY = 'ffi_pwa_installed';
+  var PROMPTED_KEY  = 'ffi_pwa_prompted';
+
+  try {
+    if (localStorage.getItem(INSTALLED_KEY)) return;
+    if (sessionStorage.getItem(PROMPTED_KEY)) return;
+  } catch(e) { return; }
+
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  var isStandalone = window.navigator.standalone === true ||
+                     window.matchMedia('(display-mode: standalone)').matches;
+
+  if (isStandalone) {
+    try { localStorage.setItem(INSTALLED_KEY, '1'); } catch(e) {}
+    return;
+  }
+
+  var banner   = document.getElementById('ffi-install-prompt');
+  var addBtn   = document.getElementById('ffi-install-add');
+  var dismissBtn = document.getElementById('ffi-install-dismiss');
+  var subEl    = document.getElementById('ffi-install-sub');
+  if (!banner) return;
+
+  var deferredEvt = null;
+
+  function showBanner() {
+    try { sessionStorage.setItem(PROMPTED_KEY, '1'); } catch(e) {}
+    banner.classList.add('ffi-ip-ready');
+    setTimeout(function() { banner.classList.add('ffi-ip-visible'); }, 3500);
+  }
+
+  function hideBanner() {
+    banner.classList.remove('ffi-ip-visible');
+    setTimeout(function() { banner.classList.remove('ffi-ip-ready'); }, 450);
+  }
+
+  dismissBtn.addEventListener('click', hideBanner);
+
+  if (isIOS) {
+    if (subEl) subEl.textContent = 'Tap Share → Add to Home Screen';
+    if (addBtn) {
+      addBtn.textContent = 'Got it';
+      addBtn.addEventListener('click', function() {
+        try { localStorage.setItem(INSTALLED_KEY, '1'); } catch(e) {}
+        hideBanner();
+      });
+    }
+    showBanner();
+  } else {
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredEvt = e;
+      showBanner();
+    });
+    if (addBtn) {
+      addBtn.addEventListener('click', function() {
+        if (!deferredEvt) return;
+        deferredEvt.prompt();
+        deferredEvt.userChoice.then(function(result) {
+          if (result.outcome === 'accepted') {
+            try { localStorage.setItem(INSTALLED_KEY, '1'); } catch(e) {}
+          }
+          hideBanner();
+          deferredEvt = null;
+        });
+      });
+    }
+    window.addEventListener('appinstalled', function() {
+      try { localStorage.setItem(INSTALLED_KEY, '1'); } catch(e) {}
+      hideBanner();
+    });
+  }
+})();
+</script>
 </body>
 </html>
